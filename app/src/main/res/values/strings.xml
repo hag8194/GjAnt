@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">GjAnt</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="login">Login</string>
+    <string name="sharepreferences" translatable="false">gjant_preferences</string>
+    <string name="user_data" translatable="false">userdata</string>
+
+    <string name="catalog">Catalog</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="orders">Orders</string>
+    <string name="login_text">Signin to start</string>
+</resources>

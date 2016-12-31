@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GjAnt</string>
+    <string name="password">Contraseña</string>
+    <string name="username">Usuario</string>
+    <string name="login">Iniciar Sesión</string>
+
+    <string name="catalog">Catálogo</string>
+    <string name="drawer_close">Cerrado</string>
+    <string name="drawer_open">Abierto</string>
+    <string name="orders">Pedidos</string>
+    <string name="login_text">Inicia sesión para comenzar</string>
+</resources>
