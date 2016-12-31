@@ -1,32 +1,20 @@
-apply from: 'dependencies.gradle'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     repositories {
         jcenter()
-        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()
-    }
-
-    ext {
-        androidBuildToolsVersion = "24.0.1"
-        androidMinSdkVersion = 16
-        androidTargetSdkVersion = 24
-        androidCompileSdkVersion = 24
-        androidApplicationId = 'com.gjdev.gjant'
-
-        androidVersionCode = 1
-        androidVersionName = '0.0.1'
     }
 }
 
