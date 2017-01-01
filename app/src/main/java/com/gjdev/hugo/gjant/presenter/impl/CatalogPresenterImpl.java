@@ -26,7 +26,9 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
 
-        mView.showSnackbar("Yei!");
+        //mView.showSnackbar("Yei!");
+        mView.setupRecyclerView();
+        mInteractor.retrieveProducts(this);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
@@ -46,5 +48,11 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
          */
 
         super.onPresenterDestroyed();
+    }
+
+    @Override
+    public void onRetrieveProductListSuccess(String productName) {
+        if(mView != null)
+            mView.showSnackbar(productName);
     }
 }

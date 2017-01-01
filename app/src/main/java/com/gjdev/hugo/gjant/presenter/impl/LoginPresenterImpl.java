@@ -31,16 +31,11 @@ public final class LoginPresenterImpl extends BasePresenterImpl<LoginView> imple
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
         if(mInteractor.getAuthenticatedUser() != null){
-            mView.startMainActivity();
             mView.finish();
-            Log.d(this.getClass().getName(), "Yeii");
+            mView.startMainActivity();
         }
         else
-        {
             mView.hideProgressBar();
-            Log.d(this.getClass().getName(), "Not Yeii");
-        }
-
     }
 
     @Override
@@ -72,11 +67,20 @@ public final class LoginPresenterImpl extends BasePresenterImpl<LoginView> imple
         //mView.hideProgressBar();
         mInteractor.setAuthenticatedUser(user);
         mView.startMainActivity();
+        mView.finish();
     }
 
     @Override
     public void onRetrieveUserDataError(ApiError error) {
         String message = "Error: " + error.getName() + "\nStatus: " + error.getStatus() + ", " + error.getMessage();
+        mView.hideProgressBar();
+        mView.toggleFieldsState();
+        mView.showSnackbar(message);
+    }
+
+    @Override
+    public void onRetrieveUserDataFail(Throwable t) {
+        String message = "Error: " + t.getMessage();
         mView.hideProgressBar();
         mView.toggleFieldsState();
         mView.showSnackbar(message);

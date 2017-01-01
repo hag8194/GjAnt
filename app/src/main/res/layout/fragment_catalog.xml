@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/product_list"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/product_list_item" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

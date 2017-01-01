@@ -9,5 +9,7 @@ public interface LoginPresenter extends BasePresenter<LoginView> {
 
     void onRetrieveUserDataError(ApiError error);
 
+    void onRetrieveUserDataFail(Throwable t);
+
     void onSubmit(String username, String password);
 }

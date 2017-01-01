@@ -47,7 +47,7 @@ public final class LoginInteractorImpl implements LoginInteractor {
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-
+                loginPresenter.onRetrieveUserDataFail(t);
             }
         });
     }

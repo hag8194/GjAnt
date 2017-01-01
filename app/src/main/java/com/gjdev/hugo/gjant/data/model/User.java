@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String username;
     private String status;
 
-    public String getAccess_token() {
+    public String getAccessToken() {
         return this.access_token;
     }
 
