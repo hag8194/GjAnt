@@ -39,8 +39,8 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
         products.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                Product product = response.body().get(0);
-                catalogPresenter.onRetrieveProductListSuccess(product.getName());
+                List<Product> products = response.body();
+                catalogPresenter.onRetrieveProductListSuccess(products);
             }
 
             @Override

@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.injection;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 
 import java.io.IOException;
@@ -74,4 +75,10 @@ public class NetModule {
     public ApiErrorHandler providesErrorApiHandler(Retrofit apiAdapter){
         return new ApiErrorHandler(apiAdapter);
     }
+
+    @Provides
+    public ApiService provideApiService(Retrofit apiAdapter){
+        return apiAdapter.create(ApiService.class);
+    }
+
 }

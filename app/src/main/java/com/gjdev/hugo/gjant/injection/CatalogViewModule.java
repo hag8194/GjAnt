@@ -19,11 +19,6 @@ import retrofit2.Retrofit;
 @Module
 public final class CatalogViewModule {
     @Provides
-    public ApiService provideLoginService(Retrofit apiAdapter) {
-        return apiAdapter.create(ApiService.class);
-    }
-
-    @Provides
     public CatalogInteractor provideInteractor(ApiService apiService, ApiErrorHandler apiErrorHandler,
                                                InternalStorageHandler internalStorageHandler) {
         return new CatalogInteractorImpl(apiService, apiErrorHandler, internalStorageHandler);

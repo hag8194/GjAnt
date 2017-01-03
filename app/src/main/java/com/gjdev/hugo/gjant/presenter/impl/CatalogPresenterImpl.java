@@ -2,9 +2,12 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,7 +29,6 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
 
-        //mView.showSnackbar("Yei!");
         mView.setupRecyclerView();
         mInteractor.retrieveProducts(this);
 
@@ -51,8 +53,14 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     }
 
     @Override
-    public void onRetrieveProductListSuccess(String productName) {
-        if(mView != null)
-            mView.showSnackbar(productName);
+    public void onRetrieveProductListSuccess(List<Product> products) {
+        if(mView != null) {
+            mView.setupAdapter(products);
+        }
+    }
+
+    @Override
+    public void onClickProductItem(int position) {
+        mView.showSnackbar("Yeiii2: " + position);
     }
 }

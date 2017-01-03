@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 @Module
 public final class LoginViewModule {
     @Provides
-    public UserService provideLoginService(Retrofit apiAdapter) {
+    public UserService provideUserService(Retrofit apiAdapter) {
         return apiAdapter.create(UserService.class);
     }
 

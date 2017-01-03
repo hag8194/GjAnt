@@ -18,11 +18,6 @@ import retrofit2.Retrofit;
 public final class MainViewModule {
 
     @Provides
-    public ApiService provideApiService(Retrofit apiAdapter){
-        return apiAdapter.create(ApiService.class);
-    }
-
-    @Provides
     public MainInteractor provideInteractor(InternalStorageHandler internalStorageHandler) {
         return new MainInteractorImpl(internalStorageHandler);
     }

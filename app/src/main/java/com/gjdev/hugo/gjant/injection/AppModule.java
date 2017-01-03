@@ -58,7 +58,7 @@ public final class AppModule {
 
         Picasso.Builder picassoBuilder = new Picasso.Builder(mApp);
         Picasso picasso = picassoBuilder.build();
-
+        //picasso.setLoggingEnabled(true);
         try {
             Picasso.setSingletonInstance(picasso);
         } catch (IllegalStateException ignored) {}

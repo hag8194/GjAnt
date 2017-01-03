@@ -1,34 +1,36 @@
 package com.gjdev.hugo.gjant.view.impl;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
-
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.CatalogViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerCatalogViewComponent;
-import com.gjdev.hugo.gjant.view.MainView;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductListAdapter;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import butterknife.BindView;
 
 public final class CatalogFragment extends BaseFragment<CatalogPresenter, CatalogView> implements CatalogView {
+
     @Inject
     PresenterFactory<CatalogPresenter> mPresenterFactory;
+
+    @Inject
+    Picasso mPicasso;
 
     // Your presenter is available using the mPresenter variable
 
@@ -72,5 +74,16 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
         mRecyclerViewProductList.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerViewProductList.setLayoutManager(mLayoutManager);
+    }
+
+    public void setupAdapter(List<Product> products) {
+        ProductListAdapter adapter = new ProductListAdapter(products, mPicasso);
+        adapter.setOnItemClickListener(new ProductListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                mPresenter.onClickProductItem(position);
+            }
+        });
+        mRecyclerViewProductList.setAdapter(adapter);
     }
 }

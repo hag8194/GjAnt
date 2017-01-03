@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.gjdev.hugo.gjant.GjAntApplication;
+import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 import com.squareup.otto.Bus;
@@ -32,4 +33,6 @@ public interface AppComponent {
     Retrofit getApiAdapter();
 
     ApiErrorHandler getApiErrorHandler();
+
+    ApiService getApiService();
 }
