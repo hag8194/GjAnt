@@ -13,6 +13,9 @@ import com.gjdev.hugo.gjant.presenter.LoginPresenter;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,11 +23,11 @@ import retrofit2.Response;
 public final class LoginInteractorImpl implements LoginInteractor {
     private UserService mUserService;
     private ApiErrorHandler mApiErrorHandler;
-    private Bus mBus;
+    private EventBus mBus;
     private InternalStorageHandler mInternalStorageHandler;
 
     @Inject
-    public LoginInteractorImpl(UserService userService, ApiErrorHandler apiErrorHandler, Bus bus,
+    public LoginInteractorImpl(UserService userService, ApiErrorHandler apiErrorHandler, EventBus bus,
                                InternalStorageHandler internalStorageHandler) {
         mUserService = userService;
         mApiErrorHandler = apiErrorHandler;

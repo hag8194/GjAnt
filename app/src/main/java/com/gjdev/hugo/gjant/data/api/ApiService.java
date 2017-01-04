@@ -17,4 +17,8 @@ public interface ApiService
 {
     @GET("products")
     Call<List<Product>> products(@Query("access-token") String accessToken);
+
+    @GET("products/{id}")
+    Call<Product> product(@Query("access-token") String accessToken);
+
 }

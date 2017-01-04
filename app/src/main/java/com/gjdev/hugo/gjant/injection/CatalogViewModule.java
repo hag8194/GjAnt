@@ -12,6 +12,8 @@ import com.gjdev.hugo.gjant.presenter.impl.CatalogPresenterImpl;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
+import org.greenrobot.eventbus.EventBus;
+
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;

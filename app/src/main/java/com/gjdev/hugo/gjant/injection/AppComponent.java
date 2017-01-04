@@ -10,6 +10,8 @@ import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -28,7 +30,7 @@ public interface AppComponent {
 
     Picasso getPicasso();
 
-    Bus getBus();
+    EventBus getBus();
 
     Retrofit getApiAdapter();
 

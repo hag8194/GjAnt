@@ -8,7 +8,8 @@ import com.gjdev.hugo.gjant.injection.AppModule;
 import com.gjdev.hugo.gjant.injection.DaggerAppComponent;
 import com.gjdev.hugo.gjant.injection.NetModule;
 import com.gjdev.hugo.gjant.util.ApiConstants;
-import com.squareup.otto.Bus;
+
+import org.greenrobot.eventbus.EventBus;
 
 public final class GjAntApplication extends Application {
     private AppComponent mAppComponent;
@@ -18,7 +19,7 @@ public final class GjAntApplication extends Application {
         super.onCreate();
 
         mAppComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this, new Bus()))
+                .appModule(new AppModule(this, EventBus.getDefault()))
                 .netModule(new NetModule(ApiConstants.BASE_URL))
                 .build();
     }

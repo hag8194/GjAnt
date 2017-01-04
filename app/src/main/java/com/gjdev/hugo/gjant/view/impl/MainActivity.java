@@ -30,6 +30,8 @@ import com.gjdev.hugo.gjant.injection.DaggerMainViewComponent;
 import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
@@ -43,7 +45,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     PresenterFactory<MainPresenter> mPresenterFactory;
 
     @Inject
-    Bus bus;
+    EventBus bus;
 
     @Inject
     Picasso picasso;
@@ -81,13 +83,13 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     @Override
     protected void onStart() {
         super.onStart();
-        bus.register(this);
+        //bus.register(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        bus.unregister(this);
+        //bus.unregister(this);
     }
 
     @Override

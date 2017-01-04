@@ -22,6 +22,8 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     private ApiErrorHandler mApiErrorHandler;
     private InternalStorageHandler mInternalStorageHandler;
 
+    private List<Product> productList;
+
     @Inject
     public CatalogInteractorImpl(ApiService apiService, ApiErrorHandler apiErrorHandler,
                                  InternalStorageHandler internalStorageHandler) {
@@ -39,8 +41,8 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
         products.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                List<Product> products = response.body();
-                catalogPresenter.onRetrieveProductListSuccess(products);
+                productList = response.body();
+                catalogPresenter.onRetrieveProductListSuccess(productList);
             }
 
             @Override
@@ -48,5 +50,10 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
 
             }
         });
+    }
+
+    @Override
+    public Product getProduct(int position) {
+        return productList.get(position);
     }
 }

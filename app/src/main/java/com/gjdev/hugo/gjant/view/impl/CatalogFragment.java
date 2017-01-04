@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.event.ProductEvent;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -19,8 +19,9 @@ import com.gjdev.hugo.gjant.injection.DaggerCatalogViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductListAdapter;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -31,6 +32,9 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
     @Inject
     Picasso mPicasso;
+
+    @Inject
+    EventBus mBus;
 
     // Your presenter is available using the mPresenter variable
 
@@ -73,6 +77,7 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     public void setupRecyclerView() {
         mRecyclerViewProductList.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        //GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerViewProductList.setLayoutManager(mLayoutManager);
     }
 
@@ -85,5 +90,20 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
             }
         });
         mRecyclerViewProductList.setAdapter(adapter);
+    }
+
+    @Override
+    public void sendProductEvent(int id) {
+        mBus.postSticky(new ProductEvent(id));
+    }
+
+    @Override
+    public void startDetailProductActivity() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new DetailProductFragment(), DetailProductFragment.class.getName())
+                .addToBackStack("Detail Product")
+                .commit();
+        /*startActivity(new Intent(getContext(), DetailProductActivity.class),
+                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity()).toBundle());*/
     }
 }

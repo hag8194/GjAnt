@@ -2,10 +2,13 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.event.ProductEvent;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -61,6 +64,7 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
 
     @Override
     public void onClickProductItem(int position) {
-        mView.showSnackbar("Yeiii2: " + position);
+        mView.sendProductEvent(mInteractor.getProduct(position).getId());
+        mView.startDetailProductActivity();
     }
 }

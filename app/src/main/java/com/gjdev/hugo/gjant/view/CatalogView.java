@@ -12,4 +12,6 @@ public interface CatalogView {
     void showSnackbar(String message);
     void setupRecyclerView();
     void setupAdapter(List<Product> products);
+    void sendProductEvent(int id);
+    void startDetailProductActivity();
 }

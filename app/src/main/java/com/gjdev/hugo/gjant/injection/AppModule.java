@@ -3,17 +3,13 @@ package com.gjdev.hugo.gjant.injection;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-
 import com.gjdev.hugo.gjant.GjAntApplication;
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
-import com.squareup.otto.Bus;
-import com.squareup.picasso.OkHttpDownloader;
+import org.greenrobot.eventbus.EventBus;
 import com.squareup.picasso.Picasso;
-
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 
 @Module
 public final class AppModule {
@@ -21,9 +17,9 @@ public final class AppModule {
     private final GjAntApplication mApp;
 
     @NonNull
-    private final Bus mBus;
+    private final EventBus mBus;
 
-    public AppModule(@NonNull GjAntApplication app, @NonNull Bus bus) {
+    public AppModule(@NonNull GjAntApplication app, @NonNull EventBus bus) {
         mApp = app;
         mBus = bus;
     }
@@ -49,7 +45,7 @@ public final class AppModule {
     }
 
     @Provides
-    public Bus provideBus() {
+    public EventBus provideBus() {
         return mBus;
     }
 
