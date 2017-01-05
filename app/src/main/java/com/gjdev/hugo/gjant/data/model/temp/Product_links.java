@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.model.temp;
 
 public class Product_links implements java.io.Serializable {
     private static final long serialVersionUID = 3909846114822461404L;

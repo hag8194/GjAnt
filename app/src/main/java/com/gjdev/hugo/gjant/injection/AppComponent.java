@@ -7,10 +7,6 @@ import com.gjdev.hugo.gjant.GjAntApplication;
 import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
-import com.squareup.otto.Bus;
-import com.squareup.picasso.Picasso;
-
-import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Singleton;
 
@@ -27,10 +23,6 @@ public interface AppComponent {
     SharedPreferences getSharedPreferences();
 
     InternalStorageHandler getStorageHandler();
-
-    Picasso getPicasso();
-
-    EventBus getBus();
 
     Retrofit getApiAdapter();
 

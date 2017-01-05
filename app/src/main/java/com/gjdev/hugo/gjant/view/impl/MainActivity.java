@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.event.AuthenticatedEvent;
 import com.gjdev.hugo.gjant.data.model.Employer;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.util.RoundedTransformation;
@@ -27,10 +28,11 @@ import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.MainViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerMainViewComponent;
-import com.squareup.otto.Bus;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 
@@ -43,12 +45,6 @@ import butterknife.ButterKnife;
 public final class MainActivity extends BaseActivity<MainPresenter, MainView> implements MainView {
     @Inject
     PresenterFactory<MainPresenter> mPresenterFactory;
-
-    @Inject
-    EventBus bus;
-
-    @Inject
-    Picasso picasso;
 
     // Your presenter is available using the mPresenter variable
 
@@ -78,18 +74,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart or onPostCreate.
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //bus.register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //bus.unregister(this);
     }
 
     @Override
@@ -143,7 +127,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
                 switch (item.getItemId()){
                     case R.id.nav_catalog:
-                        showSnackbar(String.valueOf(item.getTitle()));
+                        //showSnackbar(String.valueOf(item.getTitle()));
                         mPresenter.onCatalogOptionSelected();
                         break;
                     case R.id.nav_orders:
@@ -177,7 +161,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
         TextView fullName = ButterKnife.findById(headerView, R.id.header_full_name);
         TextView createdAt = ButterKnife.findById(headerView, R.id.header_created_at);
 
-        picasso.load(user.getAvatar()).transform(new RoundedTransformation()).into(avatar);
+        Picasso.with(this).load(user.getAvatar()).transform(new RoundedTransformation()).into(avatar);
 
         fullName.setText(employer.getName() + " " + employer.getLastname());
         createdAt.setText(SimpleDateFormat.getDateTimeInstance().format(employer.getCreated_at()));

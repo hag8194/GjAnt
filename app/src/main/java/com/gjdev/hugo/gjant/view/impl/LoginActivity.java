@@ -1,17 +1,13 @@
 package com.gjdev.hugo.gjant.view.impl;
 
 import android.support.v4.app.ActivityOptionsCompat;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.view.LoginView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -19,10 +15,6 @@ import com.gjdev.hugo.gjant.presenter.LoginPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.LoginViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerLoginViewComponent;
-import com.squareup.otto.Bus;
-
-import org.greenrobot.eventbus.EventBus;
-
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,9 +23,6 @@ import butterknife.OnClick;
 public final class LoginActivity extends BaseActivity<LoginPresenter, LoginView> implements LoginView {
     @Inject
     PresenterFactory<LoginPresenter> mPresenterFactory;
-
-    @Inject
-    EventBus bus;
 
     // Your presenter is available using the mPresenter variable
 
@@ -64,18 +53,6 @@ public final class LoginActivity extends BaseActivity<LoginPresenter, LoginView>
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        //bus.register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        //bus.unregister(this);
-    }
-
-    @Override
     protected void setupComponent(@NonNull AppComponent parentComponent) {
         DaggerLoginViewComponent.builder()
                 .appComponent(parentComponent)
@@ -94,12 +71,12 @@ public final class LoginActivity extends BaseActivity<LoginPresenter, LoginView>
 
     @Override
     public void showProgressBar() {
-        this.loginProgressBar.setVisibility(this.loginProgressBar.VISIBLE);
+        this.loginProgressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
-        this.loginProgressBar.setVisibility(this.loginProgressBar.GONE);
+        this.loginProgressBar.setVisibility(ProgressBar.GONE);
     }
 
     @Override

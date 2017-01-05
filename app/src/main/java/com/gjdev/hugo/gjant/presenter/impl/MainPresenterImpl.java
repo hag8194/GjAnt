@@ -2,6 +2,9 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.event.products.ErrorProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.products.FailProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.products.SuccessProductsRetrieve;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.view.MainView;
@@ -72,6 +75,5 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
             mView.startLoginActivity();
             mView.finish();
         }
-
     }
 }

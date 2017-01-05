@@ -1,13 +1,29 @@
 package com.gjdev.hugo.gjant.data.model;
 
-public class Brand implements java.io.Serializable {
-    private static final long serialVersionUID = -2439746888014569693L;
+/**
+ * Created by Hugo on 04/01/2017.
+ */
+public class Brand {
+    /**
+     * id : 1
+     * name : Addidas
+     * description :
+     */
+
+    private int id;
     private String name;
     private String description;
-    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -15,18 +31,10 @@ public class Brand implements java.io.Serializable {
     }
 
     public String getDescription() {
-        return this.description;
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

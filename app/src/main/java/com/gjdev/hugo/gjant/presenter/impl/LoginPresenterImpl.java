@@ -3,11 +3,20 @@ package com.gjdev.hugo.gjant.presenter.impl;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.gjdev.hugo.gjant.data.event.AuthenticatedEvent;
+import com.gjdev.hugo.gjant.data.event.user.ErrorUserRetrieve;
+import com.gjdev.hugo.gjant.data.event.user.FailUserRetrieve;
+import com.gjdev.hugo.gjant.data.event.user.SuccessUserRetrieve;
 import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.presenter.LoginPresenter;
+import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.LoginView;
 import com.gjdev.hugo.gjant.interactor.LoginInteractor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -30,6 +39,8 @@ public final class LoginPresenterImpl extends BasePresenterImpl<LoginView> imple
         super.onStart(firstStart);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
+
+        EventBus.getDefault().register(this);
         if(mInteractor.getAuthenticatedUser() != null){
             mView.finish();
             mView.startMainActivity();
@@ -41,7 +52,7 @@ public final class LoginPresenterImpl extends BasePresenterImpl<LoginView> imple
     @Override
     public void onStop() {
         // Your code here, mView will be null after this method until next onStart()
-
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -59,30 +70,30 @@ public final class LoginPresenterImpl extends BasePresenterImpl<LoginView> imple
     public void onSubmit(String username, String password) {
         mView.toggleFieldsState();
         mView.showProgressBar();
-        mInteractor.retrieveUserData(this, username, password);
+        mInteractor.retrieveUserData(username, password);
     }
 
+
     @Override
-    public void onRetrieveUserDataSuccess(User user) {
-        //mView.hideProgressBar();
-        mInteractor.setAuthenticatedUser(user);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSuccessUserRetrieve(SuccessUserRetrieve userRetrieve) {
+        mInteractor.setAuthenticatedUser(userRetrieve.getUser());
         mView.startMainActivity();
-        mView.finish();
     }
 
     @Override
-    public void onRetrieveUserDataError(ApiError error) {
-        String message = "Error: " + error.getName() + "\nStatus: " + error.getStatus() + ", " + error.getMessage();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onErrorUserRetrieve(ErrorUserRetrieve userRetrieve) {
         mView.hideProgressBar();
         mView.toggleFieldsState();
-        mView.showSnackbar(message);
+        mView.showSnackbar(Messages.errorMessage(userRetrieve.getApiError()));
     }
 
     @Override
-    public void onRetrieveUserDataFail(Throwable t) {
-        String message = "Error: " + t.getMessage();
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFailUserRetrieve(FailUserRetrieve userRetrieve) {
         mView.hideProgressBar();
         mView.toggleFieldsState();
-        mView.showSnackbar(message);
+        mView.showSnackbar(Messages.failureMessage(userRetrieve.getThrowable()));
     }
 }

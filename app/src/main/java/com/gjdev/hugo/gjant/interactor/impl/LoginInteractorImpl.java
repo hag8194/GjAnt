@@ -7,12 +7,14 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.UserService;
+import com.gjdev.hugo.gjant.data.event.user.ErrorUserRetrieve;
+import com.gjdev.hugo.gjant.data.event.user.FailUserRetrieve;
+import com.gjdev.hugo.gjant.data.event.user.SuccessUserRetrieve;
+import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.interactor.LoginInteractor;
-import com.gjdev.hugo.gjant.presenter.LoginPresenter;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
-import com.squareup.otto.Bus;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,34 +25,32 @@ import retrofit2.Response;
 public final class LoginInteractorImpl implements LoginInteractor {
     private UserService mUserService;
     private ApiErrorHandler mApiErrorHandler;
-    private EventBus mBus;
     private InternalStorageHandler mInternalStorageHandler;
 
     @Inject
-    public LoginInteractorImpl(UserService userService, ApiErrorHandler apiErrorHandler, EventBus bus,
+    public LoginInteractorImpl(UserService userService, ApiErrorHandler apiErrorHandler,
                                InternalStorageHandler internalStorageHandler) {
         mUserService = userService;
         mApiErrorHandler = apiErrorHandler;
-        mBus = bus;
         mInternalStorageHandler = internalStorageHandler;
     }
 
     @Override
-    public void retrieveUserData(final LoginPresenter loginPresenter, String username, String password) {
+    public void retrieveUserData(String username, String password) {
 
-        Call<User> login = mUserService.login(username, password);
+        Call<User> loginCall = mUserService.login(username, password);
 
-        login.enqueue(new Callback<User>() {
+        loginCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful())
-                    loginPresenter.onRetrieveUserDataSuccess(response.body());
+                    postEvent(SUCCESS_EVENT, response.body());
                 else
-                    loginPresenter.onRetrieveUserDataError(mApiErrorHandler.parseError(response));
+                    postEvent(ERROR_EVENT, mApiErrorHandler.parseError(response));
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                loginPresenter.onRetrieveUserDataFail(t);
+                postEvent(FAILURE_EVENT, t);
             }
         });
     }
@@ -66,4 +66,21 @@ public final class LoginInteractorImpl implements LoginInteractor {
         User user = (User)mInternalStorageHandler.readObject(R.string.user_data);
         return (user != null) ? user : null;
     }
+
+    @Override
+    public void postEvent(int kindOfEvent, Object object) {
+        EventBus eventBus = EventBus.getDefault();
+        switch (kindOfEvent) {
+            case FAILURE_EVENT:
+                eventBus.post(new FailUserRetrieve((Throwable) object));
+                break;
+            case SUCCESS_EVENT:
+                eventBus.post(new SuccessUserRetrieve((User) object));
+                break;
+            case ERROR_EVENT:
+                eventBus.post(new ErrorUserRetrieve((ApiError) object));
+                break;
+        }
+    }
+
 }

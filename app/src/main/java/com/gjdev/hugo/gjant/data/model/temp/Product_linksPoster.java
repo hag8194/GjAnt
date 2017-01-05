@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.model.temp;
 
 public class Product_linksPoster implements java.io.Serializable {
     private static final long serialVersionUID = 3072951006459981004L;

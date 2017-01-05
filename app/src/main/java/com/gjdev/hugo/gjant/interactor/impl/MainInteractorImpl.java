@@ -25,4 +25,9 @@ public final class MainInteractorImpl implements MainInteractor {
     public boolean deleteUserFileData() {
         return mInternalStorageHandler.deleteObject(R.string.user_data);
     }
+
+    @Override
+    public void postEvent(int kindOfEvent, Object object) {
+
+    }
 }

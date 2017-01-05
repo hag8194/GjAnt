@@ -6,6 +6,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -15,10 +16,10 @@ import retrofit2.http.Query;
 
 public interface ApiService
 {
-    @GET("products")
+    @GET("products?expand=tags")
     Call<List<Product>> products(@Query("access-token") String accessToken);
 
-    @GET("products/{id}")
-    Call<Product> product(@Query("access-token") String accessToken);
+    @GET("products/{id}?expand=tags,productImages,children")
+    Call<Product> product(@Path("id") int id, @Query("access-token") String accessToken);
 
 }

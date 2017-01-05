@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import com.gjdev.hugo.gjant.GjAntApplication;
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
-import org.greenrobot.eventbus.EventBus;
-import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 
@@ -16,12 +14,8 @@ public final class AppModule {
     @NonNull
     private final GjAntApplication mApp;
 
-    @NonNull
-    private final EventBus mBus;
-
-    public AppModule(@NonNull GjAntApplication app, @NonNull EventBus bus) {
+    public AppModule(@NonNull GjAntApplication app) {
         mApp = app;
-        mBus = bus;
     }
 
     @Provides
@@ -43,23 +37,4 @@ public final class AppModule {
     public InternalStorageHandler provideStorageHandler(Context mApp){
         return new InternalStorageHandler(mApp);
     }
-
-    @Provides
-    public EventBus provideBus() {
-        return mBus;
-    }
-
-    @Provides
-    public Picasso providePicasso(Context mApp) {
-
-        Picasso.Builder picassoBuilder = new Picasso.Builder(mApp);
-        Picasso picasso = picassoBuilder.build();
-        //picasso.setLoggingEnabled(true);
-        try {
-            Picasso.setSingletonInstance(picasso);
-        } catch (IllegalStateException ignored) {}
-
-        return picasso;
-    }
-
 }

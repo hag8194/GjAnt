@@ -9,4 +9,9 @@ public final class OrdersInteractorImpl implements OrdersInteractor {
     public OrdersInteractorImpl() {
 
     }
+
+    @Override
+    public void postEvent(int kingOfEvent, Object object) {
+
+    }
 }

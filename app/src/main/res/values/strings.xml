@@ -11,4 +11,12 @@
     <string name="drawer_close">Close</string>
     <string name="orders">Orders</string>
     <string name="login_text">Signin to start</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="code">Code</string>
+    <string name="brand">Brand</string>
+    <string name="images">Images</string>
+    <string name="tags">Tags</string>
+    <string name="related_articles">Related Articles</string>
+    <string name="quantity">Quantity</string>
 </resources>

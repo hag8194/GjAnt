@@ -10,9 +10,6 @@ import com.gjdev.hugo.gjant.presenter.LoginPresenter;
 import com.gjdev.hugo.gjant.presenter.impl.LoginPresenterImpl;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
-import com.squareup.otto.Bus;
-
-import org.greenrobot.eventbus.EventBus;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,9 +23,9 @@ public final class LoginViewModule {
     }
 
     @Provides
-    public LoginInteractor provideInteractor(UserService userService, ApiErrorHandler apiErrorHandler, EventBus bus,
+    public LoginInteractor provideInteractor(UserService userService, ApiErrorHandler apiErrorHandler,
                                              InternalStorageHandler internalStorageHandler) {
-        return new LoginInteractorImpl(userService, apiErrorHandler, bus, internalStorageHandler);
+        return new LoginInteractorImpl(userService, apiErrorHandler, internalStorageHandler);
     }
 
     @Provides

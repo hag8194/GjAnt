@@ -4,12 +4,18 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.ApiService;
+import com.gjdev.hugo.gjant.data.event.products.ErrorProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.products.FailProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.products.SuccessProductsRetrieve;
+import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -36,24 +42,48 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     public void retrieveProducts(final CatalogPresenter catalogPresenter) {
         User user = (User)mInternalStorageHandler.readObject(R.string.user_data);
 
-        Call<List<Product>> products = mApiService.products(user.getAccessToken());
+        Call<List<Product>> productsCall = mApiService.products(user.getAccessToken());
 
-        products.enqueue(new Callback<List<Product>>() {
-            @Override
-            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                productList = response.body();
-                catalogPresenter.onRetrieveProductListSuccess(productList);
-            }
+        if(productList == null) {
+            productsCall.enqueue(new Callback<List<Product>>() {
+                @Override
+                public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                    if(response.isSuccessful()) {
+                        productList = response.body();
+                        postEvent(SUCCESS_EVENT, null);
+                    }
+                    else
+                        postEvent(ERROR_EVENT, mApiErrorHandler.parseError(response));
+                }
 
-            @Override
-            public void onFailure(Call<List<Product>> call, Throwable t) {
-
-            }
-        });
+                @Override
+                public void onFailure(Call<List<Product>> call, Throwable t) {
+                    postEvent(FAILURE_EVENT, t);
+                }
+            });
+        }
+        else
+            postEvent(SUCCESS_EVENT, null);
     }
 
     @Override
     public Product getProduct(int position) {
         return productList.get(position);
+    }
+
+    @Override
+    public void postEvent(int kindOfEvent, Object object) {
+        EventBus eventBus = EventBus.getDefault();
+        switch (kindOfEvent) {
+            case FAILURE_EVENT:
+                eventBus.post(new FailProductsRetrieve((Throwable) object));
+                break;
+            case SUCCESS_EVENT:
+                eventBus.post(new SuccessProductsRetrieve(productList));
+                break;
+            case ERROR_EVENT:
+                eventBus.post(new ErrorProductsRetrieve((ApiError) object));
+                break;
+        }
     }
 }

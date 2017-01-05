@@ -23,11 +23,9 @@ import butterknife.ButterKnife;
 
 public class ProductListAdapter extends BaseAdapter <ProductListAdapter.ViewHolder> {
     private List<Product> mProducts;
-    private Picasso mPicasso;
 
-    public ProductListAdapter(List<Product> products, Picasso picasso) {
+    public ProductListAdapter(List<Product> products) {
         mProducts = products;
-        mPicasso = picasso;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -67,7 +65,8 @@ public class ProductListAdapter extends BaseAdapter <ProductListAdapter.ViewHold
 
         holder.productName.setText(product.getName());
         holder.productPrice.setText(String.valueOf(product.getPrice()));
-        mPicasso.load(post_link)
+        Picasso.with(holder.itemView.getContext())
+                .load(post_link)
                 .into(holder.productPoster);
     }
 
