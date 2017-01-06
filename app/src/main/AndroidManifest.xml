@@ -13,6 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+
         <activity android:name=".view.impl.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +26,12 @@
         </activity>
 
         <activity android:name=".view.impl.MainActivity" />
+
+        <activity android:name=".view.impl.SearchResultsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
 
     </application>
 

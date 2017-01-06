@@ -18,4 +18,5 @@ public interface ProductDetailPresenter extends BasePresenter<ProductDetailView>
     void onClickedRelatedArticleListItem(ClickedRelatedArticleListItem listItem);
 
     void onAddToCart();
+
 }

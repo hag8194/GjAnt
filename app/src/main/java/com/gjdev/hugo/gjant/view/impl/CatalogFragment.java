@@ -1,5 +1,7 @@
 package com.gjdev.hugo.gjant.view.impl;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,7 +9,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -25,11 +30,15 @@ import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public final class CatalogFragment extends BaseFragment<CatalogPresenter, CatalogView> implements CatalogView {
 
     @Inject
     PresenterFactory<CatalogPresenter> mPresenterFactory;
+
+    @Inject
+    Context mAppContext;
 
     // Your presenter is available using the mPresenter variable
 
@@ -59,6 +68,8 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
     }
@@ -67,6 +78,21 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_catalog_menu, menu);
+
+        SearchManager searchManager =
+                (SearchManager) mAppContext.getSystemService(Context.SEARCH_SERVICE);
+
+        //This is giving a null pointer
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
+        /*
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));*/
     }
 
     @Override

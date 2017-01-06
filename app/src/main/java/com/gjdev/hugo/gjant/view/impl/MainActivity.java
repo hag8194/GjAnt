@@ -12,13 +12,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.event.AuthenticatedEvent;
 import com.gjdev.hugo.gjant.data.model.Employer;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.util.RoundedTransformation;
@@ -118,22 +119,30 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                boolean selected = true;
                 switch (item.getItemId()){
+                    case R.id.nav_home:
+                        mPresenter.onHomeOptionSelected();
+                        break;
                     case R.id.nav_catalog:
                         mPresenter.onCatalogOptionSelected();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
+                        break;
                     case R.id.nav_orders:
                         mPresenter.onOrdersOptionSelected();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
+                        break;
+                    case R.id.nav_cart:
+                        mPresenter.onCartOptionSelected();
+                        break;
                     case R.id.nav_logout:
-                        showSnackbar(String.valueOf(item.getTitle()));
                         mPresenter.onLogoutOptionSelected();
-                        mDrawerLayout.closeDrawer(GravityCompat.START);
-                        return true;
+                        break;
+                    case R.id.nav_settings:
+                        selected = false;
+                        mPresenter.onSettingsOptionSelected();
+                        break;
                 }
-                return false;
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return selected;
             }
         });
     }
@@ -154,6 +163,13 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     }
 
     @Override
+    public void loadHomeFragment() {
+        Fragment fragment = new HomeFragment();
+        loadFragment(fragment);
+        getSupportActionBar().setTitle(R.string.home);
+    }
+
+    @Override
     public void loadCatalogFragment() {
         Fragment fragment = new CatalogFragment();
         loadFragment(fragment);
@@ -165,6 +181,13 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
         Fragment fragment = new OrdersFragment();
         loadFragment(fragment);
         getSupportActionBar().setTitle(R.string.orders);
+    }
+
+    @Override
+    public void loadCartFragment() {
+        Fragment fragment = new CartFragment();
+        loadFragment(fragment);
+        getSupportActionBar().setTitle(R.string.cart);
     }
 
     @Override

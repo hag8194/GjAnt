@@ -34,7 +34,7 @@ public final class AppModule {
     }
 
     @Provides
-    public InternalStorageHandler provideStorageHandler(Context mApp){
+    public InternalStorageHandler provideStorageHandler(Context mApp) {
         return new InternalStorageHandler(mApp);
     }
 }

@@ -7,6 +7,7 @@ import com.gjdev.hugo.gjant.data.model.User;
 
 @UiThread
 public interface MainView {
+
     void setupNavigationView();
 
     void setupNavigationHeader(User user);
@@ -19,9 +20,13 @@ public interface MainView {
 
     void showSnackbar(String message);
 
+    void loadHomeFragment();
+
     void loadCatalogFragment();
 
     void loadOrdersFragment();
+
+    void loadCartFragment();
 
     void startLoginActivity();
 

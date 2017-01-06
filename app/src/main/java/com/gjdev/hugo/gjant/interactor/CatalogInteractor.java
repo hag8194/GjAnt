@@ -9,4 +9,5 @@ public interface CatalogInteractor extends BaseInteractor {
     Product getProduct(int position);
 
     void postSelectedProduct(int id);
+
 }

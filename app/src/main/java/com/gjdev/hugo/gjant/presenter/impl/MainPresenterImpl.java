@@ -54,6 +54,11 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
     }
 
     @Override
+    public void onHomeOptionSelected() {
+        mView.loadHomeFragment();
+    }
+
+    @Override
     public void onCatalogOptionSelected() {
         mView.loadCatalogFragment();
     }
@@ -61,6 +66,11 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
     @Override
     public void onOrdersOptionSelected() {
         mView.loadOrdersFragment();
+    }
+
+    @Override
+    public void onCartOptionSelected() {
+        mView.loadCartFragment();
     }
 
     @Override
@@ -72,4 +82,11 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         else
             mView.showSnackbar("Cannot logout");
     }
+
+    @Override
+    public void onSettingsOptionSelected() {
+        mView.showSnackbar("Settings!!");
+    }
+
+
 }
