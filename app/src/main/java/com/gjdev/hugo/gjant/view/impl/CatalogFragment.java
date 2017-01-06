@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -22,8 +21,6 @@ import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.CatalogViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerCatalogViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductListAdapter;
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -138,10 +135,9 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     }
 
     @Override
-    public void startDetailProductActivity() {
+    public void startDetailProductFragment() {
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, new ProductDetailFragment(), ProductDetailFragment.class.getName())
-                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .addToBackStack(null)
                 .commit();
     }

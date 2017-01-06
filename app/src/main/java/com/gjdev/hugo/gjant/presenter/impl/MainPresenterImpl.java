@@ -16,8 +16,6 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
     @NonNull
     private final MainInteractor mInteractor;
 
-    private User user;
-
     // The view is available using the mView variable
 
     @Inject
@@ -30,12 +28,11 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         super.onStart(firstStart);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
-        user = mInteractor.getUser();
-        //mView.toggleFieldsState(user.getEmployer().getName());
+
         mView.setupToolbar();
         mView.setupDrawerToggle();
         mView.setupNavigationView();
-        mView.setupNavigationHeader(user);
+        mView.setupNavigationHeader(mInteractor.getUser());
         mView.loadCatalogFragment();
     }
 
@@ -72,5 +69,7 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
             mView.startLoginActivity();
             mView.finish();
         }
+        else
+            mView.showSnackbar("Cannot logout");
     }
 }

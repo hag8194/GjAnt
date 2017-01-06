@@ -25,5 +25,5 @@ public interface CatalogView {
 
     void stopRefreshing();
 
-    void startDetailProductActivity();
+    void startDetailProductFragment();
 }

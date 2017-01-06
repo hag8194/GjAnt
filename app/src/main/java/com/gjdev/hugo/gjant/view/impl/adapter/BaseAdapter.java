@@ -10,14 +10,6 @@ import android.view.ViewGroup;
  * Project: GjAnt2
  */
 
-public abstract class BaseAdapter <V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V>{
-    protected static BaseAdapter.ItemClickListener mItemClickListener;
+public abstract class BaseAdapter <V extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<V> {
 
-    public void setOnItemClickListener(ItemClickListener itemClickListener) {
-        mItemClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View v, int position);
-    }
 }

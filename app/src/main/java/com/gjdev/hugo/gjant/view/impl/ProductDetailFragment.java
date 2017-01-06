@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,6 +37,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public final class ProductDetailFragment extends BaseFragment<ProductDetailPresenter, ProductDetailView> implements ProductDetailView {
     @Inject
@@ -60,9 +60,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     @BindView(R.id.product_description)
     TextView productDescription;
 
-    @BindView(R.id.add_to_cart)
-    FloatingActionButton actionButton;
-
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -76,6 +73,11 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     RecyclerView mRelatedArticlesRecyclerView;
 
     private Animation fadeAnimation;
+
+    @OnClick(R.id.add_to_cart)
+    public void onClick() {
+        mPresenter.onAddToCart();
+    }
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -100,24 +102,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-    }
-
-    /*@Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
-    public void onProductEvent(SelectedProduct selectProduct) {
-        mPresenter.onSelectProduct(selectProduct.getId());
-    }*/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        /*EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
-        EventBus.getDefault().unregister(this);*/
-        super.onStop();
     }
 
     @Override
@@ -190,5 +174,13 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     public void changeProductPoster(Drawable image) {
         productImage.startAnimation(fadeAnimation);
         productImage.setImageDrawable(image);
+    }
+
+    @Override
+    public void startDetailProductFragment() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new ProductDetailFragment(), ProductDetailFragment.class.getName())
+                .addToBackStack(null)
+                .commit();
     }
 }

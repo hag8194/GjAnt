@@ -89,7 +89,7 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onClickedProductListItem(ClickedProductListItem listItem) {
         mInteractor.postSelectedProduct(mInteractor.getProduct(listItem.getAdapterPosition()).getId());
-        mView.startDetailProductActivity();
+        mView.startDetailProductFragment();
     }
 
     @Override

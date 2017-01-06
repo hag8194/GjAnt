@@ -26,4 +26,6 @@ public interface ProductDetailView {
     void setProductData(Product product);
 
     void changeProductPoster(Drawable image);
+
+    void startDetailProductFragment();
 }

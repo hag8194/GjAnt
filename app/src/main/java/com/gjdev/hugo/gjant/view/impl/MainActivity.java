@@ -56,7 +56,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     String mDrawerOptions[];
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
-    private MenuItem oldItem;
     private FragmentManager fragmentManager;
 
     @Override
@@ -119,30 +118,22 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-
                 switch (item.getItemId()){
                     case R.id.nav_catalog:
-                        //showSnackbar(String.valueOf(item.getTitle()));
                         mPresenter.onCatalogOptionSelected();
-                        break;
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
                     case R.id.nav_orders:
-                        showSnackbar(String.valueOf(item.getTitle()));
                         mPresenter.onOrdersOptionSelected();
-                        break;
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
                     case R.id.nav_logout:
                         showSnackbar(String.valueOf(item.getTitle()));
                         mPresenter.onLogoutOptionSelected();
-                        break;
+                        mDrawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
                 }
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
-                if(oldItem != null)
-                    oldItem.setChecked(false);
-
-                item.setChecked(true);
-                oldItem = item;
-
-                return true;
+                return false;
             }
         });
     }

@@ -7,7 +7,9 @@ import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.data.api.event.product.ErrorProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.FailProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
+import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.model.ApiError;
+import com.gjdev.hugo.gjant.data.model.Children;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
@@ -60,6 +62,16 @@ public final class ProductDetailInteractorImpl implements ProductDetailInteracto
         }
         else
             postEvent(SUCCESS_EVENT, product);
+    }
+
+    @Override
+    public Children getChildren(int position) {
+        return product.getChildren().get(position);
+    }
+
+    @Override
+    public void postSelectedChildren(int id) {
+        EventBus.getDefault().postSticky(new SelectedProduct(id));
     }
 
     @Override

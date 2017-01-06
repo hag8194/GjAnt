@@ -8,8 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
 import com.gjdev.hugo.gjant.data.model.Children;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -46,7 +49,7 @@ public class RelatedArticlesAdapter extends BaseAdapter<RelatedArticlesAdapter.V
 
         @Override
         public void onClick(View v) {
-
+            EventBus.getDefault().post(new ClickedRelatedArticleListItem(v, getAdapterPosition()));
         }
     }
 

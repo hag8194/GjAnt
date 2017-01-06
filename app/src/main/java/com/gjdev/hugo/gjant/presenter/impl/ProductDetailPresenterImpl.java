@@ -2,6 +2,8 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
+import com.gjdev.hugo.gjant.data.event.SelectedChildProduct;
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
@@ -9,6 +11,7 @@ import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
 import com.gjdev.hugo.gjant.view.ProductDetailView;
+import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,7 +47,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     @Override
     public void onStop() {
         // Your code here, mView will be null after this method until next onStart()
-        EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
+        //EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -78,5 +81,17 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSelectProductImage(SelectedProductImage productImage) {
         mView.changeProductPoster(productImage.getImageDrawable());
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onClickedRelatedArticleListItem(ClickedRelatedArticleListItem listItem) {
+        mInteractor.postSelectedChildren(mInteractor.getChildren(listItem.getAdapterPosition()).getId());
+        mView.startDetailProductFragment();
+    }
+
+    @Override
+    public void onAddToCart() {
+        mView.showSnackbar("Add to cart!!");
     }
 }
