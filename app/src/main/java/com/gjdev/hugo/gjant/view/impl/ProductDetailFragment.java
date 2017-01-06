@@ -11,13 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.event.SelectProduct;
 import com.gjdev.hugo.gjant.data.model.Children;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.data.model.ProductImages;
@@ -28,11 +29,8 @@ import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.ProductDetailViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerProductDetailViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductImagesAdapter;
+import com.gjdev.hugo.gjant.view.impl.adapter.RelatedArticlesAdapter;
 import com.squareup.picasso.Picasso;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -77,6 +75,8 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     @BindView(R.id.related_articles)
     RecyclerView mRelatedArticlesRecyclerView;
 
+    private Animation fadeAnimation;
+
     public ProductDetailFragment() {
         // Required empty public constructor
     }
@@ -92,7 +92,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //productName = (TextView)view.findViewById(R.id.product_name);
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
     }
@@ -103,21 +102,21 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
         unbinder.unbind();
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
-    public void onProductEvent(SelectProduct selectProduct) {
-        mPresenter.onReceiveProductEvent(selectProduct.getId());
-    }
+    /*@Subscribe(sticky = true, threadMode = ThreadMode.POSTING)
+    public void onProductEvent(SelectedProduct selectProduct) {
+        mPresenter.onSelectProduct(selectProduct.getId());
+    }*/
 
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().removeStickyEvent(SelectProduct.class);
-        EventBus.getDefault().unregister(this);
+        /*EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
+        EventBus.getDefault().unregister(this);*/
         super.onStop();
     }
 
@@ -163,7 +162,14 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     @Override
     public void setupAdapters(List<ProductImages> productImagesList, List<Children> childrenList) {
         ProductImagesAdapter imagesAdapter = new ProductImagesAdapter(productImagesList);
+        RelatedArticlesAdapter relatedArticlesAdapter = new RelatedArticlesAdapter(childrenList);
         mProductImagesRecyclerView.setAdapter(imagesAdapter);
+        mRelatedArticlesRecyclerView.setAdapter(relatedArticlesAdapter);
+    }
+
+    @Override
+    public void setupAnimation() {
+        fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
     }
 
     @Override
@@ -182,6 +188,7 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
 
     @Override
     public void changeProductPoster(Drawable image) {
+        productImage.startAnimation(fadeAnimation);
         productImage.setImageDrawable(image);
     }
 }

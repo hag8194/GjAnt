@@ -21,6 +21,8 @@ public interface ProductDetailView {
 
     void setupAdapters(List<ProductImages> productImagesList, List<Children> childrenList);
 
+    void setupAnimation();
+
     void setProductData(Product product);
 
     void changeProductPoster(Drawable image);

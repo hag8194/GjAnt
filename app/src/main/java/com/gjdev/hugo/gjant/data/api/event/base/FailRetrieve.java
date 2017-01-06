@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.event.base;
+package com.gjdev.hugo.gjant.data.api.event.base;
 
 /**
  * Created by Hugo on 04/01/2017.

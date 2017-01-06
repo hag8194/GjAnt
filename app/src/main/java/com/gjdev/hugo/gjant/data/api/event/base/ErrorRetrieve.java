@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.event.base;
+package com.gjdev.hugo.gjant.data.api.event.base;
 
 import com.gjdev.hugo.gjant.data.model.ApiError;
 

@@ -4,14 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.event.SelectProduct;
+import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -34,8 +36,16 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
     // Your presenter is available using the mPresenter variable
 
+    @BindView(R.id.progressBar)
+    ProgressBar mProgressBar;
+
     @BindView(R.id.product_list)
     RecyclerView mRecyclerViewProductList;
+
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
+
+    private ProductListAdapter adapter;
 
     public CatalogFragment() {
         // Required empty public constructor
@@ -78,8 +88,28 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     }
 
     @Override
+    public void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setupSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.onRefreshRequest();
+            }
+        });
     }
 
     @Override
@@ -87,37 +117,32 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
         mRecyclerViewProductList.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         //GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+        //StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, 1);
         mRecyclerViewProductList.setLayoutManager(mLayoutManager);
     }
 
+    @Override
     public void setupAdapter(List<Product> products) {
-        ProductListAdapter adapter = new ProductListAdapter(products);
-        adapter.setOnItemClickListener(new ProductListAdapter.ItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                mPresenter.onClickProductItem(position);
-            }
-        });
+        adapter = new ProductListAdapter(products);
         mRecyclerViewProductList.setAdapter(adapter);
     }
 
     @Override
-    public void sendProductEvent(int id) {
-        EventBus.getDefault().postSticky(new SelectProduct(id));
+    public void notifyDataChanged() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void stopRefreshing() {
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
     public void startDetailProductActivity() {
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, new ProductDetailFragment(), ProductDetailFragment.class.getName())
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .addToBackStack(null)
                 .commit();
-        /*startActivity(new Intent(getContext(), DetailProductActivity.class),
-                ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity()).toBundle());*/
-    }
-
-    @Override
-    public boolean isRecyclerViewActivated() {
-        return mRecyclerViewProductList.isActivated();
     }
 }

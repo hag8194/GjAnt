@@ -8,10 +8,22 @@ import java.util.List;
 
 @UiThread
 public interface CatalogView {
+
+    void showProgressBar();
+
+    void hideProgressBar();
+
     void showSnackbar(String message);
+
+    void setupSwipeRefreshLayout();
+
     void setupRecyclerView();
+
     void setupAdapter(List<Product> products);
-    boolean isRecyclerViewActivated();
-    void sendProductEvent(int id);
+
+    void notifyDataChanged();
+
+    void stopRefreshing();
+
     void startDetailProductActivity();
 }

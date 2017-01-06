@@ -4,9 +4,9 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.ApiService;
-import com.gjdev.hugo.gjant.data.event.product.ErrorProductRetrieve;
-import com.gjdev.hugo.gjant.data.event.product.FailProductRetrieve;
-import com.gjdev.hugo.gjant.data.event.product.SuccessProductRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.product.ErrorProductRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.product.FailProductRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
 import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.data.model.User;

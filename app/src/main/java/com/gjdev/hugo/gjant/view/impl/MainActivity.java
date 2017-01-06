@@ -29,11 +29,6 @@ import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.MainViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerMainViewComponent;
 import com.squareup.picasso.Picasso;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;

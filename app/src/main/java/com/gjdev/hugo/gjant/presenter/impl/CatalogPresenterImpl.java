@@ -2,9 +2,11 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
-import com.gjdev.hugo.gjant.data.event.products.ErrorProductsRetrieve;
-import com.gjdev.hugo.gjant.data.event.products.FailProductsRetrieve;
-import com.gjdev.hugo.gjant.data.event.products.SuccessProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
+import com.gjdev.hugo.gjant.data.event.RefreshedList;
+import com.gjdev.hugo.gjant.data.api.event.products.ErrorProductsRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.products.FailProductsRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.products.SuccessProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.CatalogView;
@@ -36,10 +38,11 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
 
         EventBus.getDefault().register(this);
 
-        if(!mView.isRecyclerViewActivated()){
-            mView.setupRecyclerView();
-            mInteractor.retrieveProducts(this);
-        }
+        //if(firstStart){
+        mView.setupSwipeRefreshLayout();
+        mView.setupRecyclerView();
+        mInteractor.retrieveProducts(false);
+        //}
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
@@ -62,28 +65,42 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     }
 
     @Override
-    public void onClickProductItem(int position) {
-        mView.sendProductEvent(mInteractor.getProduct(position).getId());
-        mView.startDetailProductActivity();
-    }
-
-    @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessProductsRetrieve(SuccessProductsRetrieve productsRetrieve) {
-        if(mView != null) {
-            mView.setupAdapter(productsRetrieve.getProducts());
-        }
+        mView.setupAdapter(productsRetrieve.getProducts());
+        mView.hideProgressBar();
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onErrorProductsRetrieve(ErrorProductsRetrieve productsRetrieve) {
         mView.showSnackbar(Messages.errorMessage(productsRetrieve.getApiError()));
+        mView.hideProgressBar();
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFailProductsRetrieve(FailProductsRetrieve productsRetrieve) {
         mView.showSnackbar(Messages.failureMessage(productsRetrieve.getThrowable()));
+        mView.hideProgressBar();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onClickedProductListItem(ClickedProductListItem listItem) {
+        mInteractor.postSelectedProduct(mInteractor.getProduct(listItem.getAdapterPosition()).getId());
+        mView.startDetailProductActivity();
+    }
+
+    @Override
+    public void onRefreshRequest() {
+        mInteractor.retrieveProducts(true);
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRefreshedList(RefreshedList refreshedList) {
+        mView.notifyDataChanged();
+        mView.stopRefreshing();
     }
 }

@@ -1,14 +1,9 @@
 package com.gjdev.hugo.gjant.view.impl.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
-import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.view.CatalogView;
-
-import java.util.List;
+import android.view.ViewGroup;
 
 /**
  * Created by Hugo on 01/01/2017.

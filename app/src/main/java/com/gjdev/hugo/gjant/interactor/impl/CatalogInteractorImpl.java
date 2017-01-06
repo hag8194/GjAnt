@@ -4,14 +4,15 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.ApiService;
-import com.gjdev.hugo.gjant.data.event.products.ErrorProductsRetrieve;
-import com.gjdev.hugo.gjant.data.event.products.FailProductsRetrieve;
-import com.gjdev.hugo.gjant.data.event.products.SuccessProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.RefreshedList;
+import com.gjdev.hugo.gjant.data.api.event.products.ErrorProductsRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.products.FailProductsRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.products.SuccessProductsRetrieve;
+import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
-import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
@@ -39,12 +40,12 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     }
 
     @Override
-    public void retrieveProducts(final CatalogPresenter catalogPresenter) {
+    public void retrieveProducts(boolean refresh) {
         User user = (User)mInternalStorageHandler.readObject(R.string.user_data);
 
         Call<List<Product>> productsCall = mApiService.products(user.getAccessToken());
 
-        if(productList == null) {
+        if(productList == null || refresh) {
             productsCall.enqueue(new Callback<List<Product>>() {
                 @Override
                 public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
@@ -61,6 +62,8 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
                     postEvent(FAILURE_EVENT, t);
                 }
             });
+            if(refresh)
+                EventBus.getDefault().post(new RefreshedList());
         }
         else
             postEvent(SUCCESS_EVENT, null);
@@ -69,6 +72,11 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     @Override
     public Product getProduct(int position) {
         return productList.get(position);
+    }
+
+    @Override
+    public void postSelectedProduct(int id) {
+        EventBus.getDefault().postSticky(new SelectedProduct(id));
     }
 
     @Override

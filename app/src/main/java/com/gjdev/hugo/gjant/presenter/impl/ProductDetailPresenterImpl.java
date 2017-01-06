@@ -2,8 +2,9 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
-import com.gjdev.hugo.gjant.data.event.SelectProductImage;
-import com.gjdev.hugo.gjant.data.event.product.SuccessProductRetrieve;
+import com.gjdev.hugo.gjant.data.event.SelectedProduct;
+import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
+import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
@@ -35,6 +36,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
 
         EventBus.getDefault().register(this);
         mView.setupRecyclerViews();
+        mView.setupAnimation();
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
@@ -42,6 +44,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     @Override
     public void onStop() {
         // Your code here, mView will be null after this method until next onStart()
+        EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
@@ -57,8 +60,9 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     }
 
     @Override
-    public void onReceiveProductEvent(int id) {
-        mInteractor.retrieveProductDetail(id);
+    @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
+    public void onSelectProduct(SelectedProduct selectedProduct) {
+        mInteractor.retrieveProductDetail(selectedProduct.getId());
     }
 
     @Override
@@ -72,7 +76,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSelectProductImage(SelectProductImage productImage) {
+    public void onSelectProductImage(SelectedProductImage productImage) {
         mView.changeProductPoster(productImage.getImageDrawable());
     }
 }

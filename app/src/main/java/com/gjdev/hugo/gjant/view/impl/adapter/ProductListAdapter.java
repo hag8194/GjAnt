@@ -8,8 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
 import com.gjdev.hugo.gjant.data.model.Product;
 import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -46,7 +49,7 @@ public class ProductListAdapter extends BaseAdapter <ProductListAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            mItemClickListener.onItemClick(v, getAdapterPosition());
+            EventBus.getDefault().post(new ClickedProductListItem(v, getAdapterPosition()));
         }
     }
 

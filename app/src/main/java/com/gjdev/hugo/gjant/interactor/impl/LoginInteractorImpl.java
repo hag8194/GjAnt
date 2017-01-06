@@ -7,9 +7,9 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.UserService;
-import com.gjdev.hugo.gjant.data.event.user.ErrorUserRetrieve;
-import com.gjdev.hugo.gjant.data.event.user.FailUserRetrieve;
-import com.gjdev.hugo.gjant.data.event.user.SuccessUserRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.user.ErrorUserRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.user.FailUserRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.user.SuccessUserRetrieve;
 import com.gjdev.hugo.gjant.data.model.ApiError;
 import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.interactor.LoginInteractor;

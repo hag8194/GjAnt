@@ -1,6 +1,6 @@
-package com.gjdev.hugo.gjant.data.event.product;
+package com.gjdev.hugo.gjant.data.api.event.product;
 
-import com.gjdev.hugo.gjant.data.event.base.ErrorRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.base.ErrorRetrieve;
 import com.gjdev.hugo.gjant.data.model.ApiError;
 
 /**

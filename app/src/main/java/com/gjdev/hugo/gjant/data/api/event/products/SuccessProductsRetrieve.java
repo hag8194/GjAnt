@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.event.products;
+package com.gjdev.hugo.gjant.data.api.event.products;
 
 import com.gjdev.hugo.gjant.data.model.Product;
 
