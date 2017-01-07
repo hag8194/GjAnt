@@ -3,9 +3,9 @@ package com.gjdev.hugo.gjant.view;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.UiThread;
 
-import com.gjdev.hugo.gjant.data.model.Children;
-import com.gjdev.hugo.gjant.data.model.Product;
-import com.gjdev.hugo.gjant.data.model.ProductImages;
+import com.gjdev.hugo.gjant.data.api.model.Children;
+import com.gjdev.hugo.gjant.data.api.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.ProductImages;
 
 import java.util.List;
 

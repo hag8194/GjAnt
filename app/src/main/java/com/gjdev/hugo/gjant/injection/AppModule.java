@@ -5,7 +5,12 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import com.gjdev.hugo.gjant.GjAntApplication;
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.sql.model.DaoMaster;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
+
+import org.greenrobot.greendao.database.Database;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -36,5 +41,12 @@ public final class AppModule {
     @Provides
     public InternalStorageHandler provideStorageHandler(Context mApp) {
         return new InternalStorageHandler(mApp);
+    }
+
+    @Provides
+    public DaoSession provideDaoSession(Context mApp) {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mApp, "gjant-db");
+        Database db = helper.getWritableDb();
+        return new DaoMaster(db).newSession();
     }
 }

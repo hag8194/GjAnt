@@ -2,7 +2,7 @@ package com.gjdev.hugo.gjant.view;
 
 import android.support.annotation.UiThread;
 
-import com.gjdev.hugo.gjant.data.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.Product;
 
 import java.util.List;
 

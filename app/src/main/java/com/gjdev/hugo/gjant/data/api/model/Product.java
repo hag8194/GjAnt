@@ -1,12 +1,13 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.api.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Hugo on 04/01/2017.
  */
 
-public class Product {
+public class Product implements Serializable {
 
     /**
      * id : 3

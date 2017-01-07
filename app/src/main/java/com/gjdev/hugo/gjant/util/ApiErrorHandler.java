@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.util;
 
-import com.gjdev.hugo.gjant.data.model.ApiError;
+import com.gjdev.hugo.gjant.data.api.model.ApiError;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

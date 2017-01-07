@@ -3,7 +3,7 @@ package com.gjdev.hugo.gjant.interactor.impl;
 import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.model.User;
+import com.gjdev.hugo.gjant.data.api.model.User;
 import com.gjdev.hugo.gjant.interactor.MainInteractor;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 

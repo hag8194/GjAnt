@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.data.api;
 
-import com.gjdev.hugo.gjant.data.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.Product;
 
 import java.util.List;
 

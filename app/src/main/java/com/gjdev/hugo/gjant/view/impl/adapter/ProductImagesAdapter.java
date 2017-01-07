@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
-import com.gjdev.hugo.gjant.data.model.ProductImages;
+import com.gjdev.hugo.gjant.data.api.model.ProductImages;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;

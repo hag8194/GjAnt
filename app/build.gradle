@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 24
@@ -19,6 +20,10 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 2
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -33,6 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'org.greenrobot:greendao:3.2.0'
 
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.+'
@@ -54,5 +60,7 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.5'
 
     compile 'com.google.android.gms:play-services-maps:10.0.1'
+
+
 
 }

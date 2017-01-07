@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.interactor;
 
-import com.gjdev.hugo.gjant.data.model.Children;
+import com.gjdev.hugo.gjant.data.api.model.Children;
 
 public interface ProductDetailInteractor extends BaseInteractor {
 
@@ -9,4 +9,6 @@ public interface ProductDetailInteractor extends BaseInteractor {
     Children getChildren(int position);
 
     void postSelectedChildren(int id);
+
+    void addProductToCart();
 }

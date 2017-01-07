@@ -1,7 +1,6 @@
 package com.gjdev.hugo.gjant.interactor;
 
-import com.gjdev.hugo.gjant.data.model.User;
-import com.gjdev.hugo.gjant.presenter.LoginPresenter;
+import com.gjdev.hugo.gjant.data.api.model.User;
 
 public interface LoginInteractor extends BaseInteractor {
     void retrieveUserData(String username, String password);

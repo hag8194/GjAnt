@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.injection;
 import android.support.annotation.NonNull;
 
 import com.gjdev.hugo.gjant.data.api.ApiService;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.interactor.impl.ProductDetailInteractorImpl;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
@@ -17,8 +18,9 @@ import dagger.Provides;
 @Module
 public final class ProductDetailViewModule {
     @Provides
-    public ProductDetailInteractor provideInteractor(ApiService apiService, ApiErrorHandler apiErrorHandler, InternalStorageHandler internalStorageHandler) {
-        return new ProductDetailInteractorImpl(apiService, apiErrorHandler, internalStorageHandler);
+    public ProductDetailInteractor provideInteractor(ApiService apiService, ApiErrorHandler apiErrorHandler,
+                                                     InternalStorageHandler internalStorageHandler, DaoSession daoSession) {
+        return new ProductDetailInteractorImpl(apiService, apiErrorHandler, daoSession, internalStorageHandler);
     }
 
     @Provides

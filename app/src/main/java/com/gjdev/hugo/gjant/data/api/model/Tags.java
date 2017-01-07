@@ -1,9 +1,11 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.api.model;
+
+import java.io.Serializable;
 
 /**
  * Created by Hugo on 04/01/2017.
  */
-public class Tags {
+public class Tags implements Serializable {
     /**
      * id : 1
      * name : Etiqueta1

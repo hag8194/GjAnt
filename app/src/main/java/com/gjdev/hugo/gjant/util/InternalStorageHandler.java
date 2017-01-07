@@ -4,9 +4,12 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Hugo on 28/12/2016.
@@ -34,13 +37,15 @@ public class InternalStorageHandler {
 
     public Object readObject(int fileNameStringResId) {
         String mFilename = getStringResource(fileNameStringResId);
+        Object object = null;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(mContext.openFileInput(mFilename));
-            return objectInputStream.readObject();
+            object = objectInputStream.readObject();
+            objectInputStream.close();
         }
         catch (IOException|ClassNotFoundException e) { e.printStackTrace(); }
 
-        return null;
+        return object;
     }
 
     public boolean deleteObject(int fileNameStringResId) {

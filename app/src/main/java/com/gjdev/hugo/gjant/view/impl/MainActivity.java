@@ -12,16 +12,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.model.Employer;
-import com.gjdev.hugo.gjant.data.model.User;
+import com.gjdev.hugo.gjant.data.api.model.Employer;
+import com.gjdev.hugo.gjant.data.api.model.User;
 import com.gjdev.hugo.gjant.util.RoundedTransformation;
 import com.gjdev.hugo.gjant.view.MainView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;

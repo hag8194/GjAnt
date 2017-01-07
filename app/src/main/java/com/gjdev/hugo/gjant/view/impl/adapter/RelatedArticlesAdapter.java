@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
-import com.gjdev.hugo.gjant.data.model.Children;
+import com.gjdev.hugo.gjant.data.api.model.Children;
 import com.squareup.picasso.Picasso;
 
 import org.greenrobot.eventbus.EventBus;

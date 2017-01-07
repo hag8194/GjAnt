@@ -2,7 +2,6 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
-import com.gjdev.hugo.gjant.data.model.User;
 import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.view.MainView;
 import com.gjdev.hugo.gjant.interactor.MainInteractor;

@@ -1,10 +1,11 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.api.model;
 
 import java.io.Serializable;
 
-public class Address implements Serializable {
+public class Zone implements Serializable {
     private double lng;
     private String name;
+    private String description;
     private int id;
     private double lat;
 
@@ -22,6 +23,14 @@ public class Address implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getId() {

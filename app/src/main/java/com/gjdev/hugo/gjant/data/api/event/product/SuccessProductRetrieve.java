@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.data.api.event.product;
 
-import com.gjdev.hugo.gjant.data.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.Product;
 
 /**
  * Created by Hugo on 04/01/2017.

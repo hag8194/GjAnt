@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.data.api;
 
-import com.gjdev.hugo.gjant.data.model.User;
+import com.gjdev.hugo.gjant.data.api.model.User;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

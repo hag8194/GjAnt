@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.gjdev.hugo.gjant.GjAntApplication;
 import com.gjdev.hugo.gjant.data.api.ApiService;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
@@ -29,4 +30,6 @@ public interface AppComponent {
     ApiErrorHandler getApiErrorHandler();
 
     ApiService getApiService();
+
+    DaoSession getDaoSession();
 }

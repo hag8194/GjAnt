@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.model;
+package com.gjdev.hugo.gjant.data.api.model;
 
 public class ApiError {
     private int code;

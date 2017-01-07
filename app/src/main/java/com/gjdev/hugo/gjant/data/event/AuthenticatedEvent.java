@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.data.event;
 
-import com.gjdev.hugo.gjant.data.model.User;
+import com.gjdev.hugo.gjant.data.api.model.User;
 
 /**
  * Created by Hugo on 04/01/2017.

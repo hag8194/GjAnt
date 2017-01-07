@@ -1,6 +1,6 @@
 package com.gjdev.hugo.gjant.data.api.event.base;
 
-import com.gjdev.hugo.gjant.data.model.ApiError;
+import com.gjdev.hugo.gjant.data.api.model.ApiError;
 
 /**
  * Created by Hugo on 04/01/2017.

@@ -1,9 +1,8 @@
 package com.gjdev.hugo.gjant.view;
 
 import android.support.annotation.UiThread;
-import android.support.v4.widget.DrawerLayout;
 
-import com.gjdev.hugo.gjant.data.model.User;
+import com.gjdev.hugo.gjant.data.api.model.User;
 
 @UiThread
 public interface MainView {

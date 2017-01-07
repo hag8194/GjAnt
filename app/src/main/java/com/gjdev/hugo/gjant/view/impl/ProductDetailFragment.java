@@ -18,9 +18,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.model.Children;
-import com.gjdev.hugo.gjant.data.model.Product;
-import com.gjdev.hugo.gjant.data.model.ProductImages;
+import com.gjdev.hugo.gjant.data.api.model.Children;
+import com.gjdev.hugo.gjant.data.api.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.ProductImages;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
 import com.gjdev.hugo.gjant.view.ProductDetailView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;

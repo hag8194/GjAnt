@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.gjdev.hugo.gjant.R;
-import com.gjdev.hugo.gjant.data.model.Product;
+import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
 import com.gjdev.hugo.gjant.presenter.CatalogPresenter;
@@ -30,7 +30,6 @@ import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public final class CatalogFragment extends BaseFragment<CatalogPresenter, CatalogView> implements CatalogView {
 
