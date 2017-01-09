@@ -1,7 +1,5 @@
 package com.gjdev.hugo.gjant.interactor.impl;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
@@ -9,6 +7,8 @@ import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.data.api.event.product.ErrorProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.FailProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
+import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
+import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.api.model.ApiError;
 import com.gjdev.hugo.gjant.data.api.model.Children;
@@ -20,6 +20,7 @@ import com.gjdev.hugo.gjant.data.sql.model.SQLProductDao;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
+import com.gjdev.hugo.gjant.util.Messages;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -84,25 +85,29 @@ public final class ProductDetailInteractorImpl implements ProductDetailInteracto
     }
 
     @Override
-    public void addProductToCart() {
-        List<SQLProduct> productList = mDaoSession.getSQLProductDao().queryBuilder()
-                .where(SQLProductDao.Properties.Key.eq(String.valueOf(product.getId())))
+    public void addProductToCart(int productQuantity) {
+        SQLProductDao sqlProductDao = mDaoSession.getSQLProductDao();
+        String message = Messages.ProductCart.NO_ACTION_MESSAGE;
+
+        List<SQLProduct> productList = sqlProductDao.queryBuilder()
+                .where(SQLProductDao.Properties.Key.eq(product.getId()))
                 .list();
 
         if(productList.isEmpty()) {
-            mDaoSession.getSQLProductDao().insert(new SQLProduct(null,
-                    String.valueOf(product.getId()), product.getCode(), product.getName(),
-                    product.getQuantity(),product.getPrice(), product.getBrand().getName(),
-                    product.getStatus(), product.getCreated_at(), product.getUpdated_at(), product.getUpdated_by()));
+            sqlProductDao.insert(new SQLProduct(null, product.getId(),
+                    product.get_links().getPoster().getHref(),product.getName(), product.getPrice(), productQuantity));
+            message = Messages.ProductCart.SUCCESS_MESSAGE;
         }
-        else
-            Log.d(this.getClass().getName(), "yeii");
-
-
-        List<SQLProduct> list = mDaoSession.getSQLProductDao().queryBuilder().list();
-        for(SQLProduct item : list){
-            Log.d(this.getClass().getName(), item.getName());
+        else {
+            SQLProduct item =  productList.remove(0);
+            if(productQuantity != item.getQuantity()) {
+                item.setQuantity(productQuantity);
+                sqlProductDao.update(item);
+                message = Messages.ProductCart.UPDATE_MESSAGE;
+            }
         }
+
+        EventBus.getDefault().post(new NotifyProductCartStatus(message));
     }
 
     @Override

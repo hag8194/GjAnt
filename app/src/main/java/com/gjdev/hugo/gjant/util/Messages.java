@@ -18,4 +18,10 @@ public class Messages {
     public static String failureMessage(Throwable t) {
         return "Error: " + t.getMessage();
     }
+
+    public static class ProductCart {
+        public static final String NO_ACTION_MESSAGE = "El producto junto a la cantidad ya se encuentran almacenadas";
+        public static final String SUCCESS_MESSAGE = "El producto se ha guardado en el carrito" ;
+        public static final String UPDATE_MESSAGE = "La cantidad del producto se ha actualizado";
+    }
 }

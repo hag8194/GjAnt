@@ -44,9 +44,13 @@ public final class AppModule {
     }
 
     @Provides
-    public DaoSession provideDaoSession(Context mApp) {
+    public Database provideDatabase(Context mApp){
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(mApp, "gjant-db");
-        Database db = helper.getWritableDb();
+        return helper.getWritableDb();
+    }
+
+    @Provides
+    public DaoSession provideDaoSession(Database db) {
         return new DaoMaster(db).newSession();
     }
 }

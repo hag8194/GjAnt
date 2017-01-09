@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -161,41 +162,53 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     }
 
     @Override
-    public void loadHomeFragment() {
+    public void loadHomeFragment(boolean addToBackTrace) {
         Fragment fragment = new HomeFragment();
-        loadFragment(fragment);
+        loadFragment(fragment, addToBackTrace);
         getSupportActionBar().setTitle(R.string.home);
     }
 
     @Override
-    public void loadCatalogFragment() {
+    public void loadCatalogFragment(boolean addToBackTrace) {
         Fragment fragment = new CatalogFragment();
-        loadFragment(fragment);
+        loadFragment(fragment, addToBackTrace);
         getSupportActionBar().setTitle(R.string.catalog);
     }
 
     @Override
-    public void loadOrdersFragment() {
+    public void loadOrdersFragment(boolean addToBackTrace) {
         Fragment fragment = new OrdersFragment();
-        loadFragment(fragment);
+        loadFragment(fragment, addToBackTrace);
         getSupportActionBar().setTitle(R.string.orders);
     }
 
     @Override
-    public void loadCartFragment() {
+    public void loadCartFragment(boolean addToBackTrace) {
         Fragment fragment = new CartFragment();
-        loadFragment(fragment);
+        loadFragment(fragment, addToBackTrace);
         getSupportActionBar().setTitle(R.string.cart);
     }
+
+    @Override
+    public void loadProductDetailFragment(boolean addToBackStack) {
+        Fragment fragment = new ProductDetailFragment();
+        loadFragment(fragment, addToBackStack);
+        //getSupportActionBar().setTitle(R.string.cart);
+    }
+
 
     @Override
     public void startLoginActivity() {
         startActivity(new Intent(this, LoginActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
     }
 
-    private void loadFragment(Fragment fragment) {
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment, CatalogFragment.class.getName())
-                .commit();
+    private void loadFragment(Fragment fragment, boolean addToBackStack) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment, CatalogFragment.class.getName());
+
+        if(addToBackStack)
+            fragmentTransaction.addToBackStack(null);
+
+        fragmentTransaction.commit();
     }
 }

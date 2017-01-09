@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.view;
 import android.support.annotation.UiThread;
 
 import com.gjdev.hugo.gjant.data.api.model.User;
+import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 
 @UiThread
 public interface MainView {
@@ -19,13 +20,15 @@ public interface MainView {
 
     void showSnackbar(String message);
 
-    void loadHomeFragment();
+    void loadHomeFragment(boolean addToBackTrace);
 
-    void loadCatalogFragment();
+    void loadCatalogFragment(boolean addToBackTrace);
 
-    void loadOrdersFragment();
+    void loadOrdersFragment(boolean addToBackTrace);
 
-    void loadCartFragment();
+    void loadCartFragment(boolean addToBackTrace);
+
+    void loadProductDetailFragment(boolean addToBackStack);
 
     void startLoginActivity();
 

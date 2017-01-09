@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.injection;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.interactor.CartInteractor;
 import com.gjdev.hugo.gjant.interactor.impl.CartInteractorImpl;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -14,8 +15,8 @@ import dagger.Provides;
 @Module
 public final class CartViewModule {
     @Provides
-    public CartInteractor provideInteractor() {
-        return new CartInteractorImpl();
+    public CartInteractor provideInteractor(DaoSession daoSession) {
+        return new CartInteractorImpl(daoSession);
     }
 
     @Provides

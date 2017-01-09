@@ -27,5 +27,7 @@ public interface ProductDetailView {
 
     void changeProductPoster(Drawable image);
 
-    void startDetailProductFragment();
+    int getProductQuantity();
+
+    void startProductDetailFragment();
 }

@@ -10,5 +10,6 @@ public interface ProductDetailInteractor extends BaseInteractor {
 
     void postSelectedChildren(int id);
 
-    void addProductToCart();
+    void addProductToCart(int productQuantity);
+
 }

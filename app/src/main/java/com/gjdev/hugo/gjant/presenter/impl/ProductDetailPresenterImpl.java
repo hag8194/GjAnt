@@ -3,6 +3,8 @@ package com.gjdev.hugo.gjant.presenter.impl;
 import android.support.annotation.NonNull;
 
 import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
+import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
+import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
@@ -82,15 +84,25 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onClickedRelatedArticleListItem(ClickedRelatedArticleListItem listItem) {
         mInteractor.postSelectedChildren(mInteractor.getChildren(listItem.getAdapterPosition()).getId());
-        mView.startDetailProductFragment();
+        EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.PRODUCT_DETAIL_FRAGMENT));
     }
 
     @Override
     public void onAddToCart() {
-        mView.showSnackbar("Add to cart!!");
-        mInteractor.addProductToCart();
+        mInteractor.addProductToCart(mView.getProductQuantity());
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onNotifyProductCartStatus(NotifyProductCartStatus productStatus) {
+        mView.showSnackbar(productStatus.getMessage());
+    }
+
+    @Override
+    public void onSelectCartMenuItem() {
+        EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.CART_FRAGMENT));
     }
 }

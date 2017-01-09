@@ -25,4 +25,5 @@
     <string name="settings">Settings</string>
     <string name="search">Search</string>
     <string name="file_cart" translatable="false">file_cart</string>
+    <string name="product_saved_cart_message">The product has been saved in cart</string>
 </resources>

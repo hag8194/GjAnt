@@ -2,9 +2,14 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.view.MainView;
 import com.gjdev.hugo.gjant.interactor.MainInteractor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -27,18 +32,19 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         super.onStart(firstStart);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
+        EventBus.getDefault().register(this);
 
         mView.setupToolbar();
         mView.setupDrawerToggle();
         mView.setupNavigationView();
         mView.setupNavigationHeader(mInteractor.getUser());
-        mView.loadCatalogFragment();
+        mView.loadCatalogFragment(false);
     }
 
     @Override
     public void onStop() {
         // Your code here, mView will be null after this method until next onStart()
-
+        EventBus.getDefault().unregister(this);
         super.onStop();
     }
 
@@ -54,22 +60,22 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
 
     @Override
     public void onHomeOptionSelected() {
-        mView.loadHomeFragment();
+        mView.loadHomeFragment(false);
     }
 
     @Override
     public void onCatalogOptionSelected() {
-        mView.loadCatalogFragment();
+        mView.loadCatalogFragment(false);
     }
 
     @Override
     public void onOrdersOptionSelected() {
-        mView.loadOrdersFragment();
+        mView.loadOrdersFragment(false);
     }
 
     @Override
     public void onCartOptionSelected() {
-        mView.loadCartFragment();
+        mView.loadCartFragment(false);
     }
 
     @Override
@@ -85,6 +91,20 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
     @Override
     public void onSettingsOptionSelected() {
         mView.showSnackbar("Settings!!");
+    }
+
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNotifyChangeOfFragment(NotifyChangeOfFragment changeOfFragment) {
+        switch (changeOfFragment.getFragment()) {
+            case NotifyChangeOfFragment.PRODUCT_DETAIL_FRAGMENT:
+                mView.loadProductDetailFragment(true);
+                break;
+            case NotifyChangeOfFragment.CART_FRAGMENT:
+                mView.loadCartFragment(true);
+                break;
+        }
     }
 
 

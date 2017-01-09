@@ -80,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/label_quantity"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 android:layout_marginTop="8dp"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 app:layout_constraintLeft_toLeftOf="@+id/label_quantity" />
 
             <TextView

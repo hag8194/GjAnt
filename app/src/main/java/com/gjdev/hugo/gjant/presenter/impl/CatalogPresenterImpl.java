@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.presenter.impl;
 import android.support.annotation.NonNull;
 
 import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
+import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.RefreshedList;
 import com.gjdev.hugo.gjant.data.api.event.products.ErrorProductsRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.products.FailProductsRetrieve;
@@ -89,7 +90,8 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onClickedProductListItem(ClickedProductListItem listItem) {
         mInteractor.postSelectedProduct(mInteractor.getProduct(listItem.getAdapterPosition()).getId());
-        mView.startDetailProductFragment();
+        //mView.startDetailProductFragment();
+        EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.PRODUCT_DETAIL_FRAGMENT));
     }
 
     @Override

@@ -23,4 +23,5 @@
     <string name="logout">Cerrar Sesión</string>
     <string name="settings">Configuración</string>
     <string name="search">Buscar</string>
+    <string name="product_saved_cart_message">El producto se ha guardado en el carrito</string>
 </resources>

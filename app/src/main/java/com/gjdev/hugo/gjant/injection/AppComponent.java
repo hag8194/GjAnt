@@ -9,6 +9,8 @@ import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
+import org.greenrobot.greendao.database.Database;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -30,6 +32,8 @@ public interface AppComponent {
     ApiErrorHandler getApiErrorHandler();
 
     ApiService getApiService();
+
+    Database getDatabase();
 
     DaoSession getDaoSession();
 }
