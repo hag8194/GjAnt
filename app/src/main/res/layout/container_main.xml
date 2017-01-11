@@ -6,7 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.gjdev.hugo.gjant.view.impl.MainActivity"
-    android:elevation="1dp" >
+    android:elevation="1dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_collapseMode="parallax"
+    app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|enterAlwaysCollapsed"
+    android:fitsSystemWindows="false">
 
     <include
         layout="@layout/toolbar" />
