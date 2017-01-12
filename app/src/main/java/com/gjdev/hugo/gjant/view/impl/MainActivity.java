@@ -1,6 +1,7 @@
 package com.gjdev.hugo.gjant.view.impl;
 
 import android.content.Intent;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -28,6 +29,7 @@ import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.MainViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerMainViewComponent;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 
@@ -52,8 +54,11 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
 
-    @BindArray(R.array.drawer_options)
-    String mDrawerOptions[];
+    /*@BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;*/
+
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private FragmentManager fragmentManager;

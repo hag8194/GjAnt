@@ -5,21 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.gjdev.hugo.gjant.view.impl.MainActivity"
-    android:elevation="1dp"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:layout_collapseMode="parallax"
-    app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlways|enterAlwaysCollapsed"
-    android:fitsSystemWindows="false">
+    tools:context="com.gjdev.hugo.gjant.view.impl.MainActivity">
 
-    <include
-        layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"/>
 
-    <FrameLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:id="@+id/container"/>
+        android:id="@+id/container" />
 
 </android.support.design.widget.CoordinatorLayout>

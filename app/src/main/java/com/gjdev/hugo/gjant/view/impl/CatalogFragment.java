@@ -28,6 +28,8 @@ import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.CatalogViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerCatalogViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductListAdapter;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -71,6 +73,7 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
         setHasOptionsMenu(true);
 
+
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
     }
@@ -85,12 +88,41 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_catalog_menu, menu);
 
-        SearchManager searchManager = (SearchManager) mAppContext.getSystemService(Context.SEARCH_SERVICE);
+        //SearchManager searchManager = (SearchManager) mAppContext.getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.app_bar_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        MaterialSearchView searchView = ButterKnife.findById(getActivity(), R.id.search_view);
+        searchView.setVisibility(View.VISIBLE);
+        searchView.setMenuItem(searchItem);
+
+        /*searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });*/
+        /*SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
+                searchManager.getSearchableInfo(getActivity().getComponentName()));*/
     }
 
     @Override
