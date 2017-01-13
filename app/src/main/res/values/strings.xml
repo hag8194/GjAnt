@@ -26,4 +26,7 @@
     <string name="search">Search</string>
     <string name="file_cart" translatable="false">file_cart</string>
     <string name="product_saved_cart_message">The product has been saved in cart</string>
+    <string name="select_client">Select Client</string>
+    <string name="complete_form">Complete Form</string>
+    <string name="review_order">Review Order</string>
 </resources>

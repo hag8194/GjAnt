@@ -56,7 +56,7 @@ public class RelatedArticlesAdapter extends BaseAdapter<RelatedArticlesAdapter.V
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.related_articles_item, parent, false);
+                .inflate(R.layout.item_related_articles, parent, false);
 
         return new RelatedArticlesAdapter.ViewHolder(v);
     }

@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public final class CartFragment extends BaseFragment<CartPresenter, CartView> implements CartView {
     @Inject
@@ -43,6 +45,11 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
 
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
+
+    @OnClick(R.id.create_order)
+    void onClickActionButton() {
+        mPresenter.onClickCreateOrderButton();
+    }
 
     private CartListAdapter adapter;
 

@@ -30,6 +30,8 @@ public interface MainView {
 
     void loadProductDetailFragment(boolean addToBackStack);
 
+    void loadCreateOrderFragment(boolean addToBackStack);
+
     void startLoginActivity();
 
     void finish();

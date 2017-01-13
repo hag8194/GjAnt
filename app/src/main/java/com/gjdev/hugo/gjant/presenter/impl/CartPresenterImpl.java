@@ -93,4 +93,9 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
         mView.notifyDataChanged();
         mView.stopRefreshing();
     }
+
+    @Override
+    public void onClickCreateOrderButton() {
+        EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.CREATE_ORDER_FRAGMENT));
+    }
 }

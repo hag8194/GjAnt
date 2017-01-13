@@ -2,32 +2,29 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
-import com.gjdev.hugo.gjant.presenter.CreateOrderPresenter;
-import com.gjdev.hugo.gjant.view.CreateOrderView;
-import com.gjdev.hugo.gjant.interactor.CreateOrderInteractor;
+import com.gjdev.hugo.gjant.presenter.ReviewOrderPresenter;
+import com.gjdev.hugo.gjant.view.ReviewOrderView;
+import com.gjdev.hugo.gjant.interactor.ReviewOrderInteractor;
 
 import javax.inject.Inject;
 
-public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrderView> implements CreateOrderPresenter {
+public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrderView> implements ReviewOrderPresenter {
     /**
      * The interactor
      */
     @NonNull
-    private final CreateOrderInteractor mInteractor;
+    private final ReviewOrderInteractor mInteractor;
 
     // The view is available using the mView variable
 
     @Inject
-    public CreateOrderPresenterImpl(@NonNull CreateOrderInteractor interactor) {
+    public ReviewOrderPresenterImpl(@NonNull ReviewOrderInteractor interactor) {
         mInteractor = interactor;
     }
 
     @Override
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
-
-        if(firstStart)
-            mView.setupStepper();
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }

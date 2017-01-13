@@ -65,7 +65,7 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cart_list_item, parent, false);
+                .inflate(R.layout.item_cart_list, parent, false);
 
         return new CartListAdapter.ViewHolder(v);
     }

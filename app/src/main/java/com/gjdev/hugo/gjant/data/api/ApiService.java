@@ -1,5 +1,6 @@
 package com.gjdev.hugo.gjant.data.api;
 
+import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 
 import java.util.List;
@@ -21,5 +22,8 @@ public interface ApiService
 
     @GET("products/{id}?expand=tags,productImages,children")
     Call<Product> product(@Path("id") int id, @Query("access-token") String accessToken);
+
+    @GET("client-wallets/search")
+    Call<List<ClientWallet>> clientWallet(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
 }

@@ -17,4 +17,6 @@ public interface CartPresenter extends BasePresenter<CartView> {
     void onRefreshRequest();
 
     void onRefreshedList(RefreshedList refreshedList);
+
+    void onClickCreateOrderButton();
 }

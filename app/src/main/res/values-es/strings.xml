@@ -24,4 +24,7 @@
     <string name="settings">Configuración</string>
     <string name="search">Buscar</string>
     <string name="product_saved_cart_message">El producto se ha guardado en el carrito</string>
+    <string name="review_order">Verificar Orden</string>
+    <string name="select_client">Seleccionar Cliente</string>
+    <string name="complete_form">Completar Formulario</string>
 </resources>

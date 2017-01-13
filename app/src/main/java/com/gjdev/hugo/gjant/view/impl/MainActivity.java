@@ -201,6 +201,11 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
         //getSupportActionBar().setTitle(R.string.cart);
     }
 
+    @Override
+    public void loadCreateOrderFragment(boolean addToBackStack) {
+        Fragment fragment = new CreateOrderFragment();
+        loadFragment(fragment, addToBackStack);
+    }
 
     @Override
     public void startLoginActivity() {

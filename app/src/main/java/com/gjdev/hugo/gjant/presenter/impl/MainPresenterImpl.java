@@ -104,6 +104,9 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
             case NotifyChangeOfFragment.CART_FRAGMENT:
                 mView.loadCartFragment(true);
                 break;
+            case NotifyChangeOfFragment.CREATE_ORDER_FRAGMENT:
+                mView.loadCreateOrderFragment(true);
+                break;
         }
     }
 

@@ -2,32 +2,29 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
-import com.gjdev.hugo.gjant.presenter.CreateOrderPresenter;
-import com.gjdev.hugo.gjant.view.CreateOrderView;
-import com.gjdev.hugo.gjant.interactor.CreateOrderInteractor;
+import com.gjdev.hugo.gjant.presenter.OrderFormPresenter;
+import com.gjdev.hugo.gjant.view.OrderFormView;
+import com.gjdev.hugo.gjant.interactor.OrderFormInteractor;
 
 import javax.inject.Inject;
 
-public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrderView> implements CreateOrderPresenter {
+public final class OrderFormPresenterImpl extends BasePresenterImpl<OrderFormView> implements OrderFormPresenter {
     /**
      * The interactor
      */
     @NonNull
-    private final CreateOrderInteractor mInteractor;
+    private final OrderFormInteractor mInteractor;
 
     // The view is available using the mView variable
 
     @Inject
-    public CreateOrderPresenterImpl(@NonNull CreateOrderInteractor interactor) {
+    public OrderFormPresenterImpl(@NonNull OrderFormInteractor interactor) {
         mInteractor = interactor;
     }
 
     @Override
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
-
-        if(firstStart)
-            mView.setupStepper();
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
