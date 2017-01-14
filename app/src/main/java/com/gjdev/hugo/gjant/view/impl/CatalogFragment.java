@@ -157,6 +157,7 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
     @Override
     public void setupSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -6,6 +6,6 @@
     <color name="green">#00a65a</color>
     <color name="primary">#3c8dbc</color>
     <color name="light_grey">#eeeeee</color>
-    <color name="primary_text_material_dark">#000000</color>
+    <color name="primary_text_material_dark">#212121</color>
     <color name="primary_text_material_light">#000000</color>
 </resources>

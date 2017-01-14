@@ -1,6 +1,5 @@
 package com.gjdev.hugo.gjant.view.impl.adapter;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -15,16 +14,13 @@ import com.stepstone.stepper.adapter.AbstractStepAdapter;
  */
 
 public class CreateOrderStepperAdapter extends AbstractStepAdapter {
-    private static String CURRENT_STEP_POSITION_KEY = "key";
-
     public CreateOrderStepperAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
-    protected Fragment createStep(int position) {
+    public Fragment createStep(int position) {
         Fragment fragment = null;
-        Log.d(getClass().getName(),"Position: " + position);
         switch (position){
             case 0:
                 fragment = new SelectClientFragment();

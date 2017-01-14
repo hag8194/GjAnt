@@ -1,4 +1,4 @@
-package com.gjdev.hugo.gjant.data.event;
+package com.gjdev.hugo.gjant.data.sql.event;
 
 import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 

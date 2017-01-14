@@ -68,20 +68,20 @@ public final class SelectClientPresenterImpl extends BasePresenterImpl<SelectCli
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessClientWalletRetrieve(SuccessClientWalletRetrieve retrieve) {
         mView.setupAdapter(retrieve.getClientWallet());
-        //mView.hideProgressBar();
+        mView.hideProgressBar();
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onErrorClientWalletRetrieve(ErrorClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.errorMessage(retrieve.getApiError()));
-        //mView.hideProgressBar();
+        mView.hideProgressBar();
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFailClientWalletRetrieve(FailClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.failureMessage(retrieve.getThrowable()));
-        //mView.hideProgressBar();
+        mView.hideProgressBar();
     }
 }

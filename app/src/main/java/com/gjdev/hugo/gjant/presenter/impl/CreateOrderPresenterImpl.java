@@ -26,9 +26,8 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
 
-        if(firstStart)
-            mView.setupStepper();
-
+        mView.setupToolbar();
+        mView.setupStepper();
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
 

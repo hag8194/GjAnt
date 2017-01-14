@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/product_name"
-            android:textColor="@android:color/black"
+            android:textColor="@color/grey_900"
             android:fontFamily="sans-serif"
             app:layout_constraintTop_toTopOf="@+id/product_poster"
             android:layout_marginStart="16dp"

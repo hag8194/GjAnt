@@ -17,4 +17,14 @@
         <item name="android:textColorPrimary">@color/primary_text_material_light</item>
         <item name="android:colorForeground">@android:color/black</item>
     </style>
+
+    <style name="CollapsingToolbarTextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CollapsingToolbarTextAppearance.Expanded">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="CollapsingToolbarTextAppearance.Collapsed"></style>
 </resources>

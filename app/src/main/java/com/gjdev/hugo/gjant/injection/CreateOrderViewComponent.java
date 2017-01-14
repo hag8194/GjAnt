@@ -1,11 +1,11 @@
 package com.gjdev.hugo.gjant.injection;
 
-import com.gjdev.hugo.gjant.view.impl.CreateOrderFragment;
+import com.gjdev.hugo.gjant.view.impl.CreateOrderActivity;
 
 import dagger.Component;
 
-@FragmentScope
+@ActivityScope
 @Component(dependencies = AppComponent.class, modules = CreateOrderViewModule.class)
 public interface CreateOrderViewComponent {
-    void inject(CreateOrderFragment fragment);
+    void inject(CreateOrderActivity activity);
 }

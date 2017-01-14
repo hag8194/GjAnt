@@ -4,5 +4,8 @@ import android.support.annotation.UiThread;
 
 @UiThread
 public interface CreateOrderView {
+
+    void setupToolbar();
+
     void setupStepper();
 }

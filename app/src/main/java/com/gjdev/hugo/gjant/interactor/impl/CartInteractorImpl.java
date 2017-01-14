@@ -1,11 +1,9 @@
 package com.gjdev.hugo.gjant.interactor.impl;
 
-import android.util.Log;
-
 import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
-import com.gjdev.hugo.gjant.data.event.SuccessCartProductsRetrieve;
+import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 import com.gjdev.hugo.gjant.interactor.CartInteractor;

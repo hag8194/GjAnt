@@ -1,6 +1,7 @@
 package com.gjdev.hugo.gjant.view.impl;
 
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -44,6 +45,12 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     PresenterFactory<MainPresenter> mPresenterFactory;
 
     // Your presenter is available using the mPresenter variable
+
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
+
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -170,28 +177,36 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadHomeFragment(boolean addToBackTrace) {
         Fragment fragment = new HomeFragment();
         loadFragment(fragment, addToBackTrace);
-        getSupportActionBar().setTitle(R.string.home);
+        //getSupportActionBar().setTitle(R.string.home);
+        mAppBarLayout.setExpanded(true, true);
+        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.home));
     }
 
     @Override
     public void loadCatalogFragment(boolean addToBackTrace) {
         Fragment fragment = new CatalogFragment();
         loadFragment(fragment, addToBackTrace);
-        getSupportActionBar().setTitle(R.string.catalog);
+        //getSupportActionBar().setTitle(R.string.catalog);
+        mAppBarLayout.setExpanded(true, true);
+        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.catalog));
     }
 
     @Override
     public void loadOrdersFragment(boolean addToBackTrace) {
         Fragment fragment = new OrdersFragment();
         loadFragment(fragment, addToBackTrace);
-        getSupportActionBar().setTitle(R.string.orders);
+        //getSupportActionBar().setTitle(R.string.orders);
+        mAppBarLayout.setExpanded(true, true);
+        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.orders));
     }
 
     @Override
     public void loadCartFragment(boolean addToBackTrace) {
         Fragment fragment = new CartFragment();
         loadFragment(fragment, addToBackTrace);
-        getSupportActionBar().setTitle(R.string.cart);
+        //getSupportActionBar().setTitle(R.string.cart);
+        mAppBarLayout.setExpanded(true, true);
+        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.cart));
     }
 
     @Override
@@ -203,8 +218,9 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
     @Override
     public void loadCreateOrderFragment(boolean addToBackStack) {
-        Fragment fragment = new CreateOrderFragment();
-        loadFragment(fragment, addToBackStack);
+        startActivity(new Intent(this, CreateOrderActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
+        /*Fragment fragment = new CreateOrderFragment();
+        loadFragment(fragment, addToBackStack);*/
     }
 
     @Override
