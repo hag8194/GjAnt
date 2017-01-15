@@ -29,15 +29,4 @@
 
     </com.stepstone.stepper.StepperLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:fabSize="mini"
-        app:srcCompat="@drawable/ic_add_white_24dp"
-        android:id="@+id/floatingActionButton"
-        app:layout_anchor="@+id/stepperLayout"
-        app:layout_anchorGravity="top|right"
-        android:layout_gravity="center_vertical|left"
-        android:layout_marginRight="8dp" />
 </android.support.design.widget.CoordinatorLayout>

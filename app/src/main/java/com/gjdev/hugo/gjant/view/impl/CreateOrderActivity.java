@@ -65,8 +65,11 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     @Override
     public void setupToolbar() {
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle("Create Order");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getSupportActionBar().setTitle(R.string.create_order);
     }
 
     @Override
