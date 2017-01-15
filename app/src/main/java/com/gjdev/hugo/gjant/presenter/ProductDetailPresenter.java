@@ -9,7 +9,7 @@ import com.gjdev.hugo.gjant.view.ProductDetailView;
 
 public interface ProductDetailPresenter extends BasePresenter<ProductDetailView> {
 
-    void onSelectProduct(SelectedProduct selectedProduct);
+    void onSelectedProduct(SelectedProduct selectedProduct);
 
     void onSuccessProductRetrieve(SuccessProductRetrieve retrieve);
 

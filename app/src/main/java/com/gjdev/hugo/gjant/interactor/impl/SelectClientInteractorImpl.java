@@ -1,5 +1,7 @@
 package com.gjdev.hugo.gjant.interactor.impl;
 
+import android.content.Context;
+
 import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
@@ -10,6 +12,7 @@ import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetri
 import com.gjdev.hugo.gjant.data.api.model.ApiError;
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 import com.gjdev.hugo.gjant.data.api.model.User;
+import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
 import com.gjdev.hugo.gjant.interactor.SelectClientInteractor;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
@@ -67,6 +70,16 @@ public final class SelectClientInteractorImpl implements SelectClientInteractor 
     @Override
     public ClientWallet getClientWallet(int position) {
         return clientWalletList.get(position);
+    }
+
+    @Override
+    public void saveSelectedClientWalletPosition(int adapterPosition) {
+        mInternalStorageHandler.saveInteger(R.string.selected_client_wallet_position, adapterPosition, Context.MODE_PRIVATE);
+    }
+
+    @Override
+    public int retrieveSelectedClientWalletPosition() {
+        return mInternalStorageHandler.readInteger(R.string.selected_client_wallet_position);
     }
 
     @Override

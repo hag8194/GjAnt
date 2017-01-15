@@ -64,7 +64,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
 
     @Override
     @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
-    public void onSelectProduct(SelectedProduct selectedProduct) {
+    public void onSelectedProduct(SelectedProduct selectedProduct) {
         mInteractor.retrieveProductDetail(selectedProduct.getId());
     }
 

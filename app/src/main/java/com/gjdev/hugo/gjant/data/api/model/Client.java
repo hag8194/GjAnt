@@ -13,6 +13,7 @@ public class Client implements java.io.Serializable {
     private String fullname;
     private String phone1;
     private Address address;
+    private Links _links;
 
     public String getIdentification() {
         return this.identification;
@@ -100,5 +101,13 @@ public class Client implements java.io.Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Links get_links() {
+        return _links;
+    }
+
+    public void set_links(Links _links) {
+        this._links = _links;
     }
 }

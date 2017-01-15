@@ -74,20 +74,6 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
         setupComponent(((GjAntApplication) getActivity().getApplication()).getAppComponent());
     }
 
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_catalog, container, false);
-        //unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        //if(unbinder != null)
-            //unbinder.unbind();
-    }*/
-
     @Override
     public void onStart() {
         super.onStart();
@@ -123,8 +109,6 @@ public abstract class BaseFragment<P extends BasePresenter<V>, V> extends Fragme
 
         super.onStop();
     }
-
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

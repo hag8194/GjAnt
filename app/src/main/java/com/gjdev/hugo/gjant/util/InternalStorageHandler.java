@@ -5,9 +5,12 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +38,16 @@ public class InternalStorageHandler {
         catch (IOException e) { e.printStackTrace(); }
     }
 
+    public void saveInteger(int fileNameStringResId, int data, int MODE){
+        String mFilename = getStringResource(fileNameStringResId);
+        try{
+            FileOutputStream outputStream = mContext.openFileOutput(mFilename, MODE);
+            outputStream.write(data);
+            outputStream.close();
+        }
+        catch (IOException e) { e.printStackTrace(); }
+    }
+
     public Object readObject(int fileNameStringResId) {
         String mFilename = getStringResource(fileNameStringResId);
         Object object = null;
@@ -46,6 +59,18 @@ public class InternalStorageHandler {
         catch (IOException|ClassNotFoundException e) { e.printStackTrace(); }
 
         return object;
+    }
+
+    public int readInteger(int fileNameStringResId){
+        String mFilename = getStringResource(fileNameStringResId);
+        int data = -1;
+        try {
+            FileInputStream inputStream = mContext.openFileInput(mFilename);
+            data = inputStream.read();
+            inputStream.close();
+        }catch (IOException e){}
+
+        return data;
     }
 
     public boolean deleteObject(int fileNameStringResId) {

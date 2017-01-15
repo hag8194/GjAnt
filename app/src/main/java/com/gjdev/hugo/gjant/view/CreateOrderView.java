@@ -8,4 +8,6 @@ public interface CreateOrderView {
     void setupToolbar();
 
     void setupStepper();
+
+    void collapseAppBarLayout();
 }

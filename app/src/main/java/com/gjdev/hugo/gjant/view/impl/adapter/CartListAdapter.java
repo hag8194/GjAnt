@@ -77,6 +77,8 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
 
         Picasso.with(holder.itemView.getContext())
                 .load(poster_url)
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .into(holder.productPoster);
 
         holder.productName.setText(product.getName());

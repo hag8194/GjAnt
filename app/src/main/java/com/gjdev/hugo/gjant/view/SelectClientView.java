@@ -1,6 +1,7 @@
 package com.gjdev.hugo.gjant.view;
 
 import android.support.annotation.UiThread;
+import android.widget.ImageView;
 
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 
@@ -18,4 +19,8 @@ public interface SelectClientView {
     void setupRecyclerView();
 
     void setupAdapter(List<ClientWallet> clientWallets);
+
+    void loadSelectedAddImage(int adapterPosition);
+
+    void changeSelectedAddImage(ImageView imageView);
 }

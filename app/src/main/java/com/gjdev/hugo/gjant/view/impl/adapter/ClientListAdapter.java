@@ -1,14 +1,20 @@
 package com.gjdev.hugo.gjant.view.impl.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
+import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
+import com.gjdev.hugo.gjant.util.RoundedTransformation;
+import com.squareup.picasso.Picasso;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -28,14 +34,25 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.client_avatar)
-        ImageButton client_avatar;
+        ImageView client_avatar;
 
         @BindView(R.id.client_fullname)
         TextView client_fullname;
 
-        public ViewHolder(View itemView) {
+        @BindView(R.id.select_client)
+        ImageView add_image;
+
+        public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            add_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new ClickedClientWalletListItem(v, getAdapterPosition()));
+                    Log.d(this.getClass().getName(), String.valueOf(getAdapterPosition()));
+                }
+            });
         }
     }
 
@@ -52,6 +69,10 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
         ClientWallet clientWallet = mClientWalletList.get(position);
 
         holder.client_fullname.setText(clientWallet.getClient().getFullname());
+        Picasso.with(holder.itemView.getContext())
+                .load(clientWallet.getClient().get_links().getPoster().getHref())
+                .transform(new RoundedTransformation())
+                .into(holder.client_avatar);
     }
 
     @Override

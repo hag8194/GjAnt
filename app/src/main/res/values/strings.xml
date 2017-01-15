@@ -29,4 +29,12 @@
     <string name="select_client">Select Client</string>
     <string name="complete_form">Complete Form</string>
     <string name="review_order">Review Order</string>
+    <string name="you_must_select_a_customer">You must select a customer</string>
+    <string name="selected_client_wallet_position" translatable="false">selected_client_wallet</string>
+    <string-array name="order_type">
+        <item>Selecciona el tipo de pedido</item>
+        <item>Cotización</item>
+        <item>Orden de compra</item>
+    </string-array>
+    <string name="you_must_select_type">Yout must select a type</string>
 </resources>

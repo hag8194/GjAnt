@@ -6,12 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
@@ -31,21 +30,24 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public final class SelectClientFragment extends BaseFragment<SelectClientPresenter, SelectClientView> implements SelectClientView, Step {
     @Inject
     PresenterFactory<SelectClientPresenter> mPresenterFactory;
 
+    private static String FRAGMENT_SAVED_STATE;
+
     // Your presenter is available using the mPresenter variable
 
-    @BindView(R.id.client_list)
+    @BindView(R.id.client_wallet_list)
     RecyclerView mRecyclerView;
 
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
 
     private ClientListAdapter mAdapter;
+
+    private ImageView mOldSelectedAddImage;
 
     public SelectClientFragment() {
         // Required empty public constructor
@@ -62,7 +64,7 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Log.d(this.getClass().getName(), "onViewCreated");
+        //Log.d(this.getClass().getName(), "onViewCreated");
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
     }
@@ -95,7 +97,7 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
 
     @Override
     public VerificationError verifyStep() {
-        return null;
+        return mOldSelectedAddImage == null ? new VerificationError(getString(R.string.you_must_select_a_customer)) : null;
     }
 
     @Override
@@ -105,7 +107,7 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
 
     @Override
     public void onError(@NonNull VerificationError error) {
-
+        mPresenter.onHasError(error);
     }
 
     @Override
@@ -126,7 +128,6 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     @Override
     public void setupRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
-
     }
 
     @Override
@@ -136,4 +137,19 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
+
+    @Override
+    public void loadSelectedAddImage(int adapterPosition) {
+        mRecyclerView.findViewHolderForAdapterPosition(adapterPosition);
+    }
+
+    @Override
+    public void changeSelectedAddImage(ImageView imageView) {
+        if(mOldSelectedAddImage != null)
+            mOldSelectedAddImage.setImageResource(R.drawable.ic_add_black_24dp);
+
+        imageView.setImageResource(R.drawable.ic_add_color_primary_24dp);
+        mOldSelectedAddImage = imageView;
+    }
+
 }

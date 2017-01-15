@@ -3,9 +3,14 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.view.OrderFormView;
@@ -17,8 +22,11 @@ import com.gjdev.hugo.gjant.injection.DaggerOrderFormViewComponent;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, OrderFormView> implements OrderFormView, Step {
@@ -26,6 +34,14 @@ public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, Or
     PresenterFactory<OrderFormPresenter> mPresenterFactory;
 
     // Your presenter is available using the mPresenter variable
+
+    @BindView(R.id.order_type)
+    Spinner mSpinner;
+
+    @BindView(R.id.order_description)
+    EditText mEditText;
+
+    private int spinnerSelectedPosition = -1;
 
     public OrderFormFragment() {
         // Required empty public constructor
@@ -74,7 +90,7 @@ public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, Or
 
     @Override
     public VerificationError verifyStep() {
-        return null;
+        return spinnerSelectedPosition == -1 ? new VerificationError(getString(R.string.you_must_select_type)) : null;
     }
 
     @Override
@@ -84,6 +100,30 @@ public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, Or
 
     @Override
     public void onError(@NonNull VerificationError error) {
+        mPresenter.onHasError(error);
+    }
 
+    @Override
+    public void setupSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.order_type, android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);
+
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinnerSelectedPosition = position - 1;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    @Override
+    public void showSnackbar(String message) {
+        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
 }

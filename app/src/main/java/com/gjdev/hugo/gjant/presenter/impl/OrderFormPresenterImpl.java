@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.gjdev.hugo.gjant.presenter.OrderFormPresenter;
 import com.gjdev.hugo.gjant.view.OrderFormView;
 import com.gjdev.hugo.gjant.interactor.OrderFormInteractor;
+import com.stepstone.stepper.VerificationError;
 
 import javax.inject.Inject;
 
@@ -26,6 +27,8 @@ public final class OrderFormPresenterImpl extends BasePresenterImpl<OrderFormVie
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
 
+        mView.setupSpinner();
+
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
 
@@ -44,5 +47,10 @@ public final class OrderFormPresenterImpl extends BasePresenterImpl<OrderFormVie
          */
 
         super.onPresenterDestroyed();
+    }
+
+    @Override
+    public void onHasError(VerificationError error) {
+        mView.showSnackbar(error.getErrorMessage());
     }
 }

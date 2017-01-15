@@ -1,15 +1,19 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.widget.ImageView;
 
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.ErrorClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.FailClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetrieve;
+import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
+import com.gjdev.hugo.gjant.data.event.CollapseAppBarLayout;
+import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.presenter.SelectClientPresenter;
 import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.SelectClientView;
 import com.gjdev.hugo.gjant.interactor.SelectClientInteractor;
+import com.stepstone.stepper.VerificationError;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,6 +40,13 @@ public final class SelectClientPresenterImpl extends BasePresenterImpl<SelectCli
         super.onStart(firstStart);
         EventBus.getDefault().register(this);
 
+        mView.setupRecyclerView();
+        mInteractor.retrieveClientWallet();
+        int adapterPosition = mInteractor.retrieveSelectedClientWalletPosition();
+
+        if(adapterPosition != -1){
+            mView.loadSelectedAddImage(adapterPosition);
+        }
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
 
@@ -60,8 +71,12 @@ public final class SelectClientPresenterImpl extends BasePresenterImpl<SelectCli
 
     @Override
     public void onSelected() {
-        mView.setupRecyclerView();
-        mInteractor.retrieveClientWallet();
+
+    }
+
+    @Override
+    public void onHasError(VerificationError error) {
+        mView.showSnackbar(error.getErrorMessage());
     }
 
     @Override
@@ -83,5 +98,15 @@ public final class SelectClientPresenterImpl extends BasePresenterImpl<SelectCli
     public void onFailClientWalletRetrieve(FailClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.failureMessage(retrieve.getThrowable()));
         mView.hideProgressBar();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onClickedClientWalletListItem(ClickedClientWalletListItem clickedItem) {
+        EventBus.getDefault().postSticky(new SelectedClientWallet(mInteractor.getClientWallet(clickedItem.getAdapterPosition())));
+        mInteractor.saveSelectedClientWalletPosition(clickedItem.getAdapterPosition());
+
+        mView.changeSelectedAddImage((ImageView)clickedItem.getClickedView());
+        EventBus.getDefault().post(new CollapseAppBarLayout());
     }
 }

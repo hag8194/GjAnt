@@ -2,6 +2,8 @@ package com.gjdev.hugo.gjant.view.impl;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 
 import com.gjdev.hugo.gjant.R;
@@ -25,11 +27,14 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
 
     // Your presenter is available using the mPresenter variable
 
-    @BindView(R.id.stepperLayout)
-    StepperLayout mStepperLayout;
+    @BindView(R.id.app_bar_layout)
+    AppBarLayout mAppBarLayout;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.stepperLayout)
+    StepperLayout mStepperLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +72,10 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     @Override
     public void setupStepper() {
         mStepperLayout.setAdapter(new CreateOrderStepperAdapter(getSupportFragmentManager()));
+    }
+
+    @Override
+    public void collapseAppBarLayout() {
+        mAppBarLayout.setExpanded(false, true);
     }
 }

@@ -60,6 +60,8 @@ public class ProductImagesAdapter extends BaseAdapter<ProductImagesAdapter.ViewH
     public void onBindViewHolder(ViewHolder holder, int position) {
         Picasso.with(holder.itemView.getContext())
                 .load(productImagesList.get(position).getPath())
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .into(holder.productImage);
     }
 

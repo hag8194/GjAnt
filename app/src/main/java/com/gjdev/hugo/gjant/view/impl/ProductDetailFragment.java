@@ -186,6 +186,8 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     public void setProductData(Product product) {
         Picasso.with(getContext())
                 .load(product.get_links().getPoster().getHref())
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .into(productImage);
 
         productName.setText(product.getName());

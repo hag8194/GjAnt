@@ -67,6 +67,8 @@ public class RelatedArticlesAdapter extends BaseAdapter<RelatedArticlesAdapter.V
 
         Picasso.with(holder.itemView.getContext())
                 .load(children.get_links().getPoster().getHref())
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .into(holder.childrenProductImage);
 
         holder.childrenProductName.setText(children.getName());
