@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.gjdev.hugo.gjant.view.impl.MainActivity">
 
-    <include layout="@layout/toolbar"/>
+    <include layout="@layout/appbar"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -16,4 +16,15 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/container" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        android:id="@+id/floatingActionButton"
+        app:layout_anchor="@+id/imageView3"
+        app:layout_anchorGravity="bottom|right|end"
+        android:visibility="gone"
+        app:fabSize="normal" />
 </android.support.design.widget.CoordinatorLayout>

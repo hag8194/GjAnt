@@ -68,8 +68,6 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //getSupportActionBar().setTitle(R.string.create_order);
     }
 
     @Override
