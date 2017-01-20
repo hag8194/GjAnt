@@ -20,9 +20,11 @@ import com.gjdev.hugo.gjant.injection.DaggerReviewOrderViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.CartListAdapter;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
+
+import org.w3c.dom.Text;
+
 import java.util.List;
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
@@ -33,8 +35,14 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
 
     // Your presenter is available using the mPresenter variable
 
-    @BindViews({R.id.order_type, R.id.order_code, R.id.order_date, R.id.order_description, R.id.order_total})
+    @BindView(R.id.order_code)
+    TextView mOrderCode;
+
+    @BindViews({R.id.order_type, R.id.order_date, R.id.order_description})
     List<TextView> mOrderData;
+
+    @BindView(R.id.order_total)
+    TextView mOrderTotal;
 
     @BindViews({R.id.vendor_name, R.id.vendor_lastname, R.id.vendor_identification})
     List<TextView> mVendorData;
@@ -44,7 +52,6 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
 
     @BindView(R.id.product_list)
     RecyclerView mRecyclerViewProductList;
-
 
     public ReviewOrderFragment() {
         // Required empty public constructor
@@ -107,8 +114,18 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
     }
 
     @Override
+    public void setOrderCode(String code) {
+        mOrderCode.setText(code);
+    }
+
+    @Override
     public void setOrderData(String data[]) {
         setTextViews(mOrderData, data);
+    }
+
+    @Override
+    public void setOrderTotal(String total) {
+        mOrderTotal.setText(total);
     }
 
     @Override
@@ -116,6 +133,7 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
         setTextViews(mVendorData, data);
     }
 
+    @Override
     public void setClientData(String[] data) {
         setTextViews(mClientData, data);
     }

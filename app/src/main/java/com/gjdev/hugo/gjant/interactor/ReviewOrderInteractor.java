@@ -10,7 +10,4 @@ public interface ReviewOrderInteractor extends BaseInteractor {
 
     String getDate();
 
-    void retrieveProductsInCart();
-
-    String getTotal();
 }

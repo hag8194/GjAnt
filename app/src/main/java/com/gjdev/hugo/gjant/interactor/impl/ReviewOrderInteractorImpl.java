@@ -22,26 +22,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public final class ReviewOrderInteractorImpl implements ReviewOrderInteractor {
-    private ApiService mApiService;
-    private ApiErrorHandler mApiErrorHandler;
+public final class ReviewOrderInteractorImpl implements ReviewOrderInteractor {;
     private InternalStorageHandler mInternalStorageHandler;
-    private DaoSession mDaoSession;
-    private Context mContext;
-
     private String [] mOrderTypeList;
-    private List<SQLProduct> mProductList;
 
     @Inject
-    public ReviewOrderInteractorImpl(ApiService mApiService, ApiErrorHandler mApiErrorHandler,
-                                     InternalStorageHandler mInternalStorageHandler, DaoSession daoSession, Context context) {
-        this.mApiService = mApiService;
-        this.mApiErrorHandler = mApiErrorHandler;
+    public ReviewOrderInteractorImpl(InternalStorageHandler mInternalStorageHandler, Context context) {
         this.mInternalStorageHandler = mInternalStorageHandler;
-        this.mContext = context;
-        this.mDaoSession = daoSession;
-
-        mOrderTypeList = mContext.getResources().getStringArray(R.array.order_type);
+        mOrderTypeList = context.getResources().getStringArray(R.array.order_type);
     }
 
     @Override
@@ -61,36 +49,7 @@ public final class ReviewOrderInteractorImpl implements ReviewOrderInteractor {
     }
 
     @Override
-    public void retrieveProductsInCart() {
-        if(mProductList == null) {
-            mProductList = mDaoSession.getSQLProductDao().queryBuilder().list();
-            mDaoSession.getDatabase().close();
-            postEvent(SUCCESS_EVENT, null);
-        }
-        else
-            postEvent(SUCCESS_EVENT, null);
-    }
-
-    @Override
-    public String getTotal() {
-        double acum = 0.0;
-        int quantity;
-
-        for (SQLProduct product : mProductList) {
-            quantity = product.getQuantity();
-            acum += quantity * product.getPrice();
-        }
-
-        return String.valueOf(acum);
-    }
-
-    @Override
     public void postEvent(int kindOfEvent, Object object) {
-        EventBus eventBus = EventBus.getDefault();
-        switch (kindOfEvent){
-            case SUCCESS_EVENT:
-                eventBus.post(new SuccessCartProductsRetrieve(mProductList));
-                break;
-        }
+
     }
 }

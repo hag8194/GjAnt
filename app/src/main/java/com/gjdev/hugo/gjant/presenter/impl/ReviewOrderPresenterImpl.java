@@ -1,10 +1,10 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.gjdev.hugo.gjant.data.api.model.Client;
 import com.gjdev.hugo.gjant.data.api.model.User;
+import com.gjdev.hugo.gjant.data.event.NotifyOrderParams;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
 import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
@@ -37,7 +37,6 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
         super.onStart(firstStart);
         EventBus.getDefault().register(this);
 
-        mInteractor.retrieveProductsInCart();
         User user = mInteractor.getUser();
 
         mView.setVendorData(new String[]{
@@ -70,18 +69,6 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
 
     @Override
     @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void onValidOrderForm(ValidOrderForm validOrderForm) {
-        mView.setOrderData(new String[]{
-                mInteractor.getOrderType(validOrderForm.getTypePosition()),
-                "123456",
-                mInteractor.getDate(),
-                validOrderForm.getDescription().trim().equals("") ? "Sin descripción" : validOrderForm.getDescription(),
-                mInteractor.getTotal()
-        });
-    }
-
-    @Override
-    @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
     public void onSelectedClientWallet(SelectedClientWallet selectedClientWallet) {
         Client selectedClient = selectedClientWallet.getClientWallet().getClient();
         mView.setClientData(new String[]{
@@ -91,6 +78,23 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
                 selectedClient.getPhone2().isEmpty() ? "No tiene segundo teléfono" : selectedClient.getPhone2(),
                 selectedClient.getAddress().getName()
         });
+    }
+
+    @Override
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onValidOrderForm(ValidOrderForm validOrderForm) {
+        mView.setOrderData(new String[]{
+                mInteractor.getOrderType(validOrderForm.getTypePosition()),
+                mInteractor.getDate().trim(),
+                validOrderForm.getDescription().trim().equals("") ? "Sin descripción" : validOrderForm.getDescription()
+        });
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNotifyOrderParams(NotifyOrderParams notifyOrderParams) {
+        mView.setOrderCode(notifyOrderParams.getOrderCode());
+        mView.setOrderTotal(notifyOrderParams.getOrderTotal());
     }
 
     @Override

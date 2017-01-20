@@ -24,9 +24,20 @@
         app:ms_backButtonColor="@android:color/white"
         app:ms_nextButtonColor="@android:color/white"
         app:ms_completeButtonColor="@android:color/white"
+        app:ms_showErrorState="true"
         app:ms_tabStepDividerWidth="138dp"
         app:ms_bottomNavigationBackground="?attr/colorAccent" >
 
     </com.stepstone.stepper.StepperLayout>
+
+    <ProgressBar
+        style="@android:style/Widget.Material.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_bar"
+        android:layout_gravity="center|center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>

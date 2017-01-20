@@ -10,4 +10,6 @@ public interface CreateOrderView {
     void setupStepper();
 
     void collapseAppBarLayout();
+
+    void showProgressBar();
 }

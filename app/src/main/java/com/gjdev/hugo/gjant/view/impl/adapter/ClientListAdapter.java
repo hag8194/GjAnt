@@ -50,7 +50,6 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
                 @Override
                 public void onClick(View v) {
                     EventBus.getDefault().post(new ClickedClientWalletListItem(v, getAdapterPosition()));
-                    Log.d(this.getClass().getName(), String.valueOf(getAdapterPosition()));
                 }
             });
         }

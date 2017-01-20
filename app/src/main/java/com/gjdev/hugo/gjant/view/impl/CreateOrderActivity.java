@@ -1,11 +1,13 @@
 package com.gjdev.hugo.gjant.view.impl;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.view.CreateOrderView;
@@ -38,6 +40,9 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
 
     @BindView(R.id.stepperLayout)
     StepperLayout mStepperLayout;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,7 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
         mStepperLayout.setListener(new StepperLayout.StepperListener() {
             @Override
             public void onCompleted(View completeButton) {
-
+                mPresenter.onCompletedSteps();
             }
 
             @Override
@@ -89,7 +94,9 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
 
             @Override
             public void onStepSelected(int newStepPosition) {
-
+                if(newStepPosition == 2) {
+                    mPresenter.onSelectedReviewOrderStep();
+                }
             }
 
             @Override
@@ -102,5 +109,10 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     @Override
     public void collapseAppBarLayout() {
         mAppBarLayout.setExpanded(false, true);
+    }
+
+    @Override
+    public void showProgressBar() {
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 }

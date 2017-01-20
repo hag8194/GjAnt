@@ -1,8 +1,15 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.gjdev.hugo.gjant.data.api.event.createorder.ErrorCreateOrder;
+import com.gjdev.hugo.gjant.data.api.event.createorder.FailCreateOrder;
+import com.gjdev.hugo.gjant.data.api.event.createorder.SuccessCreateOrder;
 import com.gjdev.hugo.gjant.data.event.CollapseAppBarLayout;
+import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
+import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
+import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.CreateOrderPresenter;
 import com.gjdev.hugo.gjant.view.CreateOrderView;
 import com.gjdev.hugo.gjant.interactor.CreateOrderInteractor;
@@ -59,5 +66,53 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCollapseAppBarLayout(CollapseAppBarLayout collapseAppBarLayout) {
         mView.collapseAppBarLayout();
+    }
+
+    @Override
+    @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
+    public void onSelectedClientWallet(SelectedClientWallet selectedClientWallet) {
+        mInteractor.setSelectedClientWallet(selectedClientWallet);
+    }
+
+    @Override
+    @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
+    public void onValidOrderForm(ValidOrderForm validOrderForm) {
+        mInteractor.setValidOrderForm(validOrderForm);
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onSuccessCartProductsRetrieve(SuccessCartProductsRetrieve retrieve) {
+        mInteractor.postOrderParams();
+    }
+
+    @Override
+    public void onSelectedReviewOrderStep() {
+        mInteractor.createOrderCode();
+        mInteractor.retrieveProductsInCart();
+    }
+
+    @Override
+    public void onCompletedSteps() {
+        mView.showProgressBar();
+        mInteractor.createOrder();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onSuccessCreateOrder(SuccessCreateOrder successCreateOrder) {
+        Log.d(getClass().getName(), successCreateOrder.getResponseMessage().getMessage());
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onErrorCreateOrder(ErrorCreateOrder errorCreateOrder) {
+
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.ASYNC)
+    public void onFailCreateOrder(FailCreateOrder failCreateOrder) {
+
     }
 }
