@@ -23,8 +23,8 @@
         android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_add_white_24dp"
         android:id="@+id/floatingActionButton"
-        app:layout_anchor="@+id/imageView3"
-        app:layout_anchorGravity="bottom|right|end"
-        android:visibility="gone"
+        app:layout_anchor="@+id/app_bar_layout"
+        app:layout_anchorGravity="bottom|end"
         app:fabSize="normal" />
+
 </android.support.design.widget.CoordinatorLayout>
