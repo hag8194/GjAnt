@@ -101,7 +101,12 @@ public final class ProductDetailInteractorImpl implements ProductDetailInteracto
         else {
             SQLProduct item =  productList.remove(0);
             if(productQuantity != item.getQuantity()) {
+                item.setKey(product.getId());
+                item.setPoster_url(product.get_links().getPoster().getHref());
+                item.setName(product.getName());
+                item.setPrice(product.getPrice());
                 item.setQuantity(productQuantity);
+
                 sqlProductDao.update(item);
                 message = Messages.ProductCart.UPDATE_MESSAGE;
             }

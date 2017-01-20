@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.view.CreateOrderView;
@@ -15,6 +16,7 @@ import com.gjdev.hugo.gjant.injection.CreateOrderViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerCreateOrderViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.CreateOrderStepperAdapter;
 import com.stepstone.stepper.StepperLayout;
+import com.stepstone.stepper.VerificationError;
 
 import javax.inject.Inject;
 
@@ -22,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter, CreateOrderView> implements CreateOrderView {
+
     @Inject
     PresenterFactory<CreateOrderPresenter> mPresenterFactory;
 
@@ -72,7 +75,28 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
 
     @Override
     public void setupStepper() {
-        mStepperLayout.setAdapter(new CreateOrderStepperAdapter(getSupportFragmentManager()));
+        mStepperLayout.setAdapter(new CreateOrderStepperAdapter(getSupportFragmentManager(), this));
+        mStepperLayout.setListener(new StepperLayout.StepperListener() {
+            @Override
+            public void onCompleted(View completeButton) {
+
+            }
+
+            @Override
+            public void onError(VerificationError verificationError) {
+
+            }
+
+            @Override
+            public void onStepSelected(int newStepPosition) {
+
+            }
+
+            @Override
+            public void onReturn() {
+
+            }
+        });
     }
 
     @Override

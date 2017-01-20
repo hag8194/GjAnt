@@ -91,11 +91,6 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     }
 
     @Override
-    public int getName() {
-        return R.string.select_client;
-    }
-
-    @Override
     public VerificationError verifyStep() {
         return mOldSelectedAddImage == null ? new VerificationError(getString(R.string.you_must_select_a_customer)) : null;
     }

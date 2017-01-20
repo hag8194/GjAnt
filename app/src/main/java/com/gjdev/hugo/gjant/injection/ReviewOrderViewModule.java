@@ -1,8 +1,10 @@
 package com.gjdev.hugo.gjant.injection;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.gjdev.hugo.gjant.data.api.ApiService;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.interactor.ReviewOrderInteractor;
 import com.gjdev.hugo.gjant.interactor.impl.ReviewOrderInteractorImpl;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
@@ -18,8 +20,9 @@ import dagger.Provides;
 public final class ReviewOrderViewModule {
     @Provides
     public ReviewOrderInteractor provideInteractor(ApiService apiService, ApiErrorHandler apiErrorHandler,
-                                                   InternalStorageHandler internalStorageHandler) {
-        return new ReviewOrderInteractorImpl(apiService, apiErrorHandler, internalStorageHandler);
+                                                   InternalStorageHandler internalStorageHandler, Context context,
+                                                   DaoSession daoSession) {
+        return new ReviewOrderInteractorImpl(apiService, apiErrorHandler, internalStorageHandler, daoSession, context);
     }
 
     @Provides

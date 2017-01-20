@@ -19,17 +19,16 @@ import com.gjdev.hugo.gjant.presenter.OrderFormPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.OrderFormViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerOrderFormViewComponent;
-import com.stepstone.stepper.Step;
+import com.stepstone.stepper.BlockingStep;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, OrderFormView> implements OrderFormView, Step {
+public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, OrderFormView> implements OrderFormView, BlockingStep {
     @Inject
     PresenterFactory<OrderFormPresenter> mPresenterFactory;
 
@@ -84,11 +83,6 @@ public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, Or
     }
 
     @Override
-    public int getName() {
-        return R.string.review_order;
-    }
-
-    @Override
     public VerificationError verifyStep() {
         return spinnerSelectedPosition == -1 ? new VerificationError(getString(R.string.you_must_select_type)) : null;
     }
@@ -101,6 +95,17 @@ public final class OrderFormFragment extends BaseFragment<OrderFormPresenter, Or
     @Override
     public void onError(@NonNull VerificationError error) {
         mPresenter.onHasError(error);
+    }
+
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+        mPresenter.onNextClicked(mSpinner.getSelectedItemPosition(), mEditText.getText().toString());
+        callback.goToNextStep();
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+        callback.goToPrevStep();
     }
 
     @Override

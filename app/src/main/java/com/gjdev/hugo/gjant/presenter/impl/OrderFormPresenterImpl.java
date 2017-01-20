@@ -2,10 +2,13 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
 import com.gjdev.hugo.gjant.presenter.OrderFormPresenter;
 import com.gjdev.hugo.gjant.view.OrderFormView;
 import com.gjdev.hugo.gjant.interactor.OrderFormInteractor;
 import com.stepstone.stepper.VerificationError;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -52,5 +55,10 @@ public final class OrderFormPresenterImpl extends BasePresenterImpl<OrderFormVie
     @Override
     public void onHasError(VerificationError error) {
         mView.showSnackbar(error.getErrorMessage());
+    }
+
+    @Override
+    public void onNextClicked(int selectedItemPosition, String description) {
+        EventBus.getDefault().postSticky(new ValidOrderForm(selectedItemPosition, description));
     }
 }

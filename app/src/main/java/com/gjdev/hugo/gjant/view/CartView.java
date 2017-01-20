@@ -9,6 +9,7 @@ import java.util.List;
 
 @UiThread
 public interface CartView {
+
     void showProgressBar();
 
     void hideProgressBar();
@@ -26,4 +27,5 @@ public interface CartView {
     void stopRefreshing();
 
     void startProductDetailFragment();
+
 }

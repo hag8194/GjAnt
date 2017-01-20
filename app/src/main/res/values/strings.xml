@@ -38,4 +38,20 @@
     </string-array>
     <string name="you_must_select_type">Yout must select a type</string>
     <string name="create_order">Create Order</string>
+    <string name="name">Name</string>
+    <string name="lastname">Lastname</string>
+    <string name="identification">Identification</string>
+    <string name="assigned_vendor">Assigned Vendor</string>
+    <string name="client_data">Client Data</string>
+    <string name="fullname">Fullname</string>
+    <string name="phone1">Phone 1</string>
+    <string name="phone2">Phone 2</string>
+    <string name="address">Address</string>
+    <string name="type">Type</string>
+    <string name="enterprise_data">Enterprise Data</string>
+    <string name="products">Products</string>
+    <string name="date">Date</string>
+    <string name="order_code">Order Code</string>
+    <string name="total">Total</string>
+    <string name="bs" translatable="false">Bs</string>
 </resources>

@@ -116,8 +116,6 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     public void setupRecyclerView() {
         mRecyclerViewProductList.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        //GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        //StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, 1);
         mRecyclerViewProductList.setLayoutManager(mLayoutManager);
     }
 

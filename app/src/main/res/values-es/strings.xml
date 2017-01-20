@@ -30,4 +30,19 @@
     <string name="you_must_select_a_customer">Debe seleccionar un cliente</string>
     <string name="you_must_select_type">Debe seleccionar un tipo</string>
     <string name="create_order">Crear Pedido</string>
+    <string name="identification">Identificación</string>
+    <string name="lastname">Apellido</string>
+    <string name="name">Nombre</string>
+    <string name="assigned_vendor">Vendedor Asignado</string>
+    <string name="address">Dirección</string>
+    <string name="client_data">Datos del Cliente</string>
+    <string name="fullname">Nombre Completo</string>
+    <string name="phone1">Teléfono 1</string>
+    <string name="phone2">Teléfono 2</string>
+    <string name="type">Tipo</string>
+    <string name="enterprise_data">Datos de la Empresa</string>
+    <string name="products">Productos</string>
+    <string name="date">Fecha</string>
+    <string name="order_code">Código de la Orden</string>
+    <string name="total">Total</string>
 </resources>

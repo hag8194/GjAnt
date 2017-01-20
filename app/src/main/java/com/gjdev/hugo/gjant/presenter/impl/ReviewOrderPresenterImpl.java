@@ -3,7 +3,11 @@ package com.gjdev.hugo.gjant.presenter.impl;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.gjdev.hugo.gjant.data.api.model.Client;
+import com.gjdev.hugo.gjant.data.api.model.User;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
+import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
+import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.ReviewOrderPresenter;
 import com.gjdev.hugo.gjant.view.ReviewOrderView;
 import com.gjdev.hugo.gjant.interactor.ReviewOrderInteractor;
@@ -32,6 +36,16 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
     public void onStart(boolean firstStart) {
         super.onStart(firstStart);
         EventBus.getDefault().register(this);
+
+        mInteractor.retrieveProductsInCart();
+        User user = mInteractor.getUser();
+
+        mView.setVendorData(new String[]{
+            user.getEmployer().getName(),
+            user.getEmployer().getLastname(),
+            user.getEmployer().getIdentification()
+        });
+
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
 
@@ -55,8 +69,33 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
     }
 
     @Override
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onValidOrderForm(ValidOrderForm validOrderForm) {
+        mView.setOrderData(new String[]{
+                mInteractor.getOrderType(validOrderForm.getTypePosition()),
+                "123456",
+                mInteractor.getDate(),
+                validOrderForm.getDescription().trim().equals("") ? "Sin descripción" : validOrderForm.getDescription(),
+                mInteractor.getTotal()
+        });
+    }
+
+    @Override
     @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
     public void onSelectedClientWallet(SelectedClientWallet selectedClientWallet) {
-        Log.d(getClass().getName(), selectedClientWallet.getClientWallet().getClient().getFullname());
+        Client selectedClient = selectedClientWallet.getClientWallet().getClient();
+        mView.setClientData(new String[]{
+                selectedClient.getFullname(),
+                selectedClient.getIdentification(),
+                selectedClient.getPhone1(),
+                selectedClient.getPhone2().isEmpty() ? "No tiene segundo teléfono" : selectedClient.getPhone2(),
+                selectedClient.getAddress().getName()
+        });
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSuccessCartProductsRetrieve(SuccessCartProductsRetrieve retrieve) {
+        mView.setupRecyclerView(retrieve.getProducts());
     }
 }
