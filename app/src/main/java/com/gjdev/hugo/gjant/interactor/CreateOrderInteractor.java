@@ -16,6 +16,8 @@ public interface CreateOrderInteractor extends BaseInteractor {
 
     void retrieveProductsInCart();
 
+    void deleteProductsInCart();
+
     void postOrderParams();
 
     void createOrder();

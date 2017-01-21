@@ -36,7 +36,7 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
     private InternalStorageHandler mInternalStorageHandler;
     private DaoSession mDaoSession;
 
-    private String orderCode;
+    private String mOrderCode;
     private SelectedClientWallet mSelectedClientWallet;
     private ValidOrderForm mValidOrderForm;
     private List<SQLProduct> mProductList;
@@ -62,7 +62,7 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
 
     @Override
     public void createOrderCode() {
-        orderCode = "ORD" + mSelectedClientWallet.getClientWallet().getId() + new Timestamp(System.currentTimeMillis()).getTime();
+        mOrderCode = "ORD" + mSelectedClientWallet.getClientWallet().getId() + new Timestamp(System.currentTimeMillis()).getTime();
     }
 
     private String getTotal() {
@@ -86,7 +86,6 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
     public void retrieveProductsInCart() {
         if(mProductList == null) {
             mProductList = mDaoSession.getSQLProductDao().queryBuilder().list();
-            mDaoSession.getDatabase().close();
             postEvent(SUCCESS_EVENT, null);
         }
         else
@@ -94,14 +93,19 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
     }
 
     @Override
+    public void deleteProductsInCart() {
+        mDaoSession.getSQLProductDao().deleteAll();
+    }
+
+    @Override
     public void postOrderParams() {
-        EventBus.getDefault().post(new NotifyOrderParams(orderCode, getTotal()));
+        EventBus.getDefault().post(new NotifyOrderParams(mOrderCode, getTotal()));
     }
 
     @Override
     public void createOrder() {
         Call<CreatedResponseMessage> responseMessageCall = mApiService.createOrder(getUser().getAccessToken(),
-                "",
+                mOrderCode,
                 mValidOrderForm.getDescription(),
                 mValidOrderForm.getTypePosition(),
                 mSelectedClientWallet.getClientWallet().getId(),
@@ -132,9 +136,10 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
                 eventBus.post(new FailProductsRetrieve((Throwable) object));
                 break;
             case SUCCESS_EVENT:
-                eventBus.post(object == null ?
-                        new SuccessCartProductsRetrieve(mProductList) :
-                        new SuccessCreateOrder((CreatedResponseMessage) object));
+                if(object == null)
+                    eventBus.post(new SuccessCartProductsRetrieve(mProductList));
+                else
+                    eventBus.postSticky(new SuccessCreateOrder((CreatedResponseMessage) object));
                 break;
             case ERROR_EVENT:
                 eventBus.post(new ErrorProductsRetrieve((ApiError) object));

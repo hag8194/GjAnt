@@ -1,7 +1,9 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.gjdev.hugo.gjant.data.api.event.createorder.SuccessCreateOrder;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.view.MainView;
@@ -93,7 +95,6 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         mView.showSnackbar("Settings!!");
     }
 
-
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onNotifyChangeOfFragment(NotifyChangeOfFragment changeOfFragment) {
@@ -110,5 +111,10 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         }
     }
 
-
+    @Override
+    @Subscribe(sticky = true)
+    public void onSuccessCreateOrder(SuccessCreateOrder successCreateOrder) {
+        EventBus.getDefault().removeAllStickyEvents();
+        mView.showSnackbar(successCreateOrder.getResponseMessage().getMessage());
+    }
 }

@@ -107,7 +107,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
     @Override
     public void showSnackbar(String message) {
-        Snackbar.make(findViewById(R.id.container), message, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(ButterKnife.findById(this, R.id.container), message, Snackbar.LENGTH_LONG).show();
     }
 
     @Override

@@ -99,9 +99,10 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.ASYNC)
+    @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
     public void onSuccessCreateOrder(SuccessCreateOrder successCreateOrder) {
-        Log.d(getClass().getName(), successCreateOrder.getResponseMessage().getMessage());
+        mInteractor.deleteProductsInCart();
+        mView.finish();
     }
 
     @Override

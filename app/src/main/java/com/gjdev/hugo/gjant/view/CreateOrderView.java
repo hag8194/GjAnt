@@ -12,4 +12,6 @@ public interface CreateOrderView {
     void collapseAppBarLayout();
 
     void showProgressBar();
+
+    void finish();
 }
