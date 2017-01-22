@@ -9,6 +9,10 @@ import java.util.List;
 @UiThread
 public interface CatalogView {
 
+    void setTitle(int resString);
+
+    void setAppBarExpanded(boolean expanded);
+
     void showProgressBar();
 
     void hideProgressBar();

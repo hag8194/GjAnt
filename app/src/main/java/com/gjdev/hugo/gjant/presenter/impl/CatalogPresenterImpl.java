@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.RefreshedList;
@@ -39,11 +40,12 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
 
         EventBus.getDefault().register(this);
 
-        //if(firstStart){
+        mView.setAppBarExpanded(true);
+        mView.setTitle(R.string.catalog);
+
         mView.setupSwipeRefreshLayout();
         mView.setupRecyclerView();
         mInteractor.retrieveProducts(false);
-        //}
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
@@ -90,7 +92,6 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onClickedProductListItem(ClickedProductListItem listItem) {
         mInteractor.postSelectedProduct(mInteractor.getProduct(listItem.getAdapterPosition()).getId());
-        //mView.startDetailProductFragment();
         EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.PRODUCT_DETAIL_FRAGMENT));
     }
 

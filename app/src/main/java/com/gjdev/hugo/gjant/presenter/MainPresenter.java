@@ -21,4 +21,5 @@ public interface MainPresenter extends BasePresenter<MainView> {
     void onNotifyChangeOfFragment(NotifyChangeOfFragment changeOfFragment);
 
     void onSuccessCreateOrder(SuccessCreateOrder successCreateOrder);
+
 }

@@ -1,7 +1,6 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.gjdev.hugo.gjant.data.api.event.createorder.SuccessCreateOrder;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;

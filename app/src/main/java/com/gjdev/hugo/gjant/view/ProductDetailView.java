@@ -11,6 +11,11 @@ import java.util.List;
 
 @UiThread
 public interface ProductDetailView {
+
+    void setTitle(String title);
+
+    void setAppBarExpanded(boolean expanded);
+
     void showSnackbar(String message);
 
     void showProgressBar();
@@ -21,6 +26,10 @@ public interface ProductDetailView {
 
     void setupAdapters(List<ProductImages> productImagesList, List<Children> childrenList);
 
+    void setupFloatingActionButton();
+
+    void resetFloatingActionButton();
+
     void setupAnimation();
 
     void setProductData(Product product);
@@ -30,4 +39,5 @@ public interface ProductDetailView {
     int getProductQuantity();
 
     void startProductDetailFragment();
+
 }

@@ -6,6 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,6 +41,7 @@ import com.gjdev.hugo.gjant.view.impl.adapter.ProductImagesAdapter;
 import com.gjdev.hugo.gjant.view.impl.adapter.RelatedArticlesAdapter;
 import com.squareup.picasso.Picasso;
 
+import java.awt.font.TextAttribute;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -51,9 +55,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     PresenterFactory<ProductDetailPresenter> mPresenterFactory;
 
     // Your presenter is available using the mPresenter variable
-
-    @BindView(R.id.product_name)
-    TextView productName;
 
     @BindView(R.id.product_price)
     TextView productPrice;
@@ -80,11 +81,9 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     RecyclerView mRelatedArticlesRecyclerView;
 
     private Animation fadeAnimation;
-
-    @OnClick(R.id.add_to_cart)
-    public void onClick() {
-        mPresenter.onAddToCart();
-    }
+    private AppBarLayout mAppBarLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private FloatingActionButton mFloatingActionButton;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -94,6 +93,11 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_product_detail, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+
+        mAppBarLayout = ButterKnife.findById(getActivity(), R.id.app_bar_layout);
+        mCollapsingToolbarLayout = ButterKnife.findById(getActivity(), R.id.collapsing_toolbar_layout);
+        mFloatingActionButton = ButterKnife.findById(getActivity(), R.id.floating_action_button);
+
         return rootView;
     }
 
@@ -146,6 +150,16 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     }
 
     @Override
+    public void setTitle(String title) {
+        mCollapsingToolbarLayout.setTitle(title);
+    }
+
+    @Override
+    public void setAppBarExpanded(boolean expanded) {
+        mAppBarLayout.setExpanded(expanded, true);
+    }
+
+    @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
@@ -178,6 +192,25 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
     }
 
     @Override
+    public void setupFloatingActionButton() {
+        mFloatingActionButton.setVisibility(View.VISIBLE);
+        mFloatingActionButton.setImageResource(R.drawable.ic_add_shopping_cart_white_24dp);
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onAddToCart();
+            }
+        });
+    }
+
+    @Override
+    public void resetFloatingActionButton() {
+        mFloatingActionButton.setVisibility(View.GONE);
+        mFloatingActionButton.setOnClickListener(null);
+    }
+
+    @Override
     public void setupAnimation() {
         fadeAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.fade_in);
     }
@@ -190,7 +223,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
                 .error(R.drawable.ic_broken_image_black_24dp)
                 .into(productImage);
 
-        productName.setText(product.getName());
         productPrice.setText(String.valueOf(product.getPrice()));
         productBrandName.setText(product.getBrand().getName());
 

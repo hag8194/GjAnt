@@ -22,9 +22,11 @@
         android:clickable="true"
         android:layout_margin="16dp"
         app:srcCompat="@drawable/ic_add_white_24dp"
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floating_action_button"
         app:layout_anchor="@+id/app_bar_layout"
         app:layout_anchorGravity="bottom|end"
-        app:fabSize="normal" />
+        app:fabSize="normal"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </android.support.design.widget.CoordinatorLayout>

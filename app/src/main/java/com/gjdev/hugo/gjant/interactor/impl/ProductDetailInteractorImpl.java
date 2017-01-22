@@ -7,7 +7,6 @@ import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.data.api.event.product.ErrorProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.FailProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
-import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.api.model.ApiError;

@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/searchable" />
-
         <activity
             android:name=".view.impl.LoginActivity"
             android:theme="@style/LoginTheme"
@@ -33,6 +29,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
 
         <activity android:name=".view.impl.CreateOrderActivity"

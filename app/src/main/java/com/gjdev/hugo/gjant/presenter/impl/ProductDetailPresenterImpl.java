@@ -1,7 +1,9 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
+import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
@@ -9,6 +11,8 @@ import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.model.Product;
+import com.gjdev.hugo.gjant.data.event.UI.FloatingActionButtonChanges;
+import com.gjdev.hugo.gjant.data.event.UI.ImageHeaderChanges;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
 import com.gjdev.hugo.gjant.view.ProductDetailView;
@@ -38,6 +42,8 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
         super.onStart(firstStart);
 
         EventBus.getDefault().register(this);
+
+        mView.setupFloatingActionButton();
         mView.setupRecyclerViews();
         mView.setupAnimation();
 
@@ -47,8 +53,9 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     @Override
     public void onStop() {
         // Your code here, mView will be null after this method until next onStart()
-        //EventBus.getDefault().removeStickyEvent(SelectedProduct.class);
+
         EventBus.getDefault().unregister(this);
+        mView.resetFloatingActionButton();
         super.onStop();
     }
 
@@ -72,6 +79,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessProductRetrieve(SuccessProductRetrieve retrieve) {
         Product product = retrieve.getProduct();
+        mView.setTitle(product.getName());
         mView.setProductData(product);
         mView.setupAdapters(product.getProductImages(), product.getChildren());
         mView.hideProgressBar();
@@ -92,6 +100,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
 
     @Override
     public void onAddToCart() {
+        mView.setAppBarExpanded(false);
         mInteractor.addProductToCart(mView.getProductQuantity());
     }
 

@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -17,6 +18,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,13 +32,11 @@ import com.gjdev.hugo.gjant.presenter.MainPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.MainViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerMainViewComponent;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
-import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,20 +52,20 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     @BindView(R.id.collapsing_toolbar_layout)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
 
+    @BindView(R.id.image_header)
+    ImageView mImageHeader;
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.floating_action_button)
+    FloatingActionButton mFloatingActionButton;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
     @BindView(R.id.nav_view)
     NavigationView mNavigationView;
-
-    /*@BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout mCollapsingToolbarLayout;*/
-
-    @BindView(R.id.search_view)
-    MaterialSearchView searchView;
 
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private FragmentManager fragmentManager;
@@ -126,6 +126,20 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     }
 
     @Override
+    public void resetImageHeader() {
+        ViewGroup.LayoutParams layoutParams = mImageHeader.getLayoutParams();
+        layoutParams.height = 120;
+        mImageHeader.setLayoutParams(layoutParams);
+        mImageHeader.setBackgroundResource(R.color.colorPrimary);
+    }
+
+    @Override
+    public void resetFloatingActionButton() {
+        mFloatingActionButton.setVisibility(View.GONE);
+        mFloatingActionButton.setOnClickListener(null);
+    }
+
+    @Override
     public void setupNavigationView() {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -177,7 +191,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadHomeFragment(boolean addToBackTrace) {
         Fragment fragment = new HomeFragment();
         loadFragment(fragment, addToBackTrace);
-        //getSupportActionBar().setTitle(R.string.home);
         mAppBarLayout.setExpanded(true, true);
         mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.home));
     }
@@ -186,16 +199,12 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadCatalogFragment(boolean addToBackTrace) {
         Fragment fragment = new CatalogFragment();
         loadFragment(fragment, addToBackTrace);
-        //getSupportActionBar().setTitle(R.string.catalog);
-        mAppBarLayout.setExpanded(true, true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.catalog));
     }
 
     @Override
     public void loadOrdersFragment(boolean addToBackTrace) {
         Fragment fragment = new OrdersFragment();
         loadFragment(fragment, addToBackTrace);
-        //getSupportActionBar().setTitle(R.string.orders);
         mAppBarLayout.setExpanded(true, true);
         mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.orders));
     }
@@ -204,7 +213,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadCartFragment(boolean addToBackTrace) {
         Fragment fragment = new CartFragment();
         loadFragment(fragment, addToBackTrace);
-        //getSupportActionBar().setTitle(R.string.cart);
         mAppBarLayout.setExpanded(true, true);
         mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.cart));
     }
@@ -213,14 +221,12 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadProductDetailFragment(boolean addToBackStack) {
         Fragment fragment = new ProductDetailFragment();
         loadFragment(fragment, addToBackStack);
-        //getSupportActionBar().setTitle(R.string.cart);
+        mAppBarLayout.setExpanded(true, true);
     }
 
     @Override
     public void loadCreateOrderFragment(boolean addToBackStack) {
         startActivity(new Intent(this, CreateOrderActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
-        /*Fragment fragment = new CreateOrderFragment();
-        loadFragment(fragment, addToBackStack);*/
     }
 
     @Override
