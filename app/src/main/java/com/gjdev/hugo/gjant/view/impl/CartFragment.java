@@ -3,11 +3,14 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,15 +46,10 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     @BindView(R.id.product_list)
     RecyclerView mRecyclerViewProductList;
 
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
-
-    @OnClick(R.id.create_order)
-    void onClickActionButton() {
-        mPresenter.onClickCreateOrderButton();
-    }
-
     private CartListAdapter adapter;
+    private AppBarLayout mAppBarLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private FloatingActionButton mFloatingActionButton;
 
     public CartFragment() {
         // Required empty public constructor
@@ -61,6 +59,11 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+
+        mAppBarLayout = ButterKnife.findById(getActivity(), R.id.app_bar_layout);
+        mCollapsingToolbarLayout = ButterKnife.findById(getActivity(), R.id.collapsing_toolbar_layout);
+        mFloatingActionButton = ButterKnife.findById(getActivity(), R.id.floating_action_button);
+
         return rootView;
     }
 
@@ -88,6 +91,16 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     }
 
     @Override
+    public void setTitle(int resString) {
+        mCollapsingToolbarLayout.setTitle(getString(resString));
+    }
+
+    @Override
+    public void setAppBarExpanded(boolean expanded) {
+        mAppBarLayout.setExpanded(expanded, true);
+    }
+
+    @Override
     public void showProgressBar() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -100,16 +113,6 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void setupSwipeRefreshLayout() {
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mPresenter.onRefreshRequest();
-            }
-        });
     }
 
     @Override
@@ -126,14 +129,24 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     }
 
     @Override
+    public void setupFloatingActionButton() {
+        if(mFloatingActionButton.getVisibility() == View.GONE)
+            mFloatingActionButton.setVisibility(View.VISIBLE);
+        mFloatingActionButton.setImageResource(R.drawable.ic_add_white_24dp);
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.onClickCreateOrderButton();
+            }
+        });
+    }
+
+    @Override
     public void notifyDataChanged() {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void stopRefreshing() {
-        mSwipeRefreshLayout.setRefreshing(false);
-    }
 
     @Override
     public void startProductDetailFragment() {

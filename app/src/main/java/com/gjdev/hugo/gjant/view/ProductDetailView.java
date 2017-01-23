@@ -28,8 +28,6 @@ public interface ProductDetailView {
 
     void setupFloatingActionButton();
 
-    void resetFloatingActionButton();
-
     void setupAnimation();
 
     void setProductData(Product product);

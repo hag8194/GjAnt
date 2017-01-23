@@ -10,21 +10,23 @@ import java.util.List;
 @UiThread
 public interface CartView {
 
+    void setTitle(int resString);
+
+    void setAppBarExpanded(boolean expanded);
+
     void showProgressBar();
 
     void hideProgressBar();
 
     void showSnackbar(String message);
 
-    void setupSwipeRefreshLayout();
-
     void setupRecyclerView();
 
     void setupAdapter(List<SQLProduct> products);
 
-    void notifyDataChanged();
+    void setupFloatingActionButton();
 
-    void stopRefreshing();
+    void notifyDataChanged();
 
     void startProductDetailFragment();
 

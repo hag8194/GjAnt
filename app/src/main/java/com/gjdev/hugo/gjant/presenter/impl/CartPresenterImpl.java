@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.LongClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
@@ -37,7 +38,8 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
 
         EventBus.getDefault().register(this);
 
-        mView.setupSwipeRefreshLayout();
+        mView.setupFloatingActionButton();
+        mView.setTitle(R.string.cart);
         mView.setupRecyclerView();
         mInteractor.retrieveProductsInCart();
 
@@ -73,25 +75,12 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
     public void onClickedProductListItem(ClickedProductListItem listItem) {
         mInteractor.postSelectedProduct(mInteractor.getProduct(listItem.getAdapterPosition()).getKey());
         EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.PRODUCT_DETAIL_FRAGMENT));
-        //mView.startProductDetailFragment();
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onLongClickedProductListItem(LongClickedProductListItem listItem) {
         mView.showSnackbar(String.valueOf(listItem.getAdapterPosition()));
-    }
-
-    @Override
-    public void onRefreshRequest() {
-        mInteractor.retrieveProductsInCart();
-    }
-
-    @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshedList(RefreshedList refreshedList) {
-        mView.notifyDataChanged();
-        mView.stopRefreshing();
     }
 
     @Override

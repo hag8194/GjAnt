@@ -9,6 +9,8 @@ import java.util.List;
 @UiThread
 public interface CatalogView {
 
+    void resetFloatingActionButton();
+
     void setTitle(int resString);
 
     void setAppBarExpanded(boolean expanded);
@@ -30,4 +32,5 @@ public interface CatalogView {
     void stopRefreshing();
 
     void startDetailProductFragment();
+
 }

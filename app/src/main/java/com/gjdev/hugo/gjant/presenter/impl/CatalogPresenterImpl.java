@@ -40,6 +40,7 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
 
         EventBus.getDefault().register(this);
 
+        mView.resetFloatingActionButton();
         mView.setAppBarExpanded(true);
         mView.setTitle(R.string.catalog);
 

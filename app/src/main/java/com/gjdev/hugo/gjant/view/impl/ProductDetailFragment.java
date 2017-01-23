@@ -1,7 +1,5 @@
 package com.gjdev.hugo.gjant.view.impl;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,7 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,15 +38,10 @@ import com.gjdev.hugo.gjant.injection.DaggerProductDetailViewComponent;
 import com.gjdev.hugo.gjant.view.impl.adapter.ProductImagesAdapter;
 import com.gjdev.hugo.gjant.view.impl.adapter.RelatedArticlesAdapter;
 import com.squareup.picasso.Picasso;
-
-import java.awt.font.TextAttribute;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public final class ProductDetailFragment extends BaseFragment<ProductDetailPresenter, ProductDetailView> implements ProductDetailView {
     @Inject
@@ -193,7 +186,10 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
 
     @Override
     public void setupFloatingActionButton() {
-        mFloatingActionButton.setVisibility(View.VISIBLE);
+        Log.d(getClass().getName(), "Setup: " + mFloatingActionButton.getVisibility());
+        if(mFloatingActionButton.getVisibility() == View.GONE)
+            mFloatingActionButton.setVisibility(View.VISIBLE);
+
         mFloatingActionButton.setImageResource(R.drawable.ic_add_shopping_cart_white_24dp);
 
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -202,12 +198,6 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
                 mPresenter.onAddToCart();
             }
         });
-    }
-
-    @Override
-    public void resetFloatingActionButton() {
-        mFloatingActionButton.setVisibility(View.GONE);
-        mFloatingActionButton.setOnClickListener(null);
     }
 
     @Override

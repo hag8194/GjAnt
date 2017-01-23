@@ -1,9 +1,6 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
-import android.view.View;
-
-import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
@@ -11,8 +8,6 @@ import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.event.SelectedProductImage;
 import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.model.Product;
-import com.gjdev.hugo.gjant.data.event.UI.FloatingActionButtonChanges;
-import com.gjdev.hugo.gjant.data.event.UI.ImageHeaderChanges;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
 import com.gjdev.hugo.gjant.view.ProductDetailView;
@@ -44,6 +39,7 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
         EventBus.getDefault().register(this);
 
         mView.setupFloatingActionButton();
+        mView.setAppBarExpanded(true);
         mView.setupRecyclerViews();
         mView.setupAnimation();
 
@@ -55,7 +51,6 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
         // Your code here, mView will be null after this method until next onStart()
 
         EventBus.getDefault().unregister(this);
-        mView.resetFloatingActionButton();
         super.onStop();
     }
 

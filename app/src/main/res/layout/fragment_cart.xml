@@ -4,44 +4,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fitsSystemWindows="true">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/swipe_refresh_layout">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/product_list"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/item_product_list" />
-
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/product_list"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/item_product_list"
+        android:layout_marginTop="8dp" />
 
     <ProgressBar
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
-        app:layout_anchor="@+id/swipe_refresh_layout"
+        app:layout_anchor="@+id/product_list"
         app:layout_anchorGravity="center|center"
         android:layout_gravity="center_vertical|center_horizontal" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_order"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_white_24dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_alignBottom="@+id/product_detail_content"
-        android:layout_alignRight="@+id/product_detail_content" />
 
 </android.support.design.widget.CoordinatorLayout>
