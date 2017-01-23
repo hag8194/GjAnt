@@ -70,6 +70,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private FragmentManager fragmentManager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +136,8 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
     @Override
     public void resetFloatingActionButton() {
-        mFloatingActionButton.setVisibility(View.GONE);
+        if(mFloatingActionButton.getVisibility() == View.VISIBLE)
+            mFloatingActionButton.setVisibility(View.GONE);
         mFloatingActionButton.setOnClickListener(null);
     }
 
@@ -191,8 +193,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadHomeFragment(boolean addToBackTrace) {
         Fragment fragment = new HomeFragment();
         loadFragment(fragment, addToBackTrace);
-        mAppBarLayout.setExpanded(true, true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.home));
     }
 
     @Override
@@ -213,15 +213,12 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadCartFragment(boolean addToBackTrace) {
         Fragment fragment = new CartFragment();
         loadFragment(fragment, addToBackTrace);
-        mAppBarLayout.setExpanded(true, true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.cart));
     }
 
     @Override
     public void loadProductDetailFragment(boolean addToBackStack) {
         Fragment fragment = new ProductDetailFragment();
         loadFragment(fragment, addToBackStack);
-        mAppBarLayout.setExpanded(true, true);
     }
 
     @Override
@@ -236,7 +233,7 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
     private void loadFragment(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment, CatalogFragment.class.getName());
+                .replace(R.id.container, fragment, fragment.getClass().getName());
 
         if(addToBackStack)
             fragmentTransaction.addToBackStack(null);

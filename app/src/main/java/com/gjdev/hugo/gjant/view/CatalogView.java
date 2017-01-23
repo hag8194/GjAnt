@@ -23,14 +23,10 @@ public interface CatalogView {
 
     void setupSwipeRefreshLayout();
 
-    void setupRecyclerView();
-
-    void setupAdapter(List<Product> products);
+    void setupRecyclerView(List<Product> products);
 
     void notifyDataChanged();
 
     void stopRefreshing();
-
-    void startDetailProductFragment();
 
 }

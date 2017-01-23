@@ -39,7 +39,7 @@ public final class MainPresenterImpl extends BasePresenterImpl<MainView> impleme
         mView.setupDrawerToggle();
         mView.setupNavigationView();
         mView.setupNavigationHeader(mInteractor.getUser());
-        mView.loadCatalogFragment(false);
+        mView.loadHomeFragment(false);
     }
 
     @Override

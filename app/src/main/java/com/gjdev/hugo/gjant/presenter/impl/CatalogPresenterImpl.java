@@ -45,7 +45,6 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
         mView.setTitle(R.string.catalog);
 
         mView.setupSwipeRefreshLayout();
-        mView.setupRecyclerView();
         mInteractor.retrieveProducts(false);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
@@ -71,7 +70,7 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessProductsRetrieve(SuccessProductsRetrieve productsRetrieve) {
-        mView.setupAdapter(productsRetrieve.getProducts());
+        mView.setupRecyclerView(productsRetrieve.getProducts());
         mView.hideProgressBar();
     }
 

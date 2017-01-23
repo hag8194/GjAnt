@@ -41,9 +41,6 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     @Inject
     PresenterFactory<CatalogPresenter> mPresenterFactory;
 
-    @Inject
-    Context mAppContext;
-
     // Your presenter is available using the mPresenter variable
 
     @BindView(R.id.progressBar)
@@ -55,9 +52,8 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private MainActivity mainActivity;
     private ProductListAdapter adapter;
-    private AppBarLayout mAppBarLayout;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
 
     public CatalogFragment() {
         // Required empty public constructor
@@ -68,8 +64,7 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
         View rootView = inflater.inflate(R.layout.fragment_catalog, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
-        mAppBarLayout = ButterKnife.findById(getActivity(), R.id.app_bar_layout);
-        mCollapsingToolbarLayout = ButterKnife.findById(getActivity(), R.id.collapsing_toolbar_layout);
+        mainActivity = (MainActivity)getActivity();
 
         return rootView;
     }
@@ -145,21 +140,17 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
     @Override
     public void resetFloatingActionButton() {
-        FloatingActionButton mFloatingActionButton = ButterKnife.findById(getActivity(), R.id.floating_action_button);
-        if(mFloatingActionButton.getVisibility() == View.VISIBLE)
-            mFloatingActionButton.setVisibility(View.GONE);
-
-        mFloatingActionButton.setOnClickListener(null);
+        mainActivity.resetFloatingActionButton();
     }
 
     @Override
     public void setTitle(int resString) {
-        mCollapsingToolbarLayout.setTitle(getResources().getString(resString));
+        mainActivity.mCollapsingToolbarLayout.setTitle(getResources().getString(resString));
     }
 
     @Override
     public void setAppBarExpanded(boolean expanded) {
-        mAppBarLayout.setExpanded(expanded, true);
+        mainActivity.mAppBarLayout.setExpanded(expanded, true);
     }
 
     @Override
@@ -189,17 +180,14 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     }
 
     @Override
-    public void setupRecyclerView() {
-        mRecyclerViewProductList.setHasFixedSize(true);
+    public void setupRecyclerView(List<Product> products) {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         //GridLayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         //StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, 1);
-        mRecyclerViewProductList.setLayoutManager(mLayoutManager);
-    }
-
-    @Override
-    public void setupAdapter(List<Product> products) {
         adapter = new ProductListAdapter(products);
+
+        mRecyclerViewProductList.setHasFixedSize(true);
+        mRecyclerViewProductList.setLayoutManager(mLayoutManager);
         mRecyclerViewProductList.setAdapter(adapter);
     }
 
@@ -213,11 +201,4 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void startDetailProductFragment() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, new ProductDetailFragment(), ProductDetailFragment.class.getName())
-                .addToBackStack(null)
-                .commit();
-    }
 }

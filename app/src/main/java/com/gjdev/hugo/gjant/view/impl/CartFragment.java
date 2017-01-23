@@ -47,9 +47,7 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     RecyclerView mRecyclerViewProductList;
 
     private CartListAdapter adapter;
-    private AppBarLayout mAppBarLayout;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
-    private FloatingActionButton mFloatingActionButton;
+    private MainActivity mainActivity;
 
     public CartFragment() {
         // Required empty public constructor
@@ -60,9 +58,7 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
-        mAppBarLayout = ButterKnife.findById(getActivity(), R.id.app_bar_layout);
-        mCollapsingToolbarLayout = ButterKnife.findById(getActivity(), R.id.collapsing_toolbar_layout);
-        mFloatingActionButton = ButterKnife.findById(getActivity(), R.id.floating_action_button);
+        mainActivity = (MainActivity)getActivity();
 
         return rootView;
     }
@@ -92,12 +88,12 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
 
     @Override
     public void setTitle(int resString) {
-        mCollapsingToolbarLayout.setTitle(getString(resString));
+        mainActivity.mCollapsingToolbarLayout.setTitle(getString(resString));
     }
 
     @Override
     public void setAppBarExpanded(boolean expanded) {
-        mAppBarLayout.setExpanded(expanded, true);
+        mainActivity.mAppBarLayout.setExpanded(expanded, true);
     }
 
     @Override
@@ -130,11 +126,14 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
 
     @Override
     public void setupFloatingActionButton() {
-        if(mFloatingActionButton.getVisibility() == View.GONE)
-            mFloatingActionButton.setVisibility(View.VISIBLE);
-        mFloatingActionButton.setImageResource(R.drawable.ic_add_white_24dp);
+        FloatingActionButton floatingActionButton = mainActivity.mFloatingActionButton;
 
-        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+        if(floatingActionButton.getVisibility() == View.GONE)
+            floatingActionButton.setVisibility(View.VISIBLE);
+
+        floatingActionButton.setImageResource(R.drawable.ic_add_white_24dp);
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mPresenter.onClickCreateOrderButton();

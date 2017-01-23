@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.ErrorClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.FailClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetrieve;
@@ -36,6 +37,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
 
         EventBus.getDefault().register(this);
         mView.resetFloatingActionButton();
+        mView.setAppBarExpanded(true);
+        mView.setTitle(R.string.home);
+
         mInteractor.retrieveClientWallet();
 
         // Your code here. Your view is available using mView and will not be null until next onStop()

@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,7 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
     @BindView(R.id.client_wallet_list)
     RecyclerView mRecyclerView;
 
-    private AppBarLayout mAppBarLayout;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private MainActivity mainActivity;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,8 +51,7 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, rootView);
 
-        mAppBarLayout = ButterKnife.findById(getActivity(), R.id.app_bar_layout);
-        mCollapsingToolbarLayout = ButterKnife.findById(getActivity(), R.id.collapsing_toolbar_layout);
+        mainActivity = (MainActivity)getActivity();
 
         return rootView;
     }
@@ -88,16 +87,17 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
 
     @Override
     public void resetFloatingActionButton() {
-        FloatingActionButton mFloatingActionButton = ButterKnife.findById(getActivity(), R.id.floating_action_button);
-        if(mFloatingActionButton.getVisibility() == View.VISIBLE)
-            mFloatingActionButton.setVisibility(View.GONE);
+        mainActivity.resetFloatingActionButton();
+    }
 
-        mFloatingActionButton.setOnClickListener(null);
+    @Override
+    public void setAppBarExpanded(boolean expanded) {
+        mainActivity.mAppBarLayout.setExpanded(expanded, true);
     }
 
     @Override
     public void setTitle(int resString) {
-        mCollapsingToolbarLayout.setTitle(getString(resString));
+        mainActivity.mCollapsingToolbarLayout.setTitle(getString(resString));
     }
 
     @Override

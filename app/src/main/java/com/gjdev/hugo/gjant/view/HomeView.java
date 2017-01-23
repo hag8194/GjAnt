@@ -11,6 +11,8 @@ public interface HomeView {
 
     void resetFloatingActionButton();
 
+    void setAppBarExpanded(boolean expanded);
+
     void setTitle(int resString);
 
     void showSnackbar(String message);
