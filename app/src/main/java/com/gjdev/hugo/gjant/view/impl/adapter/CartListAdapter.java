@@ -37,6 +37,9 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
         @BindView(R.id.product_name)
         TextView productName;
 
+        @BindView(R.id.product_total)
+        TextView productTotal;
+
         @BindView(R.id.product_price)
         TextView productPrice;
 
@@ -82,6 +85,7 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
                 .into(holder.productPoster);
 
         holder.productName.setText(product.getName());
+        holder.productTotal.setText(String.valueOf((product.getQuantity() * product.getPrice())));
         holder.productPrice.setText(String.valueOf(product.getPrice()));
         holder.productQuantity.setText(String.valueOf(product.getQuantity()));
     }
