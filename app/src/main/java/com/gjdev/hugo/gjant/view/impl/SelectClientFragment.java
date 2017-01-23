@@ -35,8 +35,6 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     @Inject
     PresenterFactory<SelectClientPresenter> mPresenterFactory;
 
-    private static String FRAGMENT_SAVED_STATE;
-
     // Your presenter is available using the mPresenter variable
 
     @BindView(R.id.client_wallet_list)
@@ -64,7 +62,6 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //Log.d(this.getClass().getName(), "onViewCreated");
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
     }
