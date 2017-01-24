@@ -25,7 +25,6 @@ public final class CartInteractorImpl implements CartInteractor {
     public void retrieveProductsInCart() {
         if(mProductList == null) {
             mProductList = mDaoSession.getSQLProductDao().queryBuilder().list();
-            mDaoSession.getDatabase().close();
             postEvent(SUCCESS_EVENT, null);
         }
         else
@@ -40,6 +39,12 @@ public final class CartInteractorImpl implements CartInteractor {
     @Override
     public void postSelectedProduct(int id) {
         EventBus.getDefault().postSticky(new SelectedProduct(id));
+    }
+
+    @Override
+    public void removeCartItem(SQLProduct product) {
+        mProductList.remove(product);
+        mDaoSession.getSQLProductDao().delete(product);
     }
 
     @Override

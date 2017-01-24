@@ -54,4 +54,5 @@
     <string name="order_code">Order Code</string>
     <string name="total">Total</string>
     <string name="bs" translatable="false">Bs</string>
+    <string name="undo">Undo</string>
 </resources>

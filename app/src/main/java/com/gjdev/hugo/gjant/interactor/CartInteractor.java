@@ -8,5 +8,7 @@ public interface CartInteractor extends BaseInteractor {
 
     SQLProduct getProduct(int position);
 
-    public void postSelectedProduct(int id);
+    void postSelectedProduct(int id);
+
+    void removeCartItem(SQLProduct product);
 }

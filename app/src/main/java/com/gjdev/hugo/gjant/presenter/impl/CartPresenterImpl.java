@@ -7,6 +7,7 @@ import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.LongClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.RefreshedList;
+import com.gjdev.hugo.gjant.data.event.RemoveCartItem;
 import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.CartPresenter;
 import com.gjdev.hugo.gjant.view.CartView;
@@ -86,5 +87,11 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
     @Override
     public void onClickCreateOrderButton() {
         EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.CREATE_ORDER_FRAGMENT));
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onRemoveCartItem(RemoveCartItem removeCartItem) {
+        mInteractor.removeCartItem(removeCartItem.getProduct());
     }
 }

@@ -5,8 +5,8 @@ package com.gjdev.hugo.gjant.data.event;
  */
 
 public class NotifyOrderParams {
-    String orderCode;
-    String orderTotal;
+    private String orderCode;
+    private String orderTotal;
 
     public NotifyOrderParams(String orderCode, String orderTotal) {
         this.orderCode = orderCode;
