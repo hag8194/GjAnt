@@ -5,11 +5,11 @@ import android.support.annotation.UiThread;
 @UiThread
 public interface CreateOrderView {
 
+    void showToast(String message);
+
     void setupToolbar();
 
     void setupStepper();
-
-    void collapseAppBarLayout();
 
     void showProgressBar();
 

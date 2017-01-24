@@ -1,5 +1,7 @@
 package com.gjdev.hugo.gjant.view.impl;
 
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -47,6 +49,8 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
 
     private ImageView mOldSelectedAddImage;
 
+    private CreateOrderActivity createOrderActivity;
+
     public SelectClientFragment() {
         // Required empty public constructor
     }
@@ -55,6 +59,9 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_select_client, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+
+        createOrderActivity = (CreateOrderActivity)getActivity();
+
         return rootView;
     }
 
@@ -118,6 +125,11 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     }
 
     @Override
+    public void setExpandedAppBarLayout(boolean expanded) {
+        createOrderActivity.mAppBarLayout.setExpanded(expanded, true);
+    }
+
+    @Override
     public void setupRecyclerView() {
         mRecyclerView.setHasFixedSize(true);
     }
@@ -138,9 +150,9 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     @Override
     public void changeSelectedAddImage(ImageView imageView) {
         if(mOldSelectedAddImage != null)
-            mOldSelectedAddImage.setImageResource(R.drawable.ic_add_black_24dp);
+            mOldSelectedAddImage.setImageDrawable(null);
 
-        imageView.setImageResource(R.drawable.ic_add_color_primary_24dp);
+        imageView.setImageResource(R.drawable.ic_done_color_primary_24dp);
         mOldSelectedAddImage = imageView;
     }
 

@@ -11,6 +11,7 @@ import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
 import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.CreateOrderPresenter;
+import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.CreateOrderView;
 import com.gjdev.hugo.gjant.interactor.CreateOrderInteractor;
 
@@ -63,12 +64,6 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onCollapseAppBarLayout(CollapseAppBarLayout collapseAppBarLayout) {
-        mView.collapseAppBarLayout();
-    }
-
-    @Override
     @Subscribe(sticky = true, threadMode = ThreadMode.ASYNC)
     public void onSelectedClientWallet(SelectedClientWallet selectedClientWallet) {
         mInteractor.setSelectedClientWallet(selectedClientWallet);
@@ -108,12 +103,12 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
     @Override
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onErrorCreateOrder(ErrorCreateOrder errorCreateOrder) {
-
+        mView.showToast(Messages.errorMessage(errorCreateOrder.getApiError()));
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.ASYNC)
     public void onFailCreateOrder(FailCreateOrder failCreateOrder) {
-
+        mView.showToast(Messages.failureMessage(failCreateOrder.getThrowable()));
     }
 }

@@ -1,7 +1,6 @@
 package com.gjdev.hugo.gjant.view.impl.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,16 +39,16 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
         TextView client_fullname;
 
         @BindView(R.id.select_client)
-        ImageView add_image;
+        ImageView checked_image;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            add_image.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EventBus.getDefault().post(new ClickedClientWalletListItem(v, getAdapterPosition()));
+                    EventBus.getDefault().post(new ClickedClientWalletListItem(checked_image, getAdapterPosition()));
                 }
             });
         }

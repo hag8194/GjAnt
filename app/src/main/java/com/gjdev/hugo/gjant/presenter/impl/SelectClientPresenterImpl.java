@@ -107,6 +107,6 @@ public final class SelectClientPresenterImpl extends BasePresenterImpl<SelectCli
         mInteractor.saveSelectedClientWalletPosition(clickedItem.getAdapterPosition());
 
         mView.changeSelectedAddImage((ImageView)clickedItem.getClickedView());
-        EventBus.getDefault().post(new CollapseAppBarLayout());
+        mView.setExpandedAppBarLayout(false);
     }
 }

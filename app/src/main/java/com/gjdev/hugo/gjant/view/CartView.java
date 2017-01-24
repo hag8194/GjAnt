@@ -26,8 +26,4 @@ public interface CartView {
 
     void setupFloatingActionButton();
 
-    void notifyDataChanged();
-
-    void startProductDetailFragment();
-
 }

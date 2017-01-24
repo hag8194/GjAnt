@@ -39,8 +39,10 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
 
         EventBus.getDefault().register(this);
 
-        mView.setupFloatingActionButton();
         mView.setTitle(R.string.cart);
+        mView.setupFloatingActionButton();
+        mView.setAppBarExpanded(true);
+
         mView.setupRecyclerView();
         mInteractor.retrieveProductsInCart();
 

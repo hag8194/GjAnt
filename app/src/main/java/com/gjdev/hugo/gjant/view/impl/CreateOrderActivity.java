@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.view.CreateOrderView;
@@ -71,6 +73,11 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     }
 
     @Override
+    public void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void setupToolbar() {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -104,11 +111,6 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
 
             }
         });
-    }
-
-    @Override
-    public void collapseAppBarLayout() {
-        mAppBarLayout.setExpanded(false, true);
     }
 
     @Override

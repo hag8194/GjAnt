@@ -16,6 +16,8 @@ public interface SelectClientView {
 
     void showSnackbar(String message);
 
+    void setExpandedAppBarLayout(boolean expanded);
+
     void setupRecyclerView();
 
     void setupAdapter(List<ClientWallet> clientWallets);
