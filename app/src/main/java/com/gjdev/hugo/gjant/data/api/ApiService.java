@@ -1,6 +1,7 @@
 package com.gjdev.hugo.gjant.data.api;
 
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
+import com.gjdev.hugo.gjant.data.api.model.Enterprise;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.data.api.model.response.CreatedResponseMessage;
 
@@ -21,6 +22,9 @@ import retrofit2.http.Query;
 
 public interface ApiService
 {
+    @GET("enterprises/info")
+    Call<Enterprise> getEnterpriseInfo(@Query("access-token") String accessToken);
+
     @GET("products?expand=tags")
     Call<List<Product>> products(@Query("access-token") String accessToken);
 
@@ -31,7 +35,7 @@ public interface ApiService
     Call<List<ClientWallet>> clientWallet(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
     @FormUrlEncoded
-    @POST("orders")
+    @POST("orders/create")
     Call<CreatedResponseMessage> createOrder(@Query("access-token") String accessToken,
                                              @Field("code") String code,
                                              @Field("description") String description,

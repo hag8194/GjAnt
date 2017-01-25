@@ -107,7 +107,7 @@ public final class CreateOrderInteractorImpl implements CreateOrderInteractor {
         Call<CreatedResponseMessage> responseMessageCall = mApiService.createOrder(getUser().getAccessToken(),
                 mOrderCode,
                 mValidOrderForm.getDescription(),
-                mValidOrderForm.getTypePosition(),
+                mValidOrderForm.getTypePosition() - 1,
                 mSelectedClientWallet.getClientWallet().getId(),
                 new Gson().toJson(mProductList));
 
