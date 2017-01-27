@@ -48,6 +48,11 @@ public final class CartInteractorImpl implements CartInteractor {
     }
 
     @Override
+    public boolean isCartEmpty() {
+        return mDaoSession.getSQLProductDao().count() > 0;
+    }
+
+    @Override
     public void postEvent(int kindOfEvent, Object object) {
         EventBus eventBus = EventBus.getDefault();
         switch (kindOfEvent){

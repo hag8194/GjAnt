@@ -20,6 +20,8 @@ public interface CartView {
 
     void showSnackbar(String message);
 
+    void showToast(String message);
+
     void setupRecyclerView();
 
     void setupAdapter(List<SQLProduct> products);

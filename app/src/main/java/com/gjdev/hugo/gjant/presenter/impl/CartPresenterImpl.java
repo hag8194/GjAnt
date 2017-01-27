@@ -88,7 +88,10 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
 
     @Override
     public void onClickCreateOrderButton() {
-        EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.CREATE_ORDER_FRAGMENT));
+        if(mInteractor.isCartEmpty())
+            EventBus.getDefault().post(new NotifyChangeOfFragment(NotifyChangeOfFragment.CREATE_ORDER_FRAGMENT));
+        else
+            mView.showToast("Debe escoger por lo menos un producto");
     }
 
     @Override

@@ -11,4 +11,6 @@ public interface CartInteractor extends BaseInteractor {
     void postSelectedProduct(int id);
 
     void removeCartItem(SQLProduct product);
+
+    boolean isCartEmpty();
 }

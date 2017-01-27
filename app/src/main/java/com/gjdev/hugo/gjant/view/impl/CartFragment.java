@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
@@ -113,6 +114,11 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
