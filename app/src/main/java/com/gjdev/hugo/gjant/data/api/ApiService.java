@@ -22,8 +22,8 @@ import retrofit2.http.Query;
 
 public interface ApiService
 {
-    @GET("enterprises/info")
-    Call<Enterprise> getEnterpriseInfo(@Query("access-token") String accessToken);
+    @GET("enterprises")
+    Call<Enterprise> enterprise(@Query("access-token") String accessToken);
 
     @GET("products?expand=tags")
     Call<List<Product>> products(@Query("access-token") String accessToken);
@@ -31,11 +31,11 @@ public interface ApiService
     @GET("products/{id}?expand=tags,productImages,children")
     Call<Product> product(@Path("id") int id, @Query("access-token") String accessToken);
 
-    @GET("client-wallets/search")
+    @GET("client-wallets")
     Call<List<ClientWallet>> clientWallet(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
     @FormUrlEncoded
-    @POST("orders/create")
+    @POST("orders")
     Call<CreatedResponseMessage> createOrder(@Query("access-token") String accessToken,
                                              @Field("code") String code,
                                              @Field("description") String description,
