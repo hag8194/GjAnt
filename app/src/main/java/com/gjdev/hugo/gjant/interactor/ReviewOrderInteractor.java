@@ -10,4 +10,5 @@ public interface ReviewOrderInteractor extends BaseInteractor {
 
     String getDate();
 
+    void retrieveEnterprise();
 }

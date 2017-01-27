@@ -9,11 +9,15 @@ import java.util.List;
 @UiThread
 public interface ReviewOrderView {
 
+    void showToast(String message);
+
     void setOrderCode(String code);
 
     void setOrderData(String data[]);
 
     void setOrderTotal(String total);
+
+    void setEnterpriseData(String data[]);
 
     void setVendorData(String data[]);
 

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 import com.gjdev.hugo.gjant.view.ReviewOrderView;
@@ -43,6 +45,9 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
 
     @BindView(R.id.order_total)
     TextView mOrderTotal;
+
+    @BindViews({R.id.enterprise_name, R.id.enterprise_rif, R.id.enterprise_phone, R.id.enterprise_address})
+    List<TextView> mEnterpriseData;
 
     @BindViews({R.id.vendor_name, R.id.vendor_lastname, R.id.vendor_identification})
     List<TextView> mVendorData;
@@ -114,6 +119,11 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
     }
 
     @Override
+    public void showToast(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void setOrderCode(String code) {
         mOrderCode.setText(code);
     }
@@ -126,6 +136,11 @@ public final class ReviewOrderFragment extends BaseFragment<ReviewOrderPresenter
     @Override
     public void setOrderTotal(String total) {
         mOrderTotal.setText(total);
+    }
+
+    @Override
+    public void setEnterpriseData(String[] data) {
+        setTextViews(mEnterpriseData, data);
     }
 
     @Override

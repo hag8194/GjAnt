@@ -2,19 +2,26 @@ package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
 
+import com.gjdev.hugo.gjant.data.api.event.enterprise.ErrorEnterpriseRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.enterprise.FailEnterpriseRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.enterprise.SuccessEnterpriseRetrieve;
 import com.gjdev.hugo.gjant.data.api.model.Client;
+import com.gjdev.hugo.gjant.data.api.model.Enterprise;
 import com.gjdev.hugo.gjant.data.api.model.User;
 import com.gjdev.hugo.gjant.data.event.NotifyOrderParams;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
 import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;
 import com.gjdev.hugo.gjant.presenter.ReviewOrderPresenter;
+import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.ReviewOrderView;
 import com.gjdev.hugo.gjant.interactor.ReviewOrderInteractor;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -38,6 +45,8 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
         EventBus.getDefault().register(this);
 
         User user = mInteractor.getUser();
+
+        mInteractor.retrieveEnterprise();
 
         mView.setVendorData(new String[]{
             user.getEmployer().getName(),
@@ -65,6 +74,30 @@ public final class ReviewOrderPresenterImpl extends BasePresenterImpl<ReviewOrde
          */
 
         super.onPresenterDestroyed();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSuccessEnterpriseRetrieve(SuccessEnterpriseRetrieve retrieve) {
+        Enterprise enterprise = retrieve.getEnterprise();
+        mView.setEnterpriseData(new String[]{
+                enterprise.getName(),
+                enterprise.getRif(),
+                enterprise.getPhone(),
+                enterprise.getAddress()
+        });
+    }
+
+    @Override
+    @Subscribe( threadMode = ThreadMode.MAIN)
+    public void onErrorEnterpriseRetrieve(ErrorEnterpriseRetrieve retrieve) {
+        mView.showToast(Messages.errorMessage(retrieve.getApiError()));
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFailEnterpriseRetrieve(FailEnterpriseRetrieve retrieve) {
+        mView.showToast(Messages.failureMessage(retrieve.getThrowable()));
     }
 
     @Override

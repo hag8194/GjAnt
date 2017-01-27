@@ -1,6 +1,9 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
+
+import com.gjdev.hugo.gjant.data.api.event.product.ErrorProductRetrieve;
+import com.gjdev.hugo.gjant.data.api.event.product.FailProductRetrieve;
 import com.gjdev.hugo.gjant.data.event.ClickedRelatedArticleListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.NotifyProductCartStatus;
@@ -10,6 +13,7 @@ import com.gjdev.hugo.gjant.data.api.event.product.SuccessProductRetrieve;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.interactor.ProductDetailInteractor;
 import com.gjdev.hugo.gjant.presenter.ProductDetailPresenter;
+import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.ProductDetailView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -78,6 +82,18 @@ public final class ProductDetailPresenterImpl extends BasePresenterImpl<ProductD
         mView.setProductData(product);
         mView.setupAdapters(product.getProductImages(), product.getChildren());
         mView.hideProgressBar();
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onErrorProductRetrieve(ErrorProductRetrieve retrieve) {
+        mView.showSnackbar(Messages.errorMessage(retrieve.getApiError()));
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onFailProductRetrieve(FailProductRetrieve retrieve) {
+        mView.showSnackbar(Messages.failureMessage(retrieve.getThrowable()));
     }
 
     @Override
