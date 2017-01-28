@@ -34,6 +34,8 @@ public interface MainView {
 
     void loadCreateOrderFragment(boolean addToBackStack);
 
+    void loadClientDetailFragment(boolean addToBackStack);
+
     void startLoginActivity();
 
     void finish();

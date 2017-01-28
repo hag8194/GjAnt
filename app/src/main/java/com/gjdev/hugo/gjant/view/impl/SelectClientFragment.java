@@ -1,7 +1,5 @@
 package com.gjdev.hugo.gjant.view.impl;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,7 +20,7 @@ import com.gjdev.hugo.gjant.presenter.SelectClientPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.SelectClientViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerSelectClientViewComponent;
-import com.gjdev.hugo.gjant.view.impl.adapter.ClientListAdapter;
+import com.gjdev.hugo.gjant.view.impl.adapter.ClientWalletListAdapter;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
@@ -45,7 +43,7 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
 
-    private ClientListAdapter mAdapter;
+    private ClientWalletListAdapter mAdapter;
 
     private ImageView mOldSelectedAddImage;
 
@@ -136,7 +134,7 @@ public final class SelectClientFragment extends BaseFragment<SelectClientPresent
 
     @Override
     public void setupAdapter(List<ClientWallet> clientWallets) {
-        mAdapter = new ClientListAdapter(clientWallets);
+        mAdapter = new ClientWalletListAdapter(clientWallets);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);

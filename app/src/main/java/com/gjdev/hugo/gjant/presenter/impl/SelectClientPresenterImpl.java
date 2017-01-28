@@ -7,7 +7,6 @@ import com.gjdev.hugo.gjant.data.api.event.clientwallet.ErrorClientWalletRetriev
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.FailClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
-import com.gjdev.hugo.gjant.data.event.CollapseAppBarLayout;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.presenter.SelectClientPresenter;
 import com.gjdev.hugo.gjant.util.Messages;

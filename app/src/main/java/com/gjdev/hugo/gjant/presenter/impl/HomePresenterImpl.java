@@ -6,6 +6,7 @@ import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.ErrorClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.FailClientWalletRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetrieve;
+import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
 import com.gjdev.hugo.gjant.presenter.HomePresenter;
 import com.gjdev.hugo.gjant.util.Messages;
 import com.gjdev.hugo.gjant.view.HomeView;
@@ -79,5 +80,12 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFailClientWalletRetrieve(FailClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.failureMessage(retrieve.getThrowable()));
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onClickedClientWalletListItem(ClickedClientWalletListItem listItem) {
+        mInteractor.postSelectedClientWalletList(listItem);
+        mView.loadClientDetailFragment();
     }
 }

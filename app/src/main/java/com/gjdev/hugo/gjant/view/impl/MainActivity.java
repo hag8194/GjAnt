@@ -191,37 +191,43 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
 
     @Override
     public void loadHomeFragment(boolean addToBackTrace) {
-        Fragment fragment = new HomeFragment();
+        HomeFragment fragment = new HomeFragment();
         loadFragment(fragment, addToBackTrace);
     }
 
     @Override
     public void loadCatalogFragment(boolean addToBackTrace) {
-        Fragment fragment = new CatalogFragment();
+        CatalogFragment fragment = new CatalogFragment();
         loadFragment(fragment, addToBackTrace);
     }
 
     @Override
     public void loadOrdersFragment(boolean addToBackTrace) {
-        Fragment fragment = new OrdersFragment();
+        OrdersFragment fragment = new OrdersFragment();
         loadFragment(fragment, addToBackTrace);
     }
 
     @Override
     public void loadCartFragment(boolean addToBackTrace) {
-        Fragment fragment = new CartFragment();
+        CartFragment fragment = new CartFragment();
         loadFragment(fragment, addToBackTrace);
     }
 
     @Override
     public void loadProductDetailFragment(boolean addToBackStack) {
-        Fragment fragment = new ProductDetailFragment();
+        ProductDetailFragment fragment = new ProductDetailFragment();
         loadFragment(fragment, addToBackStack);
     }
 
     @Override
     public void loadCreateOrderFragment(boolean addToBackStack) {
         startActivity(new Intent(this, CreateOrderActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle());
+    }
+
+    @Override
+    public void loadClientDetailFragment(boolean addToBackStack) {
+        ClientDetailFragment fragment = new ClientDetailFragment();
+        loadFragment(fragment, addToBackStack);
     }
 
     @Override

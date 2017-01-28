@@ -1,5 +1,7 @@
 package com.gjdev.hugo.gjant.data.api.model;
 
+import java.util.List;
+
 public class Order implements java.io.Serializable {
     private static final long serialVersionUID = -553941675801668465L;
     private String code;
@@ -9,6 +11,8 @@ public class Order implements java.io.Serializable {
     private int id;
     private int type;
     private int status;
+    private ClientWallet clientWallet;
+    private List<OrderDetail> orderDetails;
 
     public String getCode() {
         return this.code;
@@ -64,5 +68,21 @@ public class Order implements java.io.Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public ClientWallet getClientWallet() {
+        return clientWallet;
+    }
+
+    public void setClientWallet(ClientWallet clientWallet) {
+        this.clientWallet = clientWallet;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

@@ -41,10 +41,10 @@ public final class OrdersInteractorImpl implements OrdersInteractor {
     public void retrieveOrders(boolean refresh) {
         User user = (User)mInternalStorageHandler.readObject(R.string.user_data);
 
-        Call<List<Order>> productsCall = mApiService.orders(user.getAccessToken(), user.getEmployer().getId());
+        Call<List<Order>> ordersCall = mApiService.orders(user.getAccessToken(), user.getEmployer().getId());
 
         if(ordersList == null || refresh) {
-            productsCall.enqueue(new Callback<List<Order>>() {
+            ordersCall.enqueue(new Callback<List<Order>>() {
                 @Override
                 public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                     if(response.isSuccessful()) {

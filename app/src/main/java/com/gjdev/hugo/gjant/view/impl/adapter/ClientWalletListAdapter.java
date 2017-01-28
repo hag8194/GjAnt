@@ -1,6 +1,7 @@
 package com.gjdev.hugo.gjant.view.impl.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +25,10 @@ import butterknife.ButterKnife;
  * Created by Hugo on 12/01/2017.
  */
 
-public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder> {
+public class ClientWalletListAdapter extends BaseAdapter<ClientWalletListAdapter.ViewHolder> {
     private List<ClientWallet> mClientWalletList;
 
-    public ClientListAdapter(List<ClientWallet> mClientWalletList) {
+    public ClientWalletListAdapter(List<ClientWallet> mClientWalletList) {
         this.mClientWalletList = mClientWalletList;
     }
 
@@ -59,7 +60,7 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_client_list, parent, false);
 
-        return new ClientListAdapter.ViewHolder(v);
+        return new ClientWalletListAdapter.ViewHolder(v);
     }
 
     @Override
@@ -69,6 +70,8 @@ public class ClientListAdapter extends BaseAdapter<ClientListAdapter.ViewHolder>
         holder.client_fullname.setText(clientWallet.getClient().getFullname());
         Picasso.with(holder.itemView.getContext())
                 .load(clientWallet.getClient().get_links().getPoster().getHref())
+                .placeholder(R.drawable.ic_image_black_24dp)
+                .error(R.drawable.ic_broken_image_black_24dp)
                 .transform(new RoundedTransformation())
                 .into(holder.client_avatar);
     }

@@ -3,13 +3,9 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +18,7 @@ import com.gjdev.hugo.gjant.presenter.HomePresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.HomeViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerHomeViewComponent;
-import com.gjdev.hugo.gjant.view.impl.adapter.ClientListAdapter;
+import com.gjdev.hugo.gjant.view.impl.adapter.ClientWalletListAdapter;
 
 import java.util.List;
 
@@ -110,6 +106,11 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(new ClientListAdapter(clientWallets));
+        mRecyclerView.setAdapter(new ClientWalletListAdapter(clientWallets));
+    }
+
+    @Override
+    public void loadClientDetailFragment() {
+        mainActivity.loadClientDetailFragment(true);
     }
 }

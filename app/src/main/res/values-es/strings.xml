@@ -49,4 +49,5 @@
     <string name="phone">Teléfono</string>
     <string name="status">Estatus</string>
     <string name="creating_order">Creando Orden...</string>
+    <string name="client">Cliente</string>
 </resources>

@@ -3,7 +3,6 @@ package com.gjdev.hugo.gjant.presenter;
 import com.gjdev.hugo.gjant.data.api.event.createorder.ErrorCreateOrder;
 import com.gjdev.hugo.gjant.data.api.event.createorder.FailCreateOrder;
 import com.gjdev.hugo.gjant.data.api.event.createorder.SuccessCreateOrder;
-import com.gjdev.hugo.gjant.data.event.CollapseAppBarLayout;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.data.event.ValidOrderForm;
 import com.gjdev.hugo.gjant.data.sql.event.SuccessCartProductsRetrieve;

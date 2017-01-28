@@ -1,5 +1,6 @@
 package com.gjdev.hugo.gjant.data.api;
 
+import com.gjdev.hugo.gjant.data.api.model.Client;
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 import com.gjdev.hugo.gjant.data.api.model.Enterprise;
 import com.gjdev.hugo.gjant.data.api.model.Order;
@@ -35,7 +36,10 @@ public interface ApiService
     @GET("client-wallets")
     Call<List<ClientWallet>> clientWallet(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
-    @GET("orders")
+    @GET("clients/{id}")
+    Call<Client> client(@Path("id") int id, @Query("access-token") String accessToken);
+
+    @GET("orders?expand=clientWallet,orderDetails")
     Call<List<Order>> orders(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
     @FormUrlEncoded

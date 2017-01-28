@@ -10,6 +10,8 @@ import com.gjdev.hugo.gjant.data.api.event.clientwallet.SuccessClientWalletRetri
 import com.gjdev.hugo.gjant.data.api.model.ApiError;
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 import com.gjdev.hugo.gjant.data.api.model.User;
+import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
+import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.interactor.HomeInteractor;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
@@ -62,6 +64,12 @@ public final class HomeInteractorImpl implements HomeInteractor {
         }
         else
             postEvent(SUCCESS_EVENT, null);
+    }
+
+    @Override
+    public void postSelectedClientWalletList(ClickedClientWalletListItem listItem) {
+        ClientWallet clientWallet = clientWalletList.get(listItem.getAdapterPosition());
+        EventBus.getDefault().postSticky(new SelectedClientWallet(clientWallet));
     }
 
     @Override

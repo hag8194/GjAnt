@@ -18,4 +18,6 @@ public interface HomeView {
     void showSnackbar(String message);
 
     void setupAdapter(List<ClientWallet> clientWallets);
+
+    void loadClientDetailFragment();
 }
