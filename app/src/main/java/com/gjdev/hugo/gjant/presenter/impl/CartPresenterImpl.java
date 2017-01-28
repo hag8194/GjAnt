@@ -44,6 +44,8 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
         mView.setAppBarExpanded(true);
 
         mView.setupRecyclerView();
+        mView.setupSwipeRefreshLayout();
+        mView.setRefreshing(true);
         mInteractor.retrieveProductsInCart();
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
@@ -70,7 +72,7 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
     @Subscribe
     public void onSuccessCartProductsRetrieve(SuccessCartProductsRetrieve productsRetrieve) {
         mView.setupAdapter(productsRetrieve.getProducts());
-        mView.hideProgressBar();
+        mView.setRefreshing(false);
     }
 
     @Override
@@ -98,5 +100,10 @@ public final class CartPresenterImpl extends BasePresenterImpl<CartView> impleme
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onRemoveCartItem(RemoveCartItem removeCartItem) {
         mInteractor.removeCartItem(removeCartItem.getProduct());
+    }
+
+    @Override
+    public void onRefreshRequest() {
+        mInteractor.retrieveProductsInCart();
     }
 }

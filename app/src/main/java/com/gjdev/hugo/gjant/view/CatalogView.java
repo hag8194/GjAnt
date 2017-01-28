@@ -15,10 +15,6 @@ public interface CatalogView {
 
     void setAppBarExpanded(boolean expanded);
 
-    void showProgressBar();
-
-    void hideProgressBar();
-
     void showSnackbar(String message);
 
     void setupSwipeRefreshLayout();
@@ -27,6 +23,6 @@ public interface CatalogView {
 
     void notifyDataChanged();
 
-    void stopRefreshing();
+    void setRefreshing(boolean refreshing);
 
 }

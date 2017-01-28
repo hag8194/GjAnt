@@ -1,23 +1,17 @@
 package com.gjdev.hugo.gjant.view.impl;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.gjdev.hugo.gjant.R;
@@ -45,8 +39,8 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
 
     // Your presenter is available using the mPresenter variable
 
-    @BindView(R.id.progressBar)
-    ProgressBar mProgressBar;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @BindView(R.id.product_list)
     RecyclerView mRecyclerView;
@@ -102,16 +96,6 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     }
 
     @Override
-    public void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
@@ -136,6 +120,17 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     }
 
     @Override
+    public void setupSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.onRefreshRequest();
+            }
+        });
+    }
+
+    @Override
     public void setupFloatingActionButton() {
         FloatingActionButton floatingActionButton = mainActivity.mFloatingActionButton;
 
@@ -150,6 +145,11 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
                 mPresenter.onClickCreateOrderButton();
             }
         });
+    }
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
     /**
@@ -170,5 +170,4 @@ public final class CartFragment extends BaseFragment<CartPresenter, CartView> im
     private void setUpAnimationDecoratorHelper() {
         mRecyclerView.addItemDecoration(new ItemSpaceDrawing(getContext()));
     }
-
 }

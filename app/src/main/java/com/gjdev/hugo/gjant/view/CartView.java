@@ -14,10 +14,6 @@ public interface CartView {
 
     void setAppBarExpanded(boolean expanded);
 
-    void showProgressBar();
-
-    void hideProgressBar();
-
     void showSnackbar(String message);
 
     void showToast(String message);
@@ -26,6 +22,9 @@ public interface CartView {
 
     void setupAdapter(List<SQLProduct> products);
 
+    void setupSwipeRefreshLayout();
+
     void setupFloatingActionButton();
 
+    void setRefreshing(boolean refreshing);
 }

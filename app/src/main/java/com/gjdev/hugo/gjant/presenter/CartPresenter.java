@@ -18,4 +18,6 @@ public interface CartPresenter extends BasePresenter<CartView> {
     void onClickCreateOrderButton();
 
     void onRemoveCartItem(RemoveCartItem removeCartItem);
+
+    void onRefreshRequest();
 }

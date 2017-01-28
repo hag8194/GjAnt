@@ -21,13 +21,4 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <ProgressBar
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        app:layout_anchor="@+id/swipe_refresh_layout"
-        app:layout_anchorGravity="center|center"
-        android:layout_gravity="center_vertical|center_horizontal" />
-
 </android.support.design.widget.CoordinatorLayout>

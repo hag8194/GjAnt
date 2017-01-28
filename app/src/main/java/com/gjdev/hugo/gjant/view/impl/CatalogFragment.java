@@ -1,12 +1,8 @@
 package com.gjdev.hugo.gjant.view.impl;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,8 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.view.CatalogView;
@@ -43,9 +37,6 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
 
     // Your presenter is available using the mPresenter variable
 
-    @BindView(R.id.progressBar)
-    ProgressBar mProgressBar;
-
     @BindView(R.id.product_list)
     RecyclerView mRecyclerViewProductList;
 
@@ -63,7 +54,6 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_catalog, container, false);
         unbinder = ButterKnife.bind(this, rootView);
-
         mainActivity = (MainActivity)getActivity();
 
         return rootView;
@@ -154,16 +144,6 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
     }
 
     @Override
-    public void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgressBar() {
-        mProgressBar.setVisibility(View.GONE);
-    }
-
-    @Override
     public void showSnackbar(String message) {
         Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
     }
@@ -196,9 +176,10 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
         adapter.notifyDataSetChanged();
     }
 
+
     @Override
-    public void stopRefreshing() {
-        mSwipeRefreshLayout.setRefreshing(false);
+    public void setRefreshing(boolean refreshing) {
+        mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
 }

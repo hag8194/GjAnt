@@ -7,21 +7,19 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/product_list"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/item_product_list"
-        android:layout_marginTop="8dp" />
+        android:id="@+id/swipe_refresh_layout">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        app:layout_anchor="@+id/product_list"
-        app:layout_anchorGravity="center|center"
-        android:layout_gravity="center_vertical|center_horizontal" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_list"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_product_list"
+            android:layout_marginTop="8dp" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>
