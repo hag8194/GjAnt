@@ -17,7 +17,8 @@
             android:layout_height="match_parent"
             android:id="@+id/product_list"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item_product_list" />
+            tools:listitem="@layout/item_product_list"
+            android:paddingTop="8dp" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

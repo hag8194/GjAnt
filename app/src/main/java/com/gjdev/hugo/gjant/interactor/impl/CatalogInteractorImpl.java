@@ -62,8 +62,6 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
                     postEvent(FAILURE_EVENT, t);
                 }
             });
-            if(refresh)
-                EventBus.getDefault().post(new RefreshedList());
         }
         else
             postEvent(SUCCESS_EVENT, null);

@@ -205,8 +205,6 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void loadOrdersFragment(boolean addToBackTrace) {
         Fragment fragment = new OrdersFragment();
         loadFragment(fragment, addToBackTrace);
-        mAppBarLayout.setExpanded(true, true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.orders));
     }
 
     @Override

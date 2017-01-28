@@ -100,10 +100,4 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     public void onRefreshRequest() {
         mInteractor.retrieveProducts(true);
     }
-
-    @Override
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefreshedList(RefreshedList refreshedList) {
-        mView.notifyDataChanged();
-    }
 }

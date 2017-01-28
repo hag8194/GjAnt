@@ -19,6 +19,4 @@ public interface CatalogPresenter extends BasePresenter<CatalogView> {
 
     void onRefreshRequest();
 
-    void onRefreshedList(RefreshedList refreshedList);
-
 }

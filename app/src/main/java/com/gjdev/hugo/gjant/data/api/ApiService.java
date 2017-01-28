@@ -2,6 +2,7 @@ package com.gjdev.hugo.gjant.data.api;
 
 import com.gjdev.hugo.gjant.data.api.model.ClientWallet;
 import com.gjdev.hugo.gjant.data.api.model.Enterprise;
+import com.gjdev.hugo.gjant.data.api.model.Order;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.data.api.model.response.CreatedResponseMessage;
 
@@ -33,6 +34,9 @@ public interface ApiService
 
     @GET("client-wallets")
     Call<List<ClientWallet>> clientWallet(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
+
+    @GET("orders")
+    Call<List<Order>> orders(@Query("access-token") String accessToken, @Query("employer_id") int employerId);
 
     @FormUrlEncoded
     @POST("orders")
