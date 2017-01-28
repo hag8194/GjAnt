@@ -116,6 +116,7 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
 
         if(itemsPendingRemoval.contains(product)) {
             holder.itemView.setBackgroundResource(R.color.colorAccent);
+            holder.itemView.setOnClickListener(null);
             holder.setProductDataVisibility(View.GONE);
             holder.undoButton.setVisibility(View.VISIBLE);
             holder.undoButton.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +136,7 @@ public class CartListAdapter extends BaseAdapter <CartListAdapter.ViewHolder> {
         else {
             // we need to show the "normal" state
             holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.itemView.setOnClickListener(holder);
             Picasso.with(holder.itemView.getContext())
                     .load(poster_url)
                     .placeholder(R.drawable.ic_image_black_24dp)
