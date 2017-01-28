@@ -43,8 +43,7 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     @BindView(R.id.stepperLayout)
     StepperLayout mStepperLayout;
 
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +113,15 @@ public final class CreateOrderActivity extends BaseActivity<CreateOrderPresenter
     }
 
     @Override
-    public void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
+    public void showProgressDialog(int title, int message) {
+        progressDialog = ProgressDialog.show(this, getString(title), getString(message), true);
+        progressDialog.show();
+    }
+
+    @Override
+    public void finish() {
+        if(progressDialog != null)
+            progressDialog.cancel();
+        super.finish();
     }
 }

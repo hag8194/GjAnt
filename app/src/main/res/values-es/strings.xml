@@ -48,4 +48,5 @@
     <string name="undo">Deshacer</string>
     <string name="phone">Teléfono</string>
     <string name="status">Estatus</string>
+    <string name="creating_order">Creando Orden...</string>
 </resources>

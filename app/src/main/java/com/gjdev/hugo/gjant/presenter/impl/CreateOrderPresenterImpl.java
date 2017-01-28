@@ -3,6 +3,7 @@ package com.gjdev.hugo.gjant.presenter.impl;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.event.createorder.ErrorCreateOrder;
 import com.gjdev.hugo.gjant.data.api.event.createorder.FailCreateOrder;
 import com.gjdev.hugo.gjant.data.api.event.createorder.SuccessCreateOrder;
@@ -89,7 +90,7 @@ public final class CreateOrderPresenterImpl extends BasePresenterImpl<CreateOrde
 
     @Override
     public void onCompletedSteps() {
-        mView.showProgressBar();
+        mView.showProgressDialog(R.string.create_order, R.string.creating_order);
         mInteractor.createOrder();
     }
 

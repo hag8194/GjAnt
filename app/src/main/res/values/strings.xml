@@ -57,4 +57,5 @@
     <string name="undo">Undo</string>
     <string name="phone">Phone</string>
     <string name="status">Status</string>
+    <string name="creating_order">Creating Order...</string>
 </resources>

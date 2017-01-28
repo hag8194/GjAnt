@@ -11,7 +11,7 @@ public interface CreateOrderView {
 
     void setupStepper();
 
-    void showProgressBar();
+    void showProgressDialog(int title, int message);
 
     void finish();
 }
