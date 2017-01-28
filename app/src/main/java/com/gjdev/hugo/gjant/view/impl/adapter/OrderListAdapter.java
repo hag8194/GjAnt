@@ -113,7 +113,6 @@ public class OrderListAdapter extends BaseAdapter<OrderListAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1: pos;
-                //TransitionManager.beginDelayedTransition(holder.mRecyclerView);
                 notifyDataSetChanged();
             }
         });
