@@ -7,6 +7,7 @@ import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.event.client.ErrorClientRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.client.FailClientRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.client.SuccessClientRetrieve;
+import com.gjdev.hugo.gjant.data.api.model.Client;
 import com.gjdev.hugo.gjant.data.event.SelectedClientWallet;
 import com.gjdev.hugo.gjant.presenter.ClientDetailPresenter;
 import com.gjdev.hugo.gjant.view.ClientDetailView;
@@ -15,6 +16,8 @@ import com.gjdev.hugo.gjant.interactor.ClientDetailInteractor;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
@@ -71,7 +74,20 @@ public final class ClientDetailPresenterImpl extends BasePresenterImpl<ClientDet
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessClientRetrieve(SuccessClientRetrieve retrieve) {
-        mView.setTitle(retrieve.getClient().getFullname());
+        Client client = retrieve.getClient();
+        mView.setTitle(client.getFullname());
+        mView.setupCollapsingToolbarLayout();
+        mView.setImageHeader(client.get_links().getPoster().getHref());
+
+        mView.setClientData(new String[]{
+                client.getFullname(),
+                client.getIdentification(),
+                client.getPhone1(),
+                client.getPhone2().equals("") ? "No tiene segundo teléfono" : client.getPhone2(),
+                client.getAddress().getName(),
+                String.valueOf(client.getCredit_limit()),
+                SimpleDateFormat.getDateTimeInstance().format(client.getCreated_at())
+        });
     }
 
     @Override
@@ -85,4 +101,6 @@ public final class ClientDetailPresenterImpl extends BasePresenterImpl<ClientDet
     public void onFailClientRetrieve(FailClientRetrieve retrieve) {
         Log.d(getClass().getName(), retrieve.getThrowable().getMessage());
     }
+
+
 }

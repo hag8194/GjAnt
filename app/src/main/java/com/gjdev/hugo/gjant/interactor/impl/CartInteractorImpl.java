@@ -23,12 +23,8 @@ public final class CartInteractorImpl implements CartInteractor {
 
     @Override
     public void retrieveProductsInCart() {
-        if(mProductList == null) {
-            mProductList = mDaoSession.getSQLProductDao().queryBuilder().list();
-            postEvent(SUCCESS_EVENT, null);
-        }
-        else
-            postEvent(SUCCESS_EVENT, null);
+        mProductList = mDaoSession.getSQLProductDao().queryBuilder().list();
+        postEvent(SUCCESS_EVENT, null);
     }
 
     @Override

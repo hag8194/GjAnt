@@ -8,4 +8,10 @@ public interface ClientDetailView {
     void setAppBarExpanded(boolean expanded);
 
     void setTitle(String title);
+
+    void setupCollapsingToolbarLayout();
+
+    void setImageHeader(String url);
+
+    void setClientData(String[] data);
 }

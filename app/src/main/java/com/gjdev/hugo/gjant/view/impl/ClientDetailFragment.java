@@ -3,20 +3,29 @@ package com.gjdev.hugo.gjant.view.impl;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.util.RoundedTransformation;
 import com.gjdev.hugo.gjant.view.ClientDetailView;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
 import com.gjdev.hugo.gjant.presenter.ClientDetailPresenter;
 import com.gjdev.hugo.gjant.injection.AppComponent;
 import com.gjdev.hugo.gjant.injection.ClientDetailViewModule;
 import com.gjdev.hugo.gjant.injection.DaggerClientDetailViewComponent;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 public final class ClientDetailFragment extends BaseFragment<ClientDetailPresenter, ClientDetailView> implements ClientDetailView {
@@ -25,7 +34,13 @@ public final class ClientDetailFragment extends BaseFragment<ClientDetailPresent
 
     // Your presenter is available using the mPresenter variable
 
+    @BindViews({R.id.client_fullname, R.id.client_identification, R.id.client_phone1,
+            R.id.client_phone2, R.id.client_address, R.id.client_limit_credit, R.id.client_created_at})
+    List<TextView> clientData;
+
     private MainActivity mainActivity;
+    private CollapsingToolbarLayout.LayoutParams mImageHeaderDefaultLayoutParams;
+    private AppBarLayout.LayoutParams mCollapsingToolbarLayoutDefaultParams;
 
     public ClientDetailFragment() {
         // Required empty public constructor
@@ -57,6 +72,17 @@ public final class ClientDetailFragment extends BaseFragment<ClientDetailPresent
                 .inject(this);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mCollapsingToolbarLayoutDefaultParams != null && mImageHeaderDefaultLayoutParams != null){
+            mainActivity.mCollapsingToolbarLayout.setLayoutParams(mCollapsingToolbarLayoutDefaultParams);
+            mainActivity.mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsingToolbarTextAppearance_Expanded);
+            mainActivity.mImageHeader.setImageDrawable(null);
+            mainActivity.mImageHeader.setLayoutParams(mImageHeaderDefaultLayoutParams);
+        }
+    }
+
     @NonNull
     @Override
     protected PresenterFactory<ClientDetailPresenter> getPresenterFactory() {
@@ -73,4 +99,31 @@ public final class ClientDetailFragment extends BaseFragment<ClientDetailPresent
         mainActivity.mCollapsingToolbarLayout.setTitle(title);
     }
 
+    @Override
+    public void setupCollapsingToolbarLayout() {
+        mCollapsingToolbarLayoutDefaultParams = (AppBarLayout.LayoutParams)mainActivity.mCollapsingToolbarLayout.getLayoutParams();
+        AppBarLayout.LayoutParams layoutParams = new AppBarLayout.LayoutParams(mCollapsingToolbarLayoutDefaultParams.width, (int)getResources().getDimension(R.dimen.collapsing_layout_height));
+        mainActivity.mCollapsingToolbarLayout.setLayoutParams(layoutParams);
+        mainActivity.mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsingToolbarClientTextAppearance_Expanded);
+    }
+
+    @Override
+    public void setImageHeader(String url) {
+        ImageView imageView = mainActivity.mImageHeader;
+        mImageHeaderDefaultLayoutParams = (CollapsingToolbarLayout.LayoutParams)imageView.getLayoutParams();
+
+        CollapsingToolbarLayout.LayoutParams layoutParams = new CollapsingToolbarLayout.LayoutParams(mImageHeaderDefaultLayoutParams.width, mImageHeaderDefaultLayoutParams.height);
+
+        layoutParams.setMargins(0, (int)getResources().getDimension(R.dimen.image_header_top_margin), 0,
+                (int)getResources().getDimension(R.dimen.image_header_bottom_margin));
+        imageView.setLayoutParams(layoutParams);
+
+        Picasso.with(getContext()).load(url).transform(new RoundedTransformation()).into(mainActivity.mImageHeader);
+    }
+
+    @Override
+    public void setClientData(String[] data) {
+        for (int i = 0; i < clientData.size(); i++)
+            clientData.get(i).setText(data[i]);
+    }
 }

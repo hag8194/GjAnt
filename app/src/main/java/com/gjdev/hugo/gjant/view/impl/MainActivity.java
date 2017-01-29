@@ -130,8 +130,9 @@ public final class MainActivity extends BaseActivity<MainPresenter, MainView> im
     public void resetImageHeader() {
         ViewGroup.LayoutParams layoutParams = mImageHeader.getLayoutParams();
         layoutParams.height = 120;
+        //layoutParams.width = 120;
         mImageHeader.setLayoutParams(layoutParams);
-        mImageHeader.setBackgroundResource(R.color.colorPrimary);
+        mImageHeader.setImageDrawable(null);
     }
 
     @Override

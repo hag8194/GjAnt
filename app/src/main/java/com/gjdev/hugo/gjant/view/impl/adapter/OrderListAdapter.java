@@ -84,8 +84,7 @@ public class OrderListAdapter extends BaseAdapter<OrderListAdapter.ViewHolder> {
         Context context = holder.itemView.getContext();
         String[] type = context.getResources().getStringArray(R.array.order_type);
 
-        Picasso.with(context)
-                .load(order.getClientWallet().getClient().get_links().getPoster().getHref())
+        Picasso.with(context).load(order.getClientWallet().getClient().get_links().getPoster().getHref())
                 .placeholder(R.drawable.ic_image_black_24dp)
                 .error(R.drawable.ic_broken_image_black_24dp)
                 .transform(new RoundedTransformation())
@@ -110,6 +109,14 @@ public class OrderListAdapter extends BaseAdapter<OrderListAdapter.ViewHolder> {
                 R.drawable.ic_keyboard_arrow_down_black_24dp);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mExpandedPosition = isExpanded ? -1: pos;
+                notifyDataSetChanged();
+            }
+        });
+
+        holder.expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1: pos;
