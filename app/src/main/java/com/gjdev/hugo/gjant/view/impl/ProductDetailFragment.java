@@ -211,6 +211,7 @@ public final class ProductDetailFragment extends BaseFragment<ProductDetailPrese
                 .into(productImage);
 
         productPrice.setText(String.valueOf(product.getPrice()));
+        productDescription.setText(product.getDescription() != null ? product.getDescription() : "El producto no tiene descripción");
         productBrandName.setText(product.getBrand().getName());
 
         productQuantity.setMaxValue(Integer.parseInt(product.getQuantity()));
