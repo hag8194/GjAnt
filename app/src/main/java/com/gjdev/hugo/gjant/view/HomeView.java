@@ -19,5 +19,10 @@ public interface HomeView {
 
     void setupAdapter(List<ClientWallet> clientWallets);
 
+    void setupSwipeRefreshLayout();
+
+    void setRefreshing(boolean refreshing);
+
     void loadClientDetailFragment();
+
 }

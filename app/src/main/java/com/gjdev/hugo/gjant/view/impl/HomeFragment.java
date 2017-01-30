@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,9 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
     PresenterFactory<HomePresenter> mPresenterFactory;
 
     // Your presenter is available using the mPresenter variable
+
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     @BindView(R.id.client_wallet_list)
     RecyclerView mRecyclerView;
@@ -107,6 +111,22 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new ClientWalletListAdapter(clientWallets));
+    }
+
+    @Override
+    public void setupSwipeRefreshLayout() {
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.onRefreshRequest();
+            }
+        });
+    }
+
+    @Override
+    public void setRefreshing(boolean refreshing) {
+        mSwipeRefreshLayout.setRefreshing(refreshing);
     }
 
     @Override

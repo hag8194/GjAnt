@@ -4,7 +4,7 @@ import com.gjdev.hugo.gjant.data.event.ClickedClientWalletListItem;
 
 public interface HomeInteractor extends BaseInteractor {
 
-    void retrieveClientWallet();
+    void retrieveClientWallet(boolean refresh);
 
     void postSelectedClientWalletList(ClickedClientWalletListItem listItem);
 

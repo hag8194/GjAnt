@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
@@ -114,8 +116,7 @@ public final class ClientDetailFragment extends BaseFragment<ClientDetailPresent
 
         CollapsingToolbarLayout.LayoutParams layoutParams = new CollapsingToolbarLayout.LayoutParams(mImageHeaderDefaultLayoutParams.width, mImageHeaderDefaultLayoutParams.height);
 
-        layoutParams.setMargins(0, (int)getResources().getDimension(R.dimen.image_header_top_margin), 0,
-                (int)getResources().getDimension(R.dimen.image_header_bottom_margin));
+        layoutParams.setMargins(0, (int)getResources().getDimension(R.dimen.image_header_top_margin), 0, (int)getResources().getDimension(R.dimen.image_header_bottom_margin));
         imageView.setLayoutParams(layoutParams);
 
         Picasso.with(getContext()).load(url).transform(new RoundedTransformation()).into(mainActivity.mImageHeader);

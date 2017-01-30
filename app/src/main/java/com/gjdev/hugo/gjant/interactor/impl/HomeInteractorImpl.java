@@ -40,11 +40,11 @@ public final class HomeInteractorImpl implements HomeInteractor {
     }
 
     @Override
-    public void retrieveClientWallet() {
+    public void retrieveClientWallet(boolean refresh) {
         User user = (User)mInternalStorageHandler.readObject(R.string.user_data);
         Call<List<ClientWallet>> clientWalletCall = mApiService.clientWallet(user.getAccessToken(), user.getEmployer().getId());
 
-        if(clientWalletList == null) {
+        if(clientWalletList == null || refresh) {
             clientWalletCall.enqueue(new Callback<List<ClientWallet>>() {
                 @Override
                 public void onResponse(Call<List<ClientWallet>> call, Response<List<ClientWallet>> response) {

@@ -41,7 +41,9 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
         mView.setAppBarExpanded(true);
         mView.setTitle(R.string.home);
 
-        mInteractor.retrieveClientWallet();
+        mView.setupSwipeRefreshLayout();
+        mView.setRefreshing(true);
+        mInteractor.retrieveClientWallet(false);
 
         // Your code here. Your view is available using mView and will not be null until next onStop()
     }
@@ -68,18 +70,21 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSuccessClientWalletRetrieve(SuccessClientWalletRetrieve retrieve) {
         mView.setupAdapter(retrieve.getClientWallet());
+        mView.setRefreshing(false);
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onErrorClientWalletRetrieve(ErrorClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.errorMessage(retrieve.getApiError()));
+        mView.setRefreshing(false);
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onFailClientWalletRetrieve(FailClientWalletRetrieve retrieve) {
         mView.showSnackbar(Messages.failureMessage(retrieve.getThrowable()));
+        mView.setRefreshing(false);
     }
 
     @Override
@@ -87,5 +92,10 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     public void onClickedClientWalletListItem(ClickedClientWalletListItem listItem) {
         mInteractor.postSelectedClientWalletList(listItem);
         mView.loadClientDetailFragment();
+    }
+
+    @Override
+    public void onRefreshRequest() {
+        mInteractor.retrieveClientWallet(true);
     }
 }

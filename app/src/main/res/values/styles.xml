@@ -33,6 +33,7 @@
     </style>
     <style name="CollapsingToolbarClientTextAppearance.Expanded">
         <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center|center_vertical</item>
     </style>
 
 </resources>

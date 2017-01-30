@@ -16,4 +16,6 @@ public interface HomePresenter extends BasePresenter<HomeView> {
 
     void onClickedClientWalletListItem(ClickedClientWalletListItem listItem);
 
+    void onRefreshRequest();
+
 }
