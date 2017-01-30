@@ -3,7 +3,6 @@ package com.gjdev.hugo.gjant.view.impl.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 import com.gjdev.hugo.gjant.util.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;

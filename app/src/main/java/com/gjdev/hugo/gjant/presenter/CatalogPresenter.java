@@ -19,4 +19,6 @@ public interface CatalogPresenter extends BasePresenter<CatalogView> {
 
     void onRefreshRequest();
 
+    void onSubmitQuery(String query);
+
 }

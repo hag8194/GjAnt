@@ -4,21 +4,24 @@ import javax.inject.Inject;
 
 import com.gjdev.hugo.gjant.R;
 import com.gjdev.hugo.gjant.data.api.ApiService;
-import com.gjdev.hugo.gjant.data.event.RefreshedList;
 import com.gjdev.hugo.gjant.data.api.event.products.ErrorProductsRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.products.FailProductsRetrieve;
 import com.gjdev.hugo.gjant.data.api.event.products.SuccessProductsRetrieve;
+import com.gjdev.hugo.gjant.data.api.model.Tags;
 import com.gjdev.hugo.gjant.data.event.SelectedProduct;
 import com.gjdev.hugo.gjant.data.api.model.ApiError;
 import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.data.api.model.User;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
 import com.gjdev.hugo.gjant.util.ApiErrorHandler;
 import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +33,7 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     private InternalStorageHandler mInternalStorageHandler;
 
     private List<Product> productList;
+    private List<Product> filteredList;
 
     @Inject
     public CatalogInteractorImpl(ApiService apiService, ApiErrorHandler apiErrorHandler,
@@ -37,6 +41,7 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
         mApiService = apiService;
         mApiErrorHandler = apiErrorHandler;
         mInternalStorageHandler = internalStorageHandler;
+        filteredList = new ArrayList<>();
     }
 
     @Override
@@ -75,6 +80,28 @@ public final class CatalogInteractorImpl implements CatalogInteractor {
     @Override
     public void postSelectedProduct(int id) {
         EventBus.getDefault().postSticky(new SelectedProduct(id));
+    }
+
+    @Override
+    public List<Product> search(String query) {
+        String cad = "";
+
+        if(!filteredList.isEmpty())
+            filteredList.clear();
+
+        for (Product product : productList) {
+            cad = product.getName() + " " + product.getBrand().getName() + " " +
+                    String.valueOf(product.getPrice()) + " " + product.getDescription();
+            if(cad.matches("(?i).*" + query + ".*"))
+                filteredList.add(product);
+
+            for (Tags tag : product.getTags()) {
+                if(tag.getName().matches("(?i).*" + query + ".*") && !filteredList.contains(product))
+                    filteredList.add(product);
+            }
+        }
+
+        return filteredList;
     }
 
     @Override

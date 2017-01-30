@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.gjdev.hugo.gjant.data.api.ApiService;
 import com.gjdev.hugo.gjant.data.api.UserService;
+import com.gjdev.hugo.gjant.data.sql.model.DaoSession;
 import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
 import com.gjdev.hugo.gjant.interactor.impl.CatalogInteractorImpl;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;

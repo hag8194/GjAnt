@@ -2,7 +2,6 @@ package com.gjdev.hugo.gjant.view;
 
 import android.support.annotation.UiThread;
 
-import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 
 import java.util.List;

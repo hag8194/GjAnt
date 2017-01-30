@@ -1,8 +1,10 @@
 package com.gjdev.hugo.gjant.presenter.impl;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.gjdev.hugo.gjant.R;
+import com.gjdev.hugo.gjant.data.api.model.Product;
 import com.gjdev.hugo.gjant.data.event.ClickedProductListItem;
 import com.gjdev.hugo.gjant.data.event.NotifyChangeOfFragment;
 import com.gjdev.hugo.gjant.data.event.RefreshedList;
@@ -17,6 +19,8 @@ import com.gjdev.hugo.gjant.interactor.CatalogInteractor;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -99,5 +103,16 @@ public final class CatalogPresenterImpl extends BasePresenterImpl<CatalogView> i
     @Override
     public void onRefreshRequest() {
         mInteractor.retrieveProducts(true);
+    }
+
+    @Override
+    public void onSubmitQuery(String query) {
+        List<Product> filteredList = mInteractor.search(query);
+        if(!filteredList.isEmpty()){
+            mView.setupRecyclerView(filteredList);
+        }
+        else{
+            mView.showSnackbar("No se encontró niguna coincidencia");
+        }
     }
 }

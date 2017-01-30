@@ -87,14 +87,15 @@ public final class CatalogFragment extends BaseFragment<CatalogPresenter, Catalo
             @Override
             public boolean onQueryTextSubmit(String query) {
                 //Do some magic
-                Log.d(getClass().getName(), query);
+                //Log.d(getClass().getName(), query);
+                mPresenter.onSubmitQuery(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Do some magic
-                Log.d(getClass().getName(), newText);
+                //Log.d(getClass().getName(), newText);
                 return false;
             }
         });

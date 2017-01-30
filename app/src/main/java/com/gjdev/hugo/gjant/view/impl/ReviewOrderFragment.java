@@ -23,8 +23,6 @@ import com.gjdev.hugo.gjant.view.impl.adapter.CartListAdapter;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.VerificationError;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
