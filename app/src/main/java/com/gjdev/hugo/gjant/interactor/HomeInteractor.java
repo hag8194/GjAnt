@@ -8,4 +8,5 @@ public interface HomeInteractor extends BaseInteractor {
 
     void postSelectedClientWalletList(ClickedClientWalletListItem listItem);
 
+    void postStickyClientWalletList();
 }

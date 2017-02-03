@@ -7,6 +7,7 @@ import com.gjdev.hugo.gjant.interactor.impl.MapInteractorImpl;
 import com.gjdev.hugo.gjant.presenter.loader.PresenterFactory;
 import com.gjdev.hugo.gjant.presenter.MapPresenter;
 import com.gjdev.hugo.gjant.presenter.impl.MapPresenterImpl;
+import com.gjdev.hugo.gjant.util.InternalStorageHandler;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,8 +15,8 @@ import dagger.Provides;
 @Module
 public final class MapViewModule {
     @Provides
-    public MapInteractor provideInteractor() {
-        return new MapInteractorImpl();
+    public MapInteractor provideInteractor(InternalStorageHandler internalStorageHandler) {
+        return new MapInteractorImpl(internalStorageHandler);
     }
 
     @Provides

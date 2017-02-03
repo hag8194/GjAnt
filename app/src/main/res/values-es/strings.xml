@@ -50,4 +50,5 @@
     <string name="status">Estatus</string>
     <string name="creating_order">Creando Orden...</string>
     <string name="client">Cliente</string>
+    <string name="clients_location">Ubicación de los Clientes</string>
 </resources>

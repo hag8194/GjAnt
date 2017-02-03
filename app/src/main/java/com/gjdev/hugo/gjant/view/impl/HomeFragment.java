@@ -1,13 +1,19 @@
 package com.gjdev.hugo.gjant.view.impl;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -52,6 +58,7 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
         unbinder = ButterKnife.bind(this, rootView);
 
         mainActivity = (MainActivity)getActivity();
+        setHasOptionsMenu(true);
 
         return rootView;
     }
@@ -62,6 +69,20 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
 
         // Your code here
         // Do not call mPresenter from here, it will be null! Wait for onStart
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_home_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.map_option){
+            mPresenter.onClickedMapItem();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -132,5 +153,10 @@ public final class HomeFragment extends BaseFragment<HomePresenter, HomeView> im
     @Override
     public void loadClientDetailFragment() {
         mainActivity.loadClientDetailFragment(true);
+    }
+
+    @Override
+    public void startMapActivity() {
+        startActivity(new Intent(getActivity(), MapActivity.class), ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity()).toBundle());
     }
 }

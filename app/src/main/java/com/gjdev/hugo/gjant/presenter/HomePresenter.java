@@ -18,4 +18,6 @@ public interface HomePresenter extends BasePresenter<HomeView> {
 
     void onRefreshRequest();
 
+    void onClickedMapItem();
+
 }

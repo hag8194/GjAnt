@@ -49,8 +49,11 @@
                 android:value=".view.impl.MainActivity" />
         </activity>
 
-        <activity android:name=".view.impl.MapActivity">
-
+        <activity android:name=".view.impl.MapActivity"
+            android:parentActivityName=".view.impl.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.impl.MainActivity" />
         </activity>
 
     </application>

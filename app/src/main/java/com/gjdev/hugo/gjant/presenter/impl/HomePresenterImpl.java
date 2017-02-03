@@ -98,4 +98,10 @@ public final class HomePresenterImpl extends BasePresenterImpl<HomeView> impleme
     public void onRefreshRequest() {
         mInteractor.retrieveClientWallet(true);
     }
+
+    @Override
+    public void onClickedMapItem() {
+        mInteractor.postStickyClientWalletList();
+        mView.startMapActivity();
+    }
 }

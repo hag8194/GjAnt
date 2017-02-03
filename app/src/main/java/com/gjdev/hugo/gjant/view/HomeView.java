@@ -25,4 +25,5 @@ public interface HomeView {
 
     void loadClientDetailFragment();
 
+    void startMapActivity();
 }

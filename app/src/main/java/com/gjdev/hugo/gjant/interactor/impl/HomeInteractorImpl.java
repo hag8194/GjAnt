@@ -73,6 +73,12 @@ public final class HomeInteractorImpl implements HomeInteractor {
     }
 
     @Override
+    public void postStickyClientWalletList() {
+        if(clientWalletList != null)
+            EventBus.getDefault().postSticky(new SuccessClientWalletRetrieve(clientWalletList));
+    }
+
+    @Override
     public void postEvent(int kindOfEvent, Object object) {
         EventBus eventBus = EventBus.getDefault();
         switch (kindOfEvent) {
