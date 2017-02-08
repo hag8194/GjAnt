@@ -18,9 +18,11 @@ import com.gjdev.hugo.gjant.data.sql.model.SQLProduct;
 import com.gjdev.hugo.gjant.util.RoundedTransformation;
 import com.squareup.picasso.Picasso;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -87,10 +89,12 @@ public class OrderListAdapter extends BaseAdapter<OrderListAdapter.ViewHolder> {
                 .error(R.drawable.ic_broken_image_black_24dp)
                 .transform(new RoundedTransformation())
                 .into(holder.client_avatar);
+        DateFormat dateFormat = SimpleDateFormat.getDateTimeInstance();
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT-4"));
 
         holder.setOrderData(new String[]{
             order.getCode(),
-            SimpleDateFormat.getDateTimeInstance().format(order.getCreated_at()),
+            dateFormat.format(order.getCreated_at()* 1000L),
             order.getDescription().equals("") ? "Sin descripción" : order.getDescription(),
             type[order.getType() + 1],
             String.valueOf(order.getStatus()),
