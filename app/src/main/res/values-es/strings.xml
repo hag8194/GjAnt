@@ -51,4 +51,5 @@
     <string name="creating_order">Creando Orden...</string>
     <string name="client">Cliente</string>
     <string name="clients_location">Ubicación de los Clientes</string>
+    <string name="order_detail">Detalle de la Orden</string>
 </resources>

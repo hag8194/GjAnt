@@ -61,4 +61,5 @@
     <string name="creating_order">Creating Order...</string>
     <string name="client">Client</string>
     <string name="clients_location">Clients Location</string>
+    <string name="order_detail">Order Detail</string>
 </resources>

@@ -111,7 +111,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:text="Order Detail"
+        android:text="@string/order_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/textView28"
