@@ -17,6 +17,9 @@ Mobile Application for Sales Management
 *  Java 7
 *  Groovy
 
+## Screenshots
+[Watch this project at Behance](https://www.behance.net/gallery/64745335/Mobile-Application-for-Sales-Management)
+
 ## Additional Information
 This application was developed using the MVP Architecture Pattern.
 The development time was 2 months.
