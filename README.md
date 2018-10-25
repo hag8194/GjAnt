@@ -23,3 +23,6 @@ Mobile Application for Sales Management
 ## Additional Information
 * This application was developed using the MVP Architecture Pattern.
 * The development time was 2 months.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
